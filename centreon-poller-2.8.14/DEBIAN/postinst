@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# Abort if any command returns an error value
+set -e
+
+case "$1" in
+	configure)
+    	if [ -f "/etc/sudoers.d/centreon" ]; then
+        	chmod 600 /etc/sudoers.d/centreon
+        	service sudo reload
+    	fi
+
+    	if [ "centreon-broker" != "root" ]; then
+        	if $(grep -E "^centreon-engine:" /etc/passwd > /dev/null ) ; then
+            	usermod -aG "centreon-broker" "centreon-engine"
+        	fi
+    	fi
+
+    	if [ -d "/etc/centreon-engine" ]; then
+        if [ "$(ls -A "/etc/centreon-engine")" ]; then
+           chmod -R 664 /etc/centreon-engine/*
+        fi
+    	fi
+
+    	if [ -d "/etc/centreon-broker" ]; then
+        if [ "$(ls -A "/etc/centreon-broker")" ]; then
+        	chmod -R 664 /etc/centreon-broker/*
+        fi
+    	fi
+
+    	if [ -f "/etc/centreon/centreontrapd.pm" ]; then
+        	chown centreon:centreon /etc/centreon/centreontrapd.pm
+        	chmod 660 /etc/centreon/centreontrapd.pm
+    	fi
+
+    	if [ -f "/etc/centreon/conf.pm" ]; then
+        	chown centreon:centreon /etc/centreon/conf.pm
+        	chmod 660 /etc/centreon/conf.pm
+    	fi
+
+    	;;
+
+	abort-upgrade|abort-remove|abort-deconfigure)
+    	;;
+
+	*)
+    	echo "$0: called with unknown argument" 1>&2
+    	exit 0
+    	;;
+esac
+
+exit 0

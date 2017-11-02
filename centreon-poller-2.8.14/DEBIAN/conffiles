@@ -1,0 +1,3 @@
+/etc/centreon/centreontrapd.pm
+/etc/centreon/conf.pm
+/etc/sudoers.d/centreon

@@ -1,0 +1,10 @@
+Package: centreon-common
+Version: 2.8.14-1
+Section: net
+Priority: extra
+Architecture: all
+Depends: centreon-engine ( >=1.8.0)
+Installed-Size: 40
+Maintainer: Eric Coquard <eric.coquard@gmail.com>
+Description: Centreon common package
+   Add user and group for Centreon and this suite.

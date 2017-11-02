@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# Abort if any command returns an error value
+set -e
+
+case "$1" in
+	configure)
+    	cat "/var/lib/centreon/centplugins/fileplugin.txt" | while read var
+    	do
+      	if [ -f $var ]; then
+          	chown centreon:centreon $var
+      	fi
+
+      	if [ -f $var ]; then
+        	chmod  +x $var
+      	fi
+    	done
+
+    	rm -f /var/lib/centreon/centplugins/fileplugin.txt
+
+    	#add permission /var/lib/centreon/centplugins
+    	if [ -d "/var/lib/centreon/centplugins" ]; then
+        	chown centreon:centreon /var/lib/centreon/centplugins
+        	chmod 775 /var/lib/centreon/centplugins
+    	fi
+
+
+    	;;
+
+	abort-upgrade|abort-remove|abort-deconfigure)
+    	;;
+
+	*)
+    	echo "$0: called with unknown argument" 1>&2
+    	exit 0
+    	;;
+esac
+
+exit 0

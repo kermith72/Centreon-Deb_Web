@@ -1,0 +1,7 @@
+f0d56d9a697085b4ff96e17ec70ff967  usr/share/centreon/examples/centreontrapd.default
+5cd6698a593c4b6bf93efbb62b1aeb40  usr/share/centreon/examples/centreontrapd.init.d
+47e86ec0d96ab6a5ad6cca2918b82da6  usr/share/centreon/bin/centreontrapd
+4e31eb1e74d4cf5d8ec87fee0dd4bbd5  usr/share/centreon/bin/centreontrapdforward
+f0d56d9a697085b4ff96e17ec70ff967  etc/default/centreontrapd
+45bfbebd06dc052dca8695b7cc6ba908  tmp/snmptrapd.conf
+5df0f2ed40cc1881f56c7610bcd3ec00  lib/systemd/system/centreontrapd.service

@@ -1,0 +1,51 @@
+#!/bin/sh
+
+# Abort if any command returns an error value
+set -e
+
+case "$1" in
+	configure)
+    	if [ -d "/etc/centreon" ]; then
+        	chown centreon:centreon /etc/centreon
+        	chmod 775 /etc/centreon
+    	fi
+
+    	if [ ! -d "/var/run/centreon" ]; then
+        	mkdir -p /var/run/centreon
+    	fi
+
+    	if [ -f "/etc/snmp/snmptrapd.conf" ]; then
+         	mv /etc/snmp/snmptrapd.conf /etc/snmp/snmptrapd.conf.dpkg-save
+      	mv /tmp/snmptrapd.conf /etc/snmp/snmptrapd.conf
+      	chmod 600 /etc/snmp/snmptrapd.conf
+    	fi
+
+    	if [ -d "/etc/snmp/centreon_traps" ]; then
+        	chown centreon:centreon /etc/snmp/centreon_traps
+        	chmod 775 /etc/snmp/centreon_traps
+    	fi
+
+    	if [ -d "/var/spool/centreontrapd" ]; then
+        	chown centreon:centreon /var/spool/centreontrapd
+        	chmod 775 /var/spool/centreontrapd
+    	fi
+
+		 if [ -f "/lib/systemd/system/centreontrapd.service" ]; then
+        	systemctl daemon-reload
+        	systemctl enable centreontrapd.service
+    	fi
+
+
+
+    	;;
+
+	abort-upgrade|abort-remove|abort-deconfigure)
+    	;;
+
+	*)
+    	echo "$0: called with unknown argument" 1>&2
+    	exit 0
+    	;;
+esac
+
+exit 0
