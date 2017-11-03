@@ -11,7 +11,7 @@ ea8a8997020d99270c007b5043680257  usr/share/perl5/centreon/script/nagiosPerfTrac
 0b1aed8ebb48517bd28cc36d75980200  usr/share/perl5/centreon/script/centreon_trap_send.pm
 48e63395a3068fdf5ffe003ea5568aac  usr/share/perl5/centreon/script/centFillTrapDB.pm
 88e764a7dbe9c8156ce0f2676981c150  usr/share/perl5/centreon/script/centreontrapdforward.pm
-072c444f0e9b30fb3a53e6aba05ec757  usr/share/perl5/centreon/script/centreontrapd.pm
+1a9815cf19c9794d245f8ca515daf4fe  usr/share/perl5/centreon/script/centreontrapd.pm
 d600c2f2f4676faf693c1d5b43e13818  usr/share/perl5/centreon/script/logAnalyser.pm
 19a9a78c632a9d8ba35df74129eb2d43  usr/share/perl5/centreon/script/logAnalyserBroker.pm
 6b70b0ce6e444b76dea20c14158a49e6  usr/share/perl5/centreon/script/eventReportBuilder.pm
