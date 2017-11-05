@@ -1,7 +1,7 @@
 518448cd559c989eeb5cfe888168a373  usr/share/centreon/examples/clapi/add_macro_plugin.sh
 38e902c1fb906d17cab06babe918d2b1  usr/share/centreon/examples/clapi/create_poller_display.sh
 d7f4bf2365d96f2294d0b9db33bdc34e  usr/share/centreon/examples/clapi/verify_cmd.sh
-b19322d900350d7f00026df2075abbb7  usr/share/centreon/examples/clapi/create_config_initial.sh
+b8df4cc8376fe7c31dbb41717c50104d  usr/share/centreon/examples/clapi/create_config_initial.sh
 246cc2e93f3eba9c54123c923d8f25cf  usr/share/centreon/examples/clapi/delete_config.sh
 348bddfc5714d977cca533d7c7777a99  usr/share/centreon/examples/clapi/create_poller.sh
 87a70157ef9e5eaa2a889d82aed9f0d1  usr/share/centreon/examples/clapi/create_template_snmp.sh

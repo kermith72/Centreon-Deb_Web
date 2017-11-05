@@ -1,13 +1,14 @@
 #!/bin/bash
-# create_config_initial_v1.sh
-# version 1.00
-# date 06/10/2017
+# create_config_initial.sh
+# version 1.01
+# date 25/10/2017
 # use API Clapi
 # $USER_CENTREON name of admin
 # $PWD_CENTREON password admin
 # $USER_BDD name of user database Centreon
 # $PWD_BDD password user database Centreon
 # $ADD_STORAGE add storage /tmp /var /home
+# $MODE_START method start engine
 # based on Hugues's script
 ## hugues@ruelle.fr
 ## Centreon Configuration initial -> DEBIAN 8 -> CENTREON 2.8.12
@@ -29,11 +30,16 @@
 ##         Logos et Liens Wiki des Modeles / Hotes       #
 ##                                                       #
 ##"""""""""""""""""""""""""""""""""""""""""""""""""""""""#
+# version 1.0.1
+# bug pollertest before pollergenerate create error
+#add method start engine
+
+
 
 # Usage info
 show_help() {
 cat << EOF
-Usage: ${0##*/} -u=<user centreon> -p=<passwd centreon> -d=<user database centreon> -w=<passwd database> -s=[yes|no]
+Usage: ${0##*/} -u=<user centreon> -p=<passwd centreon> -d=<user database centreon> -w=<passwd database> -s=[yes|no] -m=[restart|reload]
 
 This program create initial configuration
 
@@ -42,6 +48,7 @@ This program create initial configuration
     -d|--userdatabase User Database Centreon
     -w|--passworddatabase Password Database Centreon.
     -s|--storage Create Storage service (yes/no)
+    -m|--method Method start engine
     -h|--help     help
 EOF
 }
@@ -69,6 +76,10 @@ do
       ADD_STORAGE="${i#*=}"
       shift # past argument=value
       ;;
+    -m=*|--method=*)
+      MODE_START="${i#*=}"
+      shift # past argument=value
+      ;;
     -h|--help)
       show_help
       exit 2
@@ -92,6 +103,13 @@ if [[ $ADD_STORAGE =~ ^[yY][eE][sS]|[yY]$ ]]; then
   ADD_STORAGE="yes"
 else
   ADD_STORAGE="no"
+fi
+
+# Check reload/restart
+if [[ $MODE_START =~ ^[rR][eE][sS][tT][aA][rR][tT]$ ]]; then
+  MODE_START="-a pollerrestart -v 1"
+else
+  MODE_START="-a pollerreload -v 1"
 fi
 
 ################################################################
@@ -424,16 +442,24 @@ $CLAPI -o host -a applytpl -v "Central"
 
    #*****************
 
-RESULT=`$CLAPI -a pollertest -v 1`
+RESULT=`$CLAPI -a pollergenerate -v 1`
 if [ $? = 0 ];then
-   $CLAPI -a pollergenerate -v 1
-   $CLAPI -a cfgmove -v 1
-   RESULT=`$CLAPI -a pollerreload -v 1`
+   RESULT=`$CLAPI -a pollertest -v 1`
+   if [ $? != 0 ];then
+     echo "Error Test configuration !!!"
+     exit 1
+   fi
+   RESULT=`$CLAPI -a cfgmove -v 1`
+   if [ $? != 0 ];then
+     echo "Error Move configuration !!!"
+     exit 1
+   fi
+   RESULT=`$CLAPI $MODE_START`
    if [ $? = 0 ];then
      echo "Configuration OK !"
    else
-     echo "Error Configuration !!!"
+     echo "Error Reload/Restart Configuration !!!"
    fi
 else
-  echo "Error configuration !!!"
+  echo "Error generate configuration !!!"
 fi
