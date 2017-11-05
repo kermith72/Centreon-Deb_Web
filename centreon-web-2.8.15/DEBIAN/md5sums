@@ -2726,7 +2726,7 @@ d5ff56092b017ef567630cde8cee04f3  usr/share/centreon/www/install/step_upgrade/in
 89c569104e3c3cc8a53851be595cec38  usr/share/centreon/www/install/step_upgrade/step4.php
 e95aa9ea38fefcd1f921f49bd3b7ff4d  usr/share/centreon/www/install/step_upgrade/step5.php
 53048e57965b587a9a83f2320fdc6794  usr/share/centreon/www/install/install.css
-caee5d85e59893ece363b1790edc77d6  usr/share/centreon/www/install/install.conf.php
+550216bdd023cee3a67ede4039a83943  usr/share/centreon/www/install/install.conf.php
 71341f0f6fd01f1d14cdfe85363dfaef  usr/share/centreon/www/install/createTablesCentstorage.sql
 ca1985c808097b018c69bea53e8bf9a2  usr/share/centreon/www/install/DB-Func.php
 58bbe4e427e444a8c6c06fd2032d36e6  usr/share/centreon/www/install/var/phplib
@@ -3476,7 +3476,7 @@ e2b8d98f0013e0a09d905d4f5c34554d  usr/share/centreon/bin/generateSqlLite
 e13ff880252939a9839cfd8fffcbb03e  etc/logrotate.d/centreon
 2bf594e96586996ac4908c0cee127a01  etc/centreon/instCentStorage.conf
 ad33f1250325681c076261ff180fa4e9  etc/centreon/instCentPlugins.conf
-4bd4cb24d6d4c4e925dacee61e3af129  etc/centreon/instCentWeb.conf
+7ee9e21391bf1e6424ed6ac837fd64ab  etc/centreon/instCentWeb.conf
 7af27835612d70a68583f0ba9176cec6  etc/cron.d/centstorage
 18cd482e1f40ab523bc807c154a8dbb7  etc/cron.d/centreon
 e69765be9d5b5932273fe8b213d8c3c0  tmp/pear/HTML_Common-1.2.5.tgz
