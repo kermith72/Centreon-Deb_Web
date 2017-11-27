@@ -1,9 +1,9 @@
 Package: centreon-poller
-Version: 2.8.15-1
+Version: 2.8.16-1
 Section: net
 Priority: extra
 Architecture: all
-Depends: centreon-broker-cbmod ( >=3.0.10), centreon-common ( >=2.8.15), centreon-connector-ssh ( >=1.1.3), centreon-connector-perl ( >=1.1.3), centreon-trap ( >=2.8.15), sudo ( >=1.8.10 )
+Depends: centreon-broker-cbmod ( >=3.0.11), centreon-common ( >=2.8.16), centreon-connector-ssh ( >=1.1.3), centreon-connector-perl ( >=1.1.3), centreon-trap ( >=2.8.16), sudo ( >=1.8.10 )
 Installed-Size: 68
 Maintainer: Eric Coquard <eric.coquard@gmail.com>
 Description: Rights and file for pollers Centreon
