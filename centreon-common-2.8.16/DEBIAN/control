@@ -1,9 +1,9 @@
 Package: centreon-common
-Version: 2.8.15-1
+Version: 2.8.16-1
 Section: net
 Priority: extra
 Architecture: all
-Depends: centreon-engine ( >=1.8.0)
+Depends: centreon-engine ( >=1.8.1)
 Installed-Size: 40
 Maintainer: Eric Coquard <eric.coquard@gmail.com>
 Description: Centreon common package
