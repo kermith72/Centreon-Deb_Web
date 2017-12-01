@@ -9,6 +9,7 @@ d435dba890030ef0d9614d958f31149c  usr/share/centreon/cron/nagiosPerfTrace
 35e8ae452fd5a9cd44093de260354139  usr/share/centreon/cron/centreon-backup.pl
 5517ec1ad87741384f6320746d097c71  usr/share/centreon/cron/change_rights.sh
 f6d97d2a5091b8a9ff7eecaf1715efc1  usr/share/centreon/cron/eventReportBuilder
+d41d8cd98f00b204e9800998ecf8427e  usr/share/centreon/cron/reporting/.gitignore
 48217cb7ea3367c62257a391c3ed5f27  usr/share/centreon/cron/centAcl-Func.php
 f94b0ebec16630d00b500be7d7fe62f9  usr/share/centreon/cron/nightly_tasks_manager
 712076323cf4f7d7ea49baf142f60502  usr/share/centreon/config/centreon.config.php
@@ -16,6 +17,7 @@ f94b0ebec16630d00b500be7d7fe62f9  usr/share/centreon/cron/nightly_tasks_manager
 3c104d4cc748f93199200e6774841806  usr/share/centreon/config/partition.d/partitioning-log_archive_service.xml
 cb653ab354834718c3ef6554d8b55f54  usr/share/centreon/config/partition.d/partitioning-data_bin.xml
 73d25b6793dcbb049a8294fb1e1b2c5b  usr/share/centreon/config/partition.d/partitioning-logs.xml
+d41d8cd98f00b204e9800998ecf8427e  usr/share/centreon/installDir/.gitignore
 4d4d15e9322e5c9aa7df4aa2da6084b4  usr/share/centreon/doc/en/installation/from_VM.rst
 23ee471416eaf21090989e869f17ba04  usr/share/centreon/doc/en/installation/from_packages.rst
 a9ec4a86e67e1f5e0d0ab12c12d7ea4d  usr/share/centreon/doc/en/installation/index.rst
@@ -583,6 +585,7 @@ a4adc282dbdb7178b796194714c45fdd  usr/share/centreon/doc/en/configuration_guide/
 bf8b580165bd6ecb7203e70b602db901  usr/share/centreon/doc/en/configuration_guide/category.rst
 941ff900522725ecf2911d3fb025aadd  usr/share/centreon/doc/en/configuration_guide/services.rst
 c0ea3c2133d89bb7287e8422a112e55e  usr/share/centreon/doc/en/configuration_guide/models.rst
+d41d8cd98f00b204e9800998ecf8427e  usr/share/centreon/doc/en/_build/.gitignore
 7a13317792b6987e7fe7d93699cfd4fb  usr/share/centreon/doc/fr/installation/from_VM.rst
 0998338fed415be4a72d0688a0c06def  usr/share/centreon/doc/fr/installation/from_packages.rst
 f42dfb932bea6d8dda14886f0db37c93  usr/share/centreon/doc/fr/installation/index.rst
@@ -1056,6 +1059,8 @@ b7ee629c755e494dc08ce5606f429c0f  usr/share/centreon/doc/fr/configuration_guide/
 81303601d7b2e7633abedf651076fcba  usr/share/centreon/doc/coding-style/js/README.md
 8aba3286d0118e7792986dc53167788d  usr/share/centreon/doc/coding-style/php/README.md
 1d13c150aa09ef6382c203604e41f33d  usr/share/centreon/doc/coding-style/css/README.md
+d41d8cd98f00b204e9800998ecf8427e  usr/share/centreon/filesGeneration/broker/.gitignore
+d41d8cd98f00b204e9800998ecf8427e  usr/share/centreon/filesGeneration/engine/.gitignore
 a40dc2a16e106ba5631cd798e0845374  usr/share/centreon/www/api/index.php
 63e62f3fa5e7bbb6669abd0398fb0bbb  usr/share/centreon/www/api/exceptions.php
 64daee2ad03310911646c8817c4b97ef  usr/share/centreon/www/api/class/centreon_configuration_graphcurve.class.php
@@ -2593,6 +2598,7 @@ d41d8cd98f00b204e9800998ecf8427e  usr/share/centreon/www/img/icones/12x12/index.
 6153e6ab0bafa96b9546e67a913509bd  usr/share/centreon/www/img/icones/12x12/info.gif
 90ec5e7f600acb6e5f6fe6c064ea1f62  usr/share/centreon/www/img/icones/12x12/queue.gif
 76e2e232d31aa210444c36635ba0a658  usr/share/centreon/www/img/icones/12x12/alert.gif
+d41d8cd98f00b204e9800998ecf8427e  usr/share/centreon/www/img/media/.gitignore
 d41d8cd98f00b204e9800998ecf8427e  usr/share/centreon/www/img/index.html
 ed280a0ea3cc38f3cbbc747acfbef47d  usr/share/centreon/www/img/blank.gif
 c91eb090082f3f3a69325018a50f638e  usr/share/centreon/www/img/centreon.png
@@ -3395,6 +3401,7 @@ be1eee0b03abfc280de51b7277f1dc9d  usr/share/centreon/lib/Centreon/Object/Broker/
 b831bcc407f4b7ca899e06b328ac713b  usr/share/centreon/lib/Centreon/Object/Dependency/Dependency.php
 5539f961469abba62eaf362de1430c64  usr/share/centreon/lib/Centreon/Db/Manager/Manager.php
 4f787232d21ddbb78e56b7b31b380dfb  usr/share/centreon/lib/Centreon/Cache/Manager/Manager.php
+d41d8cd98f00b204e9800998ecf8427e  usr/share/centreon/lib/centreon-broker/.gitignore
 f5778b1d6c962b44e70d9307abcc2270  usr/share/centreon/lib/Zend/Db.php
 5313fd4a38c732134e74e9e66f21a20e  usr/share/centreon/lib/Zend/Exception.php
 e83d212e76ad1eb1ee4f593344a5bbe2  usr/share/centreon/lib/Zend/Loader.php
@@ -3584,6 +3591,8 @@ dc823d1708bd974b3297b9b965d196fb  usr/share/centreon/bin/centreonSyncArchives
 ff38ed5f367bb8976674e1b167ec6ed9  usr/share/centreon/bin/centreonSyncPlugins
 24aa88ada2ca04818bf43097092c1ea1  usr/share/centreon/bin/centreon_trap_send
 e2b8d98f0013e0a09d905d4f5c34554d  usr/share/centreon/bin/generateSqlLite
+d41d8cd98f00b204e9800998ecf8427e  usr/share/centreon/filesUpload/images/.gitignore
+d41d8cd98f00b204e9800998ecf8427e  usr/share/centreon/data/.gitignore
 008d303a654efa9230a8a6139b2a331f  etc/apache2/conf-available/centreon.conf
 e13ff880252939a9839cfd8fffcbb03e  etc/logrotate.d/centreon
 2bf594e96586996ac4908c0cee127a01  etc/centreon/instCentStorage.conf
@@ -3591,6 +3600,10 @@ ad33f1250325681c076261ff180fa4e9  etc/centreon/instCentPlugins.conf
 7ee9e21391bf1e6424ed6ac837fd64ab  etc/centreon/instCentWeb.conf
 7af27835612d70a68583f0ba9176cec6  etc/cron.d/centstorage
 18cd482e1f40ab523bc807c154a8dbb7  etc/cron.d/centreon
+d41d8cd98f00b204e9800998ecf8427e  var/lib/centreon/centcore/.gitignore
+d41d8cd98f00b204e9800998ecf8427e  var/lib/centreon/nagios-perf/.gitignore
+d41d8cd98f00b204e9800998ecf8427e  var/lib/centreon/status/.gitignore
+d41d8cd98f00b204e9800998ecf8427e  var/lib/centreon/metrics/.gitignore
 e69765be9d5b5932273fe8b213d8c3c0  tmp/pear/HTML_Common-1.2.5.tgz
 9d5ef5d450aee3cd8b661fbf0a1af95f  tmp/pear/Date-1.5.0a4.tgz
 75792cb080b66c3ed942c793ce977b09  tmp/pear/Auth_SASL-1.0.6.tgz
