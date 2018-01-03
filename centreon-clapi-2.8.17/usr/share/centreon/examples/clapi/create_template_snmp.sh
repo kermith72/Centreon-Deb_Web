@@ -1,13 +1,15 @@
 #!/bin/bash
 # create_template_snmp.sh
-# version 1.00
-# date 15/10/2017
+# version 1.01
+# date 03/01/2018
 # use Centreon_Clapi
 # $USER_CENTREON name of admin
 # $PWD_CENTREON password admin
 # $DEBUG debug script clapi (optionnal)
 # based on Hugues's script
 ## hugues@ruelle.fr
+# version 1.0.1
+# replace warning and critical with warning-usage ans critical-usage for mode storage
 
 
 # Usage info
@@ -83,6 +85,11 @@ echo "Create Command"
 [ "$DEBUG" == "yes" ] && echo $CLAPI -o CMD -a ADD -v 'check_centreon_plugin_SNMP;check;$CENTREONPLUGINS$/centreon_plugins.pl --plugin=$_SERVICEPLUGIN$ --mode=$_SERVICEMODE$ --warning=$_SERVICEWARNING$ --critical=$_SERVICECRITICAL$ $_SERVICEOPTION$ --host=$HOSTADDRESS$ --snmp-version=$_HOSTSNMPVERSION$ --snmp-community=$_HOSTSNMPCOMMUNITY$'
 $CLAPI -o CMD -a ADD -v 'check_centreon_plugin_SNMP;check;$CENTREONPLUGINS$/centreon_plugins.pl --plugin=$_SERVICEPLUGIN$ --mode=$_SERVICEMODE$ --warning=$_SERVICEWARNING$ --critical=$_SERVICECRITICAL$ $_SERVICEOPTION$ --host=$HOSTADDRESS$ --snmp-version=$_HOSTSNMPVERSION$ --snmp-community=$_HOSTSNMPCOMMUNITY$'
 
+# check_centreon_plugin_storage_SNMP
+[ "$DEBUG" == "yes" ] && echo $CLAPI -o CMD -a ADD -v 'check_centreon_plugin_storage_SNMP;check;$CENTREONPLUGINS$/centreon_plugins.pl --plugin=$_SERVICEPLUGIN$ --mode=$_SERVICEMODE$ --warning-usage=$_SERVICEWARNING$ --critical-usage=$_SERVICECRITICAL$ $_SERVICEOPTION$ --host=$HOSTADDRESS$ --snmp-version=$_HOSTSNMPVERSION$ --snmp-community=$_HOSTSNMPCOMMUNITY$'
+$CLAPI -o CMD -a ADD -v 'check_centreon_plugin_storage_SNMP;check;$CENTREONPLUGINS$/centreon_plugins.pl --plugin=$_SERVICEPLUGIN$ --mode=$_SERVICEMODE$ --warning-usage=$_SERVICEWARNING$ --critical-usage=$_SERVICECRITICAL$ $_SERVICEOPTION$ --host=$HOSTADDRESS$ --snmp-version=$_HOSTSNMPVERSION$ --snmp-community=$_HOSTSNMPCOMMUNITY$'
+
+
 #check_centreon_plugin_SNMP_traffic
 [ "$DEBUG" == "yes" ] && echo $CLAPI -o CMD -a ADD -v 'check_centreon_plugin_SNMP_traffic;check;$CENTREONPLUGINS$/centreon_plugins.pl --plugin=$_SERVICEPLUGIN$ --mode=$_SERVICEMODE$ --speed-in=$_SERVICESPEEDIN$ --speed-out=$_SERVICESPEEDOUT$ --interface=$_SERVICEINTERFACE$ --warning-in-traffic=$_SERVICEWARNINGIN$ --critical-in-traffic=$_SERVICECRITICALIN$ --warning-out-traffic=$_SERVICEWARNINGOUT$ --critical-out-traffic=$_SERVICECRITICALOUT$ $_SERVICEOPTION$ --host=$HOSTADDRESS$ --snmp-version=$_HOSTSNMPVERSION$ --snmp-community=$_HOSTSNMPCOMMUNITY$'
 $CLAPI -o CMD -a ADD -v 'check_centreon_plugin_SNMP_traffic;check;$CENTREONPLUGINS$/centreon_plugins.pl --plugin=$_SERVICEPLUGIN$ --mode=$_SERVICEMODE$ --speed-in=$_SERVICESPEEDIN$ --speed-out=$_SERVICESPEEDOUT$ --interface=$_SERVICEINTERFACE$ --warning-in-traffic=$_SERVICEWARNINGIN$ --critical-in-traffic=$_SERVICECRITICALIN$ --warning-out-traffic=$_SERVICEWARNINGOUT$ --critical-out-traffic=$_SERVICECRITICALOUT$ $_SERVICEOPTION$ --host=$HOSTADDRESS$ --snmp-version=$_HOSTSNMPVERSION$ --snmp-community=$_HOSTSNMPCOMMUNITY$'
@@ -145,8 +152,8 @@ $CLAPI -o STPL -a setparam -v "Cpu-snmp-Model-Service;graphtemplate;CPU"
 # Model Disk
 [ "$DEBUG" == "yes" ] && echo $CLAPI -o STPL -a add -v "Disk-snmp-Model-Service;disk-snmp-model;service-generique-actif"
 $CLAPI -o STPL -a add -v "Disk-snmp-Model-Service;disk-snmp-model;service-generique-actif"
-[ "$DEBUG" == "yes" ] && echo $CLAPI -o STPL -a setparam -v "Disk-snmp-Model-Service;check_command;check_centreon_plugin_SNMP"
-$CLAPI -o STPL -a setparam -v "Disk-snmp-Model-Service;check_command;check_centreon_plugin_SNMP"
+[ "$DEBUG" == "yes" ] && echo $CLAPI -o STPL -a setparam -v "Disk-snmp-Model-Service;check_command;check_centreon_plugin_storage_SNMP"
+$CLAPI -o STPL -a setparam -v "Disk-snmp-Model-Service;check_command;check_centreon_plugin_storage_SNMP"
 [ "$DEBUG" == "yes" ] && echo $CLAPI -o STPL -a setmacro -v "Disk-snmp-Model-Service;PLUGIN;os::linux::snmp::plugin"
 $CLAPI -o STPL -a setmacro -v "Disk-snmp-Model-Service;PLUGIN;os::linux::snmp::plugin"
 [ "$DEBUG" == "yes" ] && echo $CLAPI -o STPL -a setmacro -v "Disk-snmp-Model-Service;WARNING;80"
