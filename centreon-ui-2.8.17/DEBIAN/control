@@ -1,9 +1,9 @@
 Package: centreon-ui
-Version: 2.8.16-1
+Version: 2.8.17-1
 Section: net
 Priority: extra
 Architecture: all
-Depends: centreon-centcore ( >=2.8.16), sudo ( >=1.8.10 )
+Depends: centreon-centcore ( >=2.8.17), sudo ( >=1.8.10 )
 Installed-Size: 0
 Maintainer: Eric Coquard <eric.coquard@gmail.com>
 Description: Centreon UI
