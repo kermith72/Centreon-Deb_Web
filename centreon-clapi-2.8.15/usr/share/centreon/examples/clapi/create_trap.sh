@@ -1,4 +1,4 @@
-i#!/bin/bash
+#!/bin/bash
 # create_trap.sh
 # version 1.02
 # date 06/10/2017
