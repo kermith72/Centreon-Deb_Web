@@ -864,7 +864,7 @@ c2088fb1ed05747e977d764ed2a89128  usr/lib/centreon/plugins/centreon/plugins/alte
 4256a16bcb3f0bfbdbe2faeed1a7b8a7  usr/lib/centreon/plugins/centreon/plugins/output.pm
 4bcd586f807a8aea98cdbd267ed7c63d  usr/lib/centreon/plugins/centreon/plugins/options.pm
 2743ae82243c442c711b3bcffc285ab0  usr/lib/centreon/plugins/centreon/plugins/script_snmp.pm
-b63fc23e90866eece2a7a0b3faea93d1  usr/lib/centreon/plugins/centreon/plugins/http.pm
+4ecda785cccaa087e36fd51bbca8f9bb  usr/lib/centreon/plugins/centreon/plugins/http.pm
 21147f8d57e3f09fe44acf833c59f29e  usr/lib/centreon/plugins/centreon/plugins/script_sql.pm
 aba40607efd0c27f97ec6d2154d7d13b  usr/lib/centreon/plugins/centreon/plugins/mode.pm
 9272a98baa237e524b2496f6f4a531c0  usr/lib/centreon/plugins/centreon/plugins/misc.pm
@@ -899,7 +899,7 @@ bc7599afa50d582c262ca040e73f0986  usr/lib/centreon/plugins/apps/apcupsd/local/mo
 64288dacf45ba3a78698fd70b864277a  usr/lib/centreon/plugins/apps/apcupsd/local/mode/loadpercentage.pm
 e6854221d43af7209dd52f6fc7cfbaf8  usr/lib/centreon/plugins/apps/sendmail/snmp/plugin.pm
 62ecdb39ddc0ac05b56ad01380f9facc  usr/lib/centreon/plugins/apps/nsclient/restapi/plugin.pm
-da5cbe9bd4635335d5b41d2d05693cf9  usr/lib/centreon/plugins/apps/nsclient/restapi/mode/query.pm
+5be2b814a84c1a70dbc93e86410d0494  usr/lib/centreon/plugins/apps/nsclient/restapi/mode/query.pm
 0e472b45a438b72cd1ee6ed2fcc847de  usr/lib/centreon/plugins/apps/php/fpm/web/plugin.pm
 7c6a2e3f628525f1b957a2961b5b9127  usr/lib/centreon/plugins/apps/php/fpm/web/mode/usage.pm
 bc10078bc8428ccd69a39dfefd3cef7a  usr/lib/centreon/plugins/apps/php/apc/web/plugin.pm
@@ -1046,10 +1046,10 @@ d712ce1c5faf25b629a2559f179041cf  usr/lib/centreon/plugins/apps/lync/2013/mssql/
 ae3f4ad71c18b14db9881c01cf3573ec  usr/lib/centreon/plugins/apps/protocols/ssh/plugin.pm
 5ad73d58deedc7af9d009f518acb4d55  usr/lib/centreon/plugins/apps/protocols/ssh/mode/login.pm
 9bb88f260c320a64f990d67ca1ffc7c6  usr/lib/centreon/plugins/apps/protocols/http/plugin.pm
-a81f38ef25fd8d2ac131f5410df66a9a  usr/lib/centreon/plugins/apps/protocols/http/mode/jsoncontent.pm
-6aeb87546031ad258e0119074c3dcef1  usr/lib/centreon/plugins/apps/protocols/http/mode/response.pm
-38dc1746ec33166865be7e6a5690a0aa  usr/lib/centreon/plugins/apps/protocols/http/mode/soapcontent.pm
-e65b0331faa589c74a2d95629e8c06ad  usr/lib/centreon/plugins/apps/protocols/http/mode/expectedcontent.pm
+bfc6ac7926e5e78feffaf5c35a53c17a  usr/lib/centreon/plugins/apps/protocols/http/mode/jsoncontent.pm
+53335c81f3e568f10698d772f7dbf4b4  usr/lib/centreon/plugins/apps/protocols/http/mode/response.pm
+ec8cee59fe25854dc63bf250760128a4  usr/lib/centreon/plugins/apps/protocols/http/mode/soapcontent.pm
+b08bdbc7a16e7c1a3b5af0500acf1f3c  usr/lib/centreon/plugins/apps/protocols/http/mode/expectedcontent.pm
 53a4926845546b5dbfe424995efdb2cf  usr/lib/centreon/plugins/apps/protocols/ftp/plugin.pm
 b652d1532139ed9978485e615c2fafe9  usr/lib/centreon/plugins/apps/protocols/ftp/mode/login.pm
 1ba831c7821949012859460d09af3d2c  usr/lib/centreon/plugins/apps/protocols/ftp/mode/filescount.pm
@@ -1299,7 +1299,7 @@ a4e9c5cc20a98d828a55e1a68d3e4365  usr/lib/centreon/plugins/apps/kingdee/eas/mode
 71e3bedbe1c2bd060349f517148fc73b  usr/lib/centreon/plugins/apps/kingdee/eas/mode/httphandler.pm
 928c5e0af18ed1ea2c87dddf9f124a83  usr/lib/centreon/plugins/apps/kingdee/eas/mode/oraclejvmgc.pm
 b8a38b2ac4c59337e97e05834782ce39  usr/lib/centreon/plugins/apps/hyperv/2012/local/plugin.pm
-d509fe4da8db611b91dee1f92430a284  usr/lib/centreon/plugins/apps/hyperv/2012/local/mode/scvmmintegrationservice.pm
+c30173d1d97811010adf7adca93b97a0  usr/lib/centreon/plugins/apps/hyperv/2012/local/mode/scvmmintegrationservice.pm
 6b32107b97ec7f03044c49f4cf74e22a  usr/lib/centreon/plugins/apps/hyperv/2012/local/mode/nodereplication.pm
 31aa3b3edf1145db2adc941c6c99f442  usr/lib/centreon/plugins/apps/hyperv/2012/local/mode/scvmmsnapshot.pm
 b164e4b3c1088aa56ac69d1bedabfdc6  usr/lib/centreon/plugins/apps/hyperv/2012/local/mode/nodesnapshot.pm
@@ -1698,6 +1698,13 @@ a3fc121cea99062cc52958c33f0fd9cb  usr/lib/centreon/plugins/network/hp/vc/snmp/mo
 4357de3f6d971164279ea7801eedad8f  usr/lib/centreon/plugins/network/hp/vc/snmp/mode/components/physicalserver.pm
 245de48c2f45dc343c79a50871d31486  usr/lib/centreon/plugins/network/hp/vc/snmp/mode/components/fc.pm
 8414e40d206d2c5eb28de315f187a319  usr/lib/centreon/plugins/network/hp/procurve/plugin.pm
+1e3857df9d60a0240664c02b0b1ddac0  usr/lib/centreon/plugins/network/hp/procurve/snmp/plugin.pm
+00804df3155f0baca68879ed6f6ec1a6  usr/lib/centreon/plugins/network/hp/procurve/snmp/mode/components/psu.pm
+b74b30761c241022c0c71be6dc103a5e  usr/lib/centreon/plugins/network/hp/procurve/snmp/mode/components/fan.pm
+3cb144ed0657de6a69b0cb53fca3b448  usr/lib/centreon/plugins/network/hp/procurve/snmp/mode/components/sensor.pm
+15de3c6d086c03083188c59e9ab3e011  usr/lib/centreon/plugins/network/hp/procurve/snmp/mode/cpu.pm
+9a5cb8312d67188fc5299b58a002418a  usr/lib/centreon/plugins/network/hp/procurve/snmp/mode/memory.pm
+c1971a270eba62bbfa2aec325cd8faf9  usr/lib/centreon/plugins/network/hp/procurve/snmp/mode/environment.pm
 99ae485f9e7f7688905cf2016c407c71  usr/lib/centreon/plugins/network/hp/procurve/mode/components/sensor.pm
 590fee41384c7fa40178a2c9a7d79b07  usr/lib/centreon/plugins/network/hp/procurve/mode/cpu.pm
 95c96abd4b07a24ddefc94b6f6957b64  usr/lib/centreon/plugins/network/hp/procurve/mode/memory.pm
