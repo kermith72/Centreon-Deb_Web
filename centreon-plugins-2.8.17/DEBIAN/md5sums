@@ -899,7 +899,7 @@ bc7599afa50d582c262ca040e73f0986  usr/lib/centreon/plugins/apps/apcupsd/local/mo
 64288dacf45ba3a78698fd70b864277a  usr/lib/centreon/plugins/apps/apcupsd/local/mode/loadpercentage.pm
 e6854221d43af7209dd52f6fc7cfbaf8  usr/lib/centreon/plugins/apps/sendmail/snmp/plugin.pm
 62ecdb39ddc0ac05b56ad01380f9facc  usr/lib/centreon/plugins/apps/nsclient/restapi/plugin.pm
-5be2b814a84c1a70dbc93e86410d0494  usr/lib/centreon/plugins/apps/nsclient/restapi/mode/query.pm
+8a24e6bf1e6fb61366bcc29c1f5973e1  usr/lib/centreon/plugins/apps/nsclient/restapi/mode/query.pm
 0e472b45a438b72cd1ee6ed2fcc847de  usr/lib/centreon/plugins/apps/php/fpm/web/plugin.pm
 7c6a2e3f628525f1b957a2961b5b9127  usr/lib/centreon/plugins/apps/php/fpm/web/mode/usage.pm
 bc10078bc8428ccd69a39dfefd3cef7a  usr/lib/centreon/plugins/apps/php/apc/web/plugin.pm
