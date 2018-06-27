@@ -1,0 +1,10 @@
+/var/log/centreon/*.log {
+	daily
+	compress
+	notifempty
+	rotate 7
+	copytruncate
+	missingok
+	size 20M
+	su centreon centreon
+}
