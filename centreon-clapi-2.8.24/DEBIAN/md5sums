@@ -5,5 +5,6 @@ b8df4cc8376fe7c31dbb41717c50104d  usr/share/centreon/examples/clapi/create_confi
 246cc2e93f3eba9c54123c923d8f25cf  usr/share/centreon/examples/clapi/delete_config.sh
 348bddfc5714d977cca533d7c7777a99  usr/share/centreon/examples/clapi/create_poller.sh
 e12f515e93b3c7691d5450321027fde5  usr/share/centreon/examples/clapi/create_template_snmp.sh
+3397000474d833c5220bf67040b2a7ea  usr/share/centreon/examples/clapi/create_config_initialV2.sh
 a6ba0a87b440dcb0cd4bab677f8e96c3  usr/share/centreon/examples/clapi/init_timezone.sh
 72fde7598d3213c17f53b1532c9f9b1e  usr/share/centreon/examples/clapi/create_trap.sh
