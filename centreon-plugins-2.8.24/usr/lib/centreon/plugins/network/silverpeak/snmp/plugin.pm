@@ -18,11 +18,11 @@
 # limitations under the License.
 #
 
-package apps::selenium::plugin;
+package network::silverpeak::snmp::plugin;
 
 use strict;
 use warnings;
-use base qw(centreon::plugins::script_simple);
+use base qw(centreon::plugins::script_snmp);
 
 sub new {
     my ($class, %options) = @_;
@@ -31,9 +31,12 @@ sub new {
 
     $self->{version} = '1.0';
     %{$self->{modes}} = (
-        'scenario'              => 'apps::selenium::mode::scenario',
-        'scenario-katalon'      => 'apps::selenium::mode::scenariokatalon',
-    );
+                            'alarms'               => 'network::silverpeak::snmp::mode::alarms',
+                            'interfaces'           => 'snmp_standard::mode::interfaces', 
+                            'list-interfaces'      => 'snmp_standard::mode::listinterfaces',
+                            'status'               => 'network::silverpeak::snmp::mode::status',
+                            'uptime'               => 'network::silverpeak::snmp::mode::uptime',
+                         );
 
     return $self;
 }
@@ -44,6 +47,6 @@ __END__
 
 =head1 PLUGIN DESCRIPTION
 
-Check Selenium server.
+Check Silverpeak SD-WAN in SNMP.
 
 =cut

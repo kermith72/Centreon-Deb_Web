@@ -18,7 +18,7 @@
 # limitations under the License.
 #
 
-package apps::selenium::plugin;
+package os::hpux::local::plugin;
 
 use strict;
 use warnings;
@@ -29,11 +29,12 @@ sub new {
     my $self = $class->SUPER::new(package => __PACKAGE__, %options);
     bless $self, $class;
 
-    $self->{version} = '1.0';
+    $self->{version} = '0.1';
     %{$self->{modes}} = (
-        'scenario'              => 'apps::selenium::mode::scenario',
-        'scenario-katalon'      => 'apps::selenium::mode::scenariokatalon',
-    );
+                         'list-storages'    => 'os::hpux::local::mode::liststorages',
+                         'storage'          => 'os::hpux::local::mode::storage',
+                         'inodes'           => 'os::hpux::local::mode::inodes',
+                         );
 
     return $self;
 }
@@ -44,6 +45,6 @@ __END__
 
 =head1 PLUGIN DESCRIPTION
 
-Check Selenium server.
+Check HPUX through local commands (the plugin can use SSH).
 
 =cut

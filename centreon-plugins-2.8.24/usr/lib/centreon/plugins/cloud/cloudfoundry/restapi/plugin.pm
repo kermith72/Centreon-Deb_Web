@@ -18,11 +18,11 @@
 # limitations under the License.
 #
 
-package apps::selenium::plugin;
+package cloud::cloudfoundry::restapi::plugin;
 
 use strict;
 use warnings;
-use base qw(centreon::plugins::script_simple);
+use base qw(centreon::plugins::script_custom);
 
 sub new {
     my ($class, %options) = @_;
@@ -31,10 +31,13 @@ sub new {
 
     $self->{version} = '1.0';
     %{$self->{modes}} = (
-        'scenario'              => 'apps::selenium::mode::scenario',
-        'scenario-katalon'      => 'apps::selenium::mode::scenariokatalon',
-    );
-
+                            'apps-state'            => 'cloud::cloudfoundry::restapi::mode::appsstate',
+                            'instances-state'       => 'cloud::cloudfoundry::restapi::mode::instancesstate',
+                            'list-apps'             => 'cloud::cloudfoundry::restapi::mode::listapps',
+                            'list-organizations'    => 'cloud::cloudfoundry::restapi::mode::listorganizations',
+                            'list-spaces'           => 'cloud::cloudfoundry::restapi::mode::listspaces',
+                        );
+    $self->{custom_modes}{restapi} = 'cloud::cloudfoundry::restapi::custom::api';
     return $self;
 }
 
@@ -44,6 +47,6 @@ __END__
 
 =head1 PLUGIN DESCRIPTION
 
-Check Selenium server.
+Check Cloud Foundry using API.
 
 =cut

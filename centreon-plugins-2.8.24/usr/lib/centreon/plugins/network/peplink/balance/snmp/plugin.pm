@@ -18,22 +18,24 @@
 # limitations under the License.
 #
 
-package apps::selenium::plugin;
+package network::peplink::balance::snmp::plugin;
 
 use strict;
 use warnings;
-use base qw(centreon::plugins::script_simple);
+use base qw(centreon::plugins::script_snmp);
 
 sub new {
     my ($class, %options) = @_;
     my $self = $class->SUPER::new(package => __PACKAGE__, %options);
     bless $self, $class;
-
-    $self->{version} = '1.0';
+    
+    $self->{version} = '0.1';
     %{$self->{modes}} = (
-        'scenario'              => 'apps::selenium::mode::scenario',
-        'scenario-katalon'      => 'apps::selenium::mode::scenariokatalon',
-    );
+                            'cpu'               => 'network::peplink::balance::snmp::mode::cpu',
+                            'interfaces'        => 'snmp_standard::mode::interfaces',
+                            'list-interfaces'   => 'snmp_standard::mode::listinterfaces',
+                            'memory'            => 'network::peplink::balance::snmp::mode::memory',
+                         );
 
     return $self;
 }
@@ -44,6 +46,6 @@ __END__
 
 =head1 PLUGIN DESCRIPTION
 
-Check Selenium server.
+Check Peplink loadbalancer in SNMP.
 
 =cut
