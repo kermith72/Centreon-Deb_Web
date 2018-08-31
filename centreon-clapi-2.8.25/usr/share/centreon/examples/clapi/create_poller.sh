@@ -1,7 +1,7 @@
 #!/bin/bash
 # create_poller.sh
-# version 1.05
-# date 14/10/2017
+# version 1.06
+# date 31/08/2018
 # use Centreon_Clapi
 # $USER_CENTREON name of admin
 # $PWD_CENTREON password admin
@@ -20,6 +20,9 @@
 # add debug
 # $DEBUG script debug
 # remove param type for broker
+# version 1.0.6
+# version centreon-web 2.8.25 
+# finds the id of the module broker
 
 # Usage info
 show_help() {
@@ -150,30 +153,38 @@ then
    $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setparam -v "$MIN_NAME_POLLER-module;stats_activate;1"
    [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a ADDLOGGER -v "$MIN_NAME_POLLER-module;/var/log/centreon-engine/$MIN_NAME_POLLER-module.log;file"
    $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a ADDLOGGER -v "$MIN_NAME_POLLER-module;/var/log/centreon-engine/$MIN_NAME_POLLER-module.log;file"
-  [ "$DEBUG" == "yes" ] && echo  $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setlogger -v "$MIN_NAME_POLLER-module;1;config;yes"
-   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setlogger -v "$MIN_NAME_POLLER-module;1;config;yes"
-   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setlogger -v "$MIN_NAME_POLLER-module;1;debug;no"
-   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setlogger -v "$MIN_NAME_POLLER-module;1;debug;no"
-   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setlogger -v "$MIN_NAME_POLLER-module;1;info;no"
-   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setlogger -v "$MIN_NAME_POLLER-module;1;info;no"
-   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setlogger -v "$MIN_NAME_POLLER-module;1;level;low"
-   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setlogger -v "$MIN_NAME_POLLER-module;1;level;low"
+
+   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a LISTLOGGER -v "$MIN_NAME_POLLER-module"
+   IDLOGGER=`$CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a LISTLOGGER -v "$MIN_NAME_POLLER-module" | /bin/sed '1d' | cut -d';' -f1`
+
+  [ "$DEBUG" == "yes" ] && echo  $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setlogger -v "$MIN_NAME_POLLER-module;$IDLOGGER;config;yes"
+   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setlogger -v "$MIN_NAME_POLLER-module;$IDLOGGER;config;yes"
+   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setlogger -v "$MIN_NAME_POLLER-module;$IDLOGGER;debug;no"
+   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setlogger -v "$MIN_NAME_POLLER-module;$IDLOGGER;debug;no"
+   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setlogger -v "$MIN_NAME_POLLER-module;$IDLOGGER;info;no"
+   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setlogger -v "$MIN_NAME_POLLER-module;$IDLOGGER;info;no"
+   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setlogger -v "$MIN_NAME_POLLER-module;$IDLOGGER;level;low"
+   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setlogger -v "$MIN_NAME_POLLER-module;$IDLOGGER;level;low"
    [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a ADDOUTPUT -v "$MIN_NAME_POLLER-module;$MIN_NAME_POLLER-module-output;ipv4"
    $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a ADDOUTPUT -v "$MIN_NAME_POLLER-module;$MIN_NAME_POLLER-module-output;ipv4"
-   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;1;protocol;bbdo"
-   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;1;protocol;bbdo"
-   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;1;tls;no"
-   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;1;tls;no"
-   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;1;compression;no"
-   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;1;compression;no"
-   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;1;port;5669"
-   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;1;port;5669"
-   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;1;retry_interval;"
-   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;1;retry_interval;"
-   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;1;buffering_timeout;"
-   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;1;buffering_timeout;"
-   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;1;host;$IP_CENTRAL"
-   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;1;host;$IP_CENTRAL"
+
+   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a LISTOUTPUT -v "$MIN_NAME_POLLER-module"
+   IDOUTPUT=`$CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a LISTOUTPUT -v "$MIN_NAME_POLLER-module" | /bin/sed '1d' | cut -d';' -f1`
+   
+   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;$IDOUTPUT;protocol;bbdo"
+   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;$IDOUTPUT;protocol;bbdo"
+   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;$IDOUTPUT;tls;no"
+   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;$IDOUTPUT;tls;no"
+   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;$IDOUTPUT;compression;no"
+   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;$IDOUTPUT;compression;no"
+   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;$IDOUTPUT;port;5669"
+   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;$IDOUTPUT;port;5669"
+   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;$IDOUTPUT;retry_interval;"
+   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;$IDOUTPUT;retry_interval;"
+   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;$IDOUTPUT;buffering_timeout;"
+   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;$IDOUTPUT;buffering_timeout;"
+   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;$IDOUTPUT;host;$IP_CENTRAL"
+   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o CENTBROKERCFG -a setoutput -v "$MIN_NAME_POLLER-module;$IDOUTPUT;host;$IP_CENTRAL"
 else
    echo module broker for poller $MIN_NAME_POLLER  already exist !
 fi
@@ -250,8 +261,8 @@ then
    echo create poller host
    $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a add -v "$NAME_POLLER;poller $NAME_POLLER;$IP_POLLER;generic-host;$NAME_POLLER;Linux-Servers"
    [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a add -v "$NAME_POLLER;poller $NAME_POLLER;$IP_POLLER;generic-host;$NAME_POLLER;Linux-Servers"
-   #$CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a addtemplate -v "$NAME_POLLER;Servers-Linux"
-   #[ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a addtemplate -v "$NAME_POLLER;Servers-Linux"
+   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a addtemplate -v "$NAME_POLLER;OS-Linux-SNMPV2"
+   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a addtemplate -v "$NAME_POLLER;OS-Linux-SNMPV2"
    $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a applytpl -v "$NAME_POLLER"
    [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a applytpl -v "$NAME_POLLER"
 else

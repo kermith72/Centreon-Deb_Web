@@ -1,7 +1,7 @@
 #!/bin/bash
 # create_template_snmp.sh
-# version 1.01
-# date 03/01/2018
+# version 1.02
+# date 31/08/2018
 # use Centreon_Clapi
 # $USER_CENTREON name of admin
 # $PWD_CENTREON password admin
@@ -9,7 +9,9 @@
 # based on Hugues's script
 ## hugues@ruelle.fr
 # version 1.0.1
-# replace warning and critical with warning-usage ans critical-usage for mode storage
+# replace warning and critical with warning-usage and critical-usage for mode storage
+# version 1.0.2
+# replace warning and critical with warning-average,warning-core and critical-average,critical-core for mode cpu
 
 
 # Usage info
@@ -17,7 +19,7 @@ show_help() {
 cat << EOF
 Usage: ${0##*/} -u=<user centreon> -p=<passwd centreon>  [-d=[yes|no]]
 
-This program create configuration template snmp 
+This program create configuration template snmp
 
     -u|--user User Centreon.
     -p|--password Password Centreon.
@@ -85,6 +87,10 @@ echo "Create Command"
 [ "$DEBUG" == "yes" ] && echo $CLAPI -o CMD -a ADD -v 'check_centreon_plugin_SNMP;check;$CENTREONPLUGINS$/centreon_plugins.pl --plugin=$_SERVICEPLUGIN$ --mode=$_SERVICEMODE$ --warning=$_SERVICEWARNING$ --critical=$_SERVICECRITICAL$ $_SERVICEOPTION$ --host=$HOSTADDRESS$ --snmp-version=$_HOSTSNMPVERSION$ --snmp-community=$_HOSTSNMPCOMMUNITY$'
 $CLAPI -o CMD -a ADD -v 'check_centreon_plugin_SNMP;check;$CENTREONPLUGINS$/centreon_plugins.pl --plugin=$_SERVICEPLUGIN$ --mode=$_SERVICEMODE$ --warning=$_SERVICEWARNING$ --critical=$_SERVICECRITICAL$ $_SERVICEOPTION$ --host=$HOSTADDRESS$ --snmp-version=$_HOSTSNMPVERSION$ --snmp-community=$_HOSTSNMPCOMMUNITY$'
 
+# check_centreon_plugin_cpu_SNMP
+[ "$DEBUG" == "yes" ] && echo $CLAPI -o CMD -a ADD -v 'check_centreon_plugin_cpu_SNMP;check;$CENTREONPLUGINS$/centreon_plugins.pl --plugin=os::linux::snmp::plugin --mode=cpu --warning-average=$_SERVICEWARNINGAVERAGE$ --critical-average=$_SERVICECRITICALAVERAGE$ --warning-core=$_SERVICEWARNINGCORE$ --critical-core=$_SERVICECRITICALCORE$ $_SERVICEOPTION$ --host=$HOSTADDRESS$ --snmp-version=$_HOSTSNMPVERSION$ --snmp-community=$_HOSTSNMPCOMMUNITY$'
+$CLAPI -o CMD -a ADD -v 'check_centreon_plugin_cpu_SNMP;check;$CENTREONPLUGINS$/centreon_plugins.pl --plugin=os::linux::snmp::plugin --mode=cpu --warning-average=$_SERVICEWARNINGAVERAGE$ --critical-average=$_SERVICECRITICALAVERAGE$ --warning-core=$_SERVICEWARNINGCORE$ --critical-core=$_SERVICECRITICALCORE$ $_SERVICEOPTION$ --host=$HOSTADDRESS$ --snmp-version=$_HOSTSNMPVERSION$ --snmp-community=$_HOSTSNMPCOMMUNITY$'
+
 # check_centreon_plugin_storage_SNMP
 [ "$DEBUG" == "yes" ] && echo $CLAPI -o CMD -a ADD -v 'check_centreon_plugin_storage_SNMP;check;$CENTREONPLUGINS$/centreon_plugins.pl --plugin=$_SERVICEPLUGIN$ --mode=$_SERVICEMODE$ --warning-usage=$_SERVICEWARNING$ --critical-usage=$_SERVICECRITICAL$ $_SERVICEOPTION$ --host=$HOSTADDRESS$ --snmp-version=$_HOSTSNMPVERSION$ --snmp-community=$_HOSTSNMPCOMMUNITY$'
 $CLAPI -o CMD -a ADD -v 'check_centreon_plugin_storage_SNMP;check;$CENTREONPLUGINS$/centreon_plugins.pl --plugin=$_SERVICEPLUGIN$ --mode=$_SERVICEMODE$ --warning-usage=$_SERVICEWARNING$ --critical-usage=$_SERVICECRITICAL$ $_SERVICEOPTION$ --host=$HOSTADDRESS$ --snmp-version=$_HOSTSNMPVERSION$ --snmp-community=$_HOSTSNMPCOMMUNITY$'
@@ -134,16 +140,16 @@ $CLAPI -o STPL -a setparam -v "Traffic-snmp-Model-Service;graphtemplate;Traffic"
 # CPU
 [ "$DEBUG" == "yes" ] && echo $CLAPI -o STPL -a add -v "Cpu-snmp-Model-Service;Cpu-snmp;service-generique-actif"
 $CLAPI -o STPL -a add -v "Cpu-snmp-Model-Service;Cpu-snmp;service-generique-actif"
-[ "$DEBUG" == "yes" ] && echo $CLAPI -o STPL -a setparam -v "Cpu-snmp-Model-Service;check_command;check_centreon_plugin_SNMP"
-$CLAPI -o STPL -a setparam -v "Cpu-snmp-Model-Service;check_command;check_centreon_plugin_SNMP"
-[ "$DEBUG" == "yes" ] && echo $CLAPI -o STPL -a setmacro -v "Cpu-snmp-Model-Service;PLUGIN;os::linux::snmp::plugin"
-$CLAPI -o STPL -a setmacro -v "Cpu-snmp-Model-Service;PLUGIN;os::linux::snmp::plugin"
-[ "$DEBUG" == "yes" ] && echo $CLAPI -o STPL -a setmacro -v "Cpu-snmp-Model-Service;WARNING;70"
-$CLAPI -o STPL -a setmacro -v "Cpu-snmp-Model-Service;WARNING;70"
-[ "$DEBUG" == "yes" ] && echo $CLAPI -o STPL -a setmacro -v "Cpu-snmp-Model-Service;CRITICAL;90"
-$CLAPI -o STPL -a setmacro -v "Cpu-snmp-Model-Service;CRITICAL;90"
-[ "$DEBUG" == "yes" ] && echo $CLAPI -o STPL -a setmacro -v "Cpu-snmp-Model-Service;MODE;cpu"
-$CLAPI -o STPL -a setmacro -v "Cpu-snmp-Model-Service;MODE;cpu"
+[ "$DEBUG" == "yes" ] && echo $CLAPI -o STPL -a setparam -v "Cpu-snmp-Model-Service;check_command;check_centreon_plugin_cpu_SNMP"
+$CLAPI -o STPL -a setparam -v "Cpu-snmp-Model-Service;check_command;check_centreon_plugin_cpu_SNMP"
+[ "$DEBUG" == "yes" ] && echo $CLAPI -o STPL -a setmacro -v "Cpu-snmp-Model-Service;WARNINGCORE;70"
+$CLAPI -o STPL -a setmacro -v "Cpu-snmp-Model-Service;WARNINGCORE;70"
+[ "$DEBUG" == "yes" ] && echo $CLAPI -o STPL -a setmacro -v "Cpu-snmp-Model-Service;CRITICALCORE;90"
+$CLAPI -o STPL -a setmacro -v "Cpu-snmp-Model-Service;CRITICALCORE;90"
+[ "$DEBUG" == "yes" ] && echo $CLAPI -o STPL -a setmacro -v "Cpu-snmp-Model-Service;WARNINGAVERAGE;60"
+$CLAPI -o STPL -a setmacro -v "Cpu-snmp-Model-Service;WARNINGAVERAGE;60"
+[ "$DEBUG" == "yes" ] && echo $CLAPI -o STPL -a setmacro -v "Cpu-snmp-Model-Service;CRITICALAVERAGE;70"
+$CLAPI -o STPL -a setmacro -v "Cpu-snmp-Model-Service;CRITICALAVERAGE;70"
 [ "$DEBUG" == "yes" ] && echo $CLAPI -o STPL -a setparam -v "Cpu-snmp-Model-Service;graphtemplate;CPU"
 $CLAPI -o STPL -a setparam -v "Cpu-snmp-Model-Service;graphtemplate;CPU"
 

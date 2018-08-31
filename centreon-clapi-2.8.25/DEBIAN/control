@@ -1,9 +1,9 @@
 Package: centreon-clapi
-Version: 2.8.24-1
+Version: 2.8.25-1
 Section: net
 Priority: extra
 Architecture: all
-Depends: centreon-ui ( >=2.8.24)
-Installed-Size: 204
+Depends: centreon-ui ( >=2.8.25)
+Installed-Size: 212
 Maintainer: Eric Coquard <eric.coquard@gmail.com>
 Description: Scripts for Centreon Clapi
