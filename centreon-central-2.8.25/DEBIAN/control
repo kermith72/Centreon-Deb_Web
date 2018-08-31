@@ -1,9 +1,9 @@
 Package: centreon-central
-Version: 2.8.24-1
+Version: 2.8.25-1
 Section: net
 Priority: extra
 Architecture: all
-Depends: centreon-poller ( >=2.8.24), centreon-database ( >=2.8.24), centreon-ui ( >=2.8.24)
+Depends: centreon-poller ( >=2.8.25), centreon-database ( >=2.8.25), centreon-ui ( >=2.8.25)
 Installed-Size: 0
 Maintainer: Eric Coquard <eric.coquard@gmail.com>
 Description: Centreon Central with database
