@@ -1,5 +1,5 @@
 Package: centreon-perl-libs
-Version: 2.8.25-1
+Version: 2.8.26-1
 Section: net
 Priority: extra
 Architecture: all
