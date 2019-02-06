@@ -1,10 +1,10 @@
 Package: centreon-centcore
-Version: 2.8.25-1
+Version: 18.10.2-1
 Section: net
 Priority: extra
 Architecture: all
-Depends: centreon-web ( >=2.8.25)
+Depends: centreon-web ( >=18.10.2)
 Installed-Size: 96
-Maintainer: Eric Coquard <eric.coquard@gmail.com>
+Maintainer: Eric Coquard <eric.coquard@sugarbug.fr>
 Description: Centcore for Centreon
    Package Centcore

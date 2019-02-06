@@ -1,6 +1,6 @@
+5c0d4baab83873099e4e502b2b6f900d  etc/default/centcore
+5d644b9da3060dac28b5c22e46fccf5a  etc/centreon/instCentCore.conf
 5c0d4baab83873099e4e502b2b6f900d  usr/share/centreon/examples/centcore.default
 6f06d3685d5f8ed7d92a195670ea3b34  usr/share/centreon/examples/centcore.init.d
 e0a79f3ddf699e004a681382d48f9a1b  usr/share/centreon/bin/centcore
-5c0d4baab83873099e4e502b2b6f900d  etc/default/centcore
-5d644b9da3060dac28b5c22e46fccf5a  etc/centreon/instCentCore.conf
 3db5c3b5db216f59a5f6a4a6c3699ebe  lib/systemd/system/centcore.service
