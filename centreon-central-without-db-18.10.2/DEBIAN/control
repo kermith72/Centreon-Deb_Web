@@ -1,10 +1,10 @@
 Package: centreon-central-without-db
-Version: 2.8.25-1
+Version: 18.10.2-1
 Section: net
 Priority: extra
 Architecture: all
-Depends: centreon-poller ( >=2.8.25), centreon-ui ( >=2.8.25)
+Depends: centreon-poller ( >=18.10.2), centreon-ui ( >=18.10.2)
 Installed-Size: 0
-Maintainer: Eric Coquard <eric.coquard@gmail.com>
+Maintainer: Eric Coquard <eric.coquard@sugarbug.fr>
 Description: Centreon Central without databases
    The package Centreon Standalone without databases and centreon-poller
