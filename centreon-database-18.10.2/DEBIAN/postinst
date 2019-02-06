@@ -5,7 +5,10 @@ set -e
 
 case "$1" in
 	configure)
-    	if [ -f "/etc/mysql/conf.d/innodb.cnf" ]; then
+	if [ -f "/lib/systemd/system/mariadb.service" ]; then
+		sed -i -e "s/LimitNOFILE=16364/LimitNOFILE=32000/g" /lib/systemd/system/mariadb.service;
+	fi
+    	if [ -f "/etc/mysql/conf.d/centreon.cnf" ]; then
         	service mysql restart
     	fi
     	;;

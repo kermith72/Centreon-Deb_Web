@@ -1,10 +1,10 @@
 Package: centreon-database
-Version: 2.8.25-1
+Version: 18.10.2-1
 Section: net
 Priority: extra
 Architecture: all
 Depends: mariadb-server ( >=10.0)
 Installed-Size: 36
-Maintainer: Eric Coquard <eric.coquard@gmail.com>
+Maintainer: Eric Coquard <eric.coquard@sugarbug.fr>
 Description: mariaDB database for Centreon
    The package databases for Centreon
