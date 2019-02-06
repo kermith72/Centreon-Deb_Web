@@ -1,9 +1,9 @@
 Package: centreon-trap
-Version: 2.8.25-1
+Version: 18.10.2-1
 Section: net
 Priority: extra
 Architecture: all
-Depends: centreon-plugins ( >=2.8.25), centreon-perl-libs (>=2.8.25 )
+Depends: centreon-plugins ( >=18.10.2), centreon-perl-libs (>=18.10.2 )
 Installed-Size: 120
 Maintainer: Eric Coquard <eric.coquard@gmail.com>
 Description: Centreon Traps
