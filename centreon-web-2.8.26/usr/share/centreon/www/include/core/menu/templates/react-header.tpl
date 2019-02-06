@@ -1,1 +1,0 @@
-<div id="header-react"></div><script type="text/javascript" src="./include/core/menu/templates/main.a7fa5629e9f7440c7910.js"></script>

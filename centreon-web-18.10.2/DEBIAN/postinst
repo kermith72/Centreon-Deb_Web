@@ -1,0 +1,122 @@
+#!/bin/sh
+
+# Abort if any command returns an error value
+set -e
+
+case "$1" in
+	configure)
+    	if  $(grep -E "^centreon:" /etc/passwd > /dev/null ) ; then
+         	usermod -aG "centreon,centreon-engine,centreon-broker" "www-data"
+         	usermod -aG "centreon,centreon-broker" "centreon-engine"
+         	usermod -aG "centreon-engine,centreon" "centreon-broker"
+         	usermod -aG "www-data" "centreon"
+    	fi
+
+    	if [ -d "/usr/share/centreon/cron" ]; then
+        	chown -R centreon:centreon /usr/share/centreon/cron
+    	fi
+
+    	if [ -d "/usr/share/centreon/www" ]; then
+        	chown -R centreon:centreon /usr/share/centreon/www
+    	fi
+
+    	if [ -d "/usr/share/centreon/installDir" ]; then
+        	chown centreon:centreon /usr/share/centreon/installDir
+        	chmod 775 /usr/share/centreon/installDir
+    	fi
+
+    	if [ -d "/usr/share/centreon/www/install" ]; then
+        	chown -R www-data:www-data /usr/share/centreon/www/install
+        	chmod -R 775 /usr/share/centreon/www/install
+    	fi
+
+
+    	if [ -f "/usr/share/centreon/bin/centreon" ]; then
+        	chown centreon:centreon /usr/share/centreon/bin/centreon
+        	if [ ! -f "/usr/bin/centreon" ]; then
+          	ln -s /usr/share/centreon/bin/centreon /usr/bin/centreon
+          	chown -h centreon: /usr/bin/centreon
+        	fi
+    	fi
+
+
+    	if [ -f "/usr/share/centreon/bin/export-mysql-indexes" ]; then
+        	chown centreon:centreon /usr/share/centreon/bin/export-mysql-indexes
+    	fi
+
+    	if [ -f "/usr/share/centreon/bin/import-mysql-indexes" ]; then
+        	chown centreon:centreon /usr/share/centreon/bin/import-mysql-indexes
+    	fi
+
+   	 if [ -d "/var/lib/centreon/nagios-perf" ]; then
+        	chown centreon:centreon /var/lib/centreon/nagios-perf
+        	chmod 775 /var/lib/centreon/nagios-perf
+    	fi
+
+    	if [ -d "/var/lib/centreon/metrics" ]; then
+        	chown centreon:centreon /var/lib/centreon/metrics
+        	chmod 775 /var/lib/centreon/metrics
+    	fi
+
+    	if [ -d "/var/lib/centreon/centcore" ]; then
+        	chown centreon:centreon /var/lib/centreon/centcore
+        	chmod 775 /var/lib/centreon/centcore
+    	fi
+
+    	if [ -d "/var/lib/centreon/status" ]; then
+        	chown centreon:centreon /var/lib/centreon/status
+        	chmod 775 /var/lib/centreon/status
+    	fi
+
+    	if [ -f "/usr/share/centreon/bin/logAnalyserBroker" ]; then
+        	chown centreon:centreon /usr/share/centreon/bin/logAnalyserBroker
+    	fi
+
+    	if [ -d "/usr/share/centreon/filesGeneration" ]; then
+        	chown centreon:centreon /usr/share/centreon/filesGeneration
+    	fi
+
+    	if [ -d "/usr/share/centreon/filesGeneration/broker" ]; then
+        	chown centreon:centreon /usr/share/centreon/filesGeneration/broker
+    	fi
+
+    	if [ -d "/usr/share/centreon/filesGeneration/engine" ]; then
+        	chown  centreon:centreon /usr/share/centreon/filesGeneration/engine
+    	fi
+
+    	if [ -d "/usr/share/centreon/filesUpload" ]; then
+        	chmod g+w /usr/share/centreon/filesUpload
+        	chown centreon:centreon /usr/share/centreon/filesUpload
+    	fi
+
+    	if [ -d "/usr/share/centreon/filesUpload/images" ]; then
+        	chown centreon:centreon /usr/share/centreon/filesUpload/images
+    	fi
+
+
+
+	 if [ -f "/etc/apache2/conf-available/centreon.conf" ]; then
+       		a2enconf centreon.conf
+		a2enmod proxy_fcgi setenvif proxy rewrite
+		a2enconf php7.1-fpm
+		a2dismod php7.1
+ 		systemctl restart apache2 php7.1-fpm
+    	 fi
+
+    	if [ -f "/etc/init.d/cron" ]; then
+        	service cron restart
+    	fi
+
+
+    	;;
+
+	abort-upgrade|abort-remove|abort-deconfigure)
+    	;;
+
+	*)
+    	echo "$0: called with unknown argument" 1>&2
+    	exit 0
+    	;;
+esac
+
+exit 0
