@@ -1,0 +1,10 @@
+Package: centreon-widget-engine-status
+Version: 18.10.0-1
+Section: net
+Priority: extra
+Architecture: all
+Depends: centreon-web ( >=18.10.2)
+Installed-Size: 96
+Maintainer: Eric Coquard <eric.coquard@sugarbug.fr>
+Description: Centreon Widgets
+   Engine Status
