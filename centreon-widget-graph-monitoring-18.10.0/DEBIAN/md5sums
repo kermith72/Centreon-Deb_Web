@@ -1,0 +1,7 @@
+84e4297f0409aa1577b6b6892be2efca  usr/share/centreon/www/graph-monitoring/src/generateGraph.php
+614bb1c6325f23733070587dcf41ca54  usr/share/centreon/www/graph-monitoring/src/index.ihtml
+cf7f434f6f653c5db2ed407c65914631  usr/share/centreon/www/graph-monitoring/configs.xml
+dcebe0442b29b5d6ff0d702a553841ea  usr/share/centreon/www/graph-monitoring/data.js
+b19b3acdfe933e1afa74e2a4a8ffff12  usr/share/centreon/www/graph-monitoring/resources/centreon-logo.png
+24c6e9bc6ccca42deae70272434116d7  usr/share/centreon/www/graph-monitoring/index.php
+669982986765e8a9adddf94dc75dcd0c  .gitignore
