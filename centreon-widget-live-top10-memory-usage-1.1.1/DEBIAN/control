@@ -1,0 +1,10 @@
+Package: centreon-widget-live-top10-memory-usage
+Version: 1.1.1-1
+Section: net
+Priority: extra
+Architecture: all
+Depends: centreon-web ( >=18.10.0)
+Installed-Size: 84
+Maintainer: Eric Coquard <eric.coquard@sugarbug.fr>
+Description: Centreon Widgets
+   Memory top 10 usage
