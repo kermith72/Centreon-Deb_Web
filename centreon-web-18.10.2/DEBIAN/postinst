@@ -14,10 +14,12 @@ case "$1" in
 
     	if [ -d "/usr/share/centreon/cron" ]; then
         	chown -R centreon:centreon /usr/share/centreon/cron
+		chmod -R 775 /usr/share/centreon/cron
     	fi
 
     	if [ -d "/usr/share/centreon/www" ]; then
         	chown -R centreon:centreon /usr/share/centreon/www
+               chmod -R 775 /usr/share/centreon/www 
     	fi
 
     	if [ -d "/usr/share/centreon/installDir" ]; then
@@ -30,6 +32,9 @@ case "$1" in
         	chmod -R 775 /usr/share/centreon/www/install
     	fi
 
+        if [ -d "/usr/share/centreon/GPL_LIB" ]; then
+                chown -R centreon:centreon /usr/share/centreon/GPL_LIB
+        fi
 
     	if [ -f "/usr/share/centreon/bin/centreon" ]; then
         	chown centreon:centreon /usr/share/centreon/bin/centreon
