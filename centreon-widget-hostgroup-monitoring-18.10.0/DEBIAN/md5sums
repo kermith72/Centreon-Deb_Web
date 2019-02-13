@@ -1,0 +1,12 @@
+864ff447704ed749825c380b456a25a1  usr/share/centreon/www/hostgroup-monitoring/src/export.php
+8a7bc607aa18997605333840248b71b9  usr/share/centreon/www/hostgroup-monitoring/src/class/HostgroupMonitoring.class.php
+d100b6fa560d5777f23442847d6437b2  usr/share/centreon/www/hostgroup-monitoring/src/export.ihtml
+4428f757f434869f29a0a1278ebada91  usr/share/centreon/www/hostgroup-monitoring/src/index.php
+9ea2674462ce17ad7030262820b53068  usr/share/centreon/www/hostgroup-monitoring/src/index.ihtml
+58a5c8a5688f9a137af1fdf246a8cff9  usr/share/centreon/www/hostgroup-monitoring/src/table.ihtml
+46d83c54e0047a7cc3350db61d79c2df  usr/share/centreon/www/hostgroup-monitoring/src/data_js.js
+2245b86a7e82dfb5e716df4c32dc72cf  usr/share/centreon/www/hostgroup-monitoring/configs.xml
+aa87ad1c6cb72a19c8eb9e6e19e00f86  usr/share/centreon/www/hostgroup-monitoring/data.js
+b19b3acdfe933e1afa74e2a4a8ffff12  usr/share/centreon/www/hostgroup-monitoring/resources/centreon-logo.png
+43a997fc0c46ac7c024bf20883a3d917  usr/share/centreon/www/hostgroup-monitoring/index.php
+c24506c174c15c3967d54d60d6514000  .gitignore
