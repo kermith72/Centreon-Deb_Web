@@ -7,8 +7,6 @@ case "$1" in
 	configure)
     	if  $(grep -E "^centreon:" /etc/passwd > /dev/null ) ; then
          	usermod -aG "centreon,centreon-engine,centreon-broker" "www-data"
-         	usermod -aG "centreon,centreon-broker" "centreon-engine"
-         	usermod -aG "centreon-engine,centreon" "centreon-broker"
          	usermod -aG "www-data" "centreon"
     	fi
 

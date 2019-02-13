@@ -19,11 +19,9 @@ case "$1" in
     	fi
 
     	if  $(grep -E "^centreon:" /etc/passwd > /dev/null ) ; then
-         	usermod -aG "centreon-engine" "centreon"
-         	usermod -aG "centreon" "centreon-engine"
-         	if $(grep -E "^centreon-broker:" /etc/group > /dev/null ) ; then
-             	usermod -aG "centreon-broker" "centreon"
-         	fi
+                usermod -aG "centreon,centreon-broker" "centreon-engine"
+                usermod -aG "centreon-engine,centreon" "centreon-broker"
+         	usermod -aG "centreon-engine,centreon-broker" "centreon"
     	fi
 
     	if [ -d "/var/log/centreon" ]; then
