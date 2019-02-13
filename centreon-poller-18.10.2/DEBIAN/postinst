@@ -10,6 +10,14 @@ case "$1" in
         	service sudo reload
     	fi
 
+    	if [ "centreon-broker" != "root" ]; then
+        	if $(grep -E "^centreon-engine:" /etc/passwd > /dev/null ) ; then
+                        usermod -aG "centreon-broker" "centreon-engine"
+                        usermod -aG "centreon-engine,centreon" "centreon-broker"
+                        usermod -aG "centreon-broker" "centreon"
+		fi
+	fi
+
     	if [ -d "/etc/centreon-engine" ]; then
         if [ "$(ls -A "/etc/centreon-engine")" ]; then
            chmod -R 664 /etc/centreon-engine/*

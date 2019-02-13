@@ -7,7 +7,9 @@ case "$1" in
 	configure)
     	if  $(grep -E "^centreon:" /etc/passwd > /dev/null ) ; then
          	usermod -aG "centreon,centreon-engine,centreon-broker" "www-data"
-         	usermod -aG "www-data" "centreon"
+         	usermod -aG "www-data,centreon-broker" "centreon"
+                usermod -aG "centreon-broker" "centreon-engine"
+                usermod -aG "centreon-engine,centreon" "centreon-broker"
     	fi
 
     	if [ -d "/usr/share/centreon/cron" ]; then
@@ -65,6 +67,11 @@ case "$1" in
         	chown centreon:centreon /var/lib/centreon/status
         	chmod 775 /var/lib/centreon/status
     	fi
+
+        if [ -d "/var/lib/centreon/sessions" ]; then
+                chown centreon:centreon /var/lib/centreon/sessions
+                chmod 775 /var/lib/centreon/sessions
+        fi
 
     	if [ -f "/usr/share/centreon/bin/logAnalyserBroker" ]; then
         	chown centreon:centreon /usr/share/centreon/bin/logAnalyserBroker
