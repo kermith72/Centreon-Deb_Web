@@ -1,0 +1,10 @@
+Package: centreon-widget-host-monitoring
+Version: 18.10.0-1
+Section: net
+Priority: extra
+Architecture: all
+Depends: centreon-web ( >=18.10.0)
+Installed-Size: 156
+Maintainer: Eric Coquard <eric.coquard@sugarbug.fr>
+Description: Centreon Widgets
+   Host Monitoring Display
