@@ -8,3 +8,4 @@ b8df4cc8376fe7c31dbb41717c50104d  usr/share/centreon/examples/clapi/create_confi
 cdc44dcd048a4e30893a695137966f2c  usr/share/centreon/examples/clapi/init_timezone.sh
 3397000474d833c5220bf67040b2a7ea  usr/share/centreon/examples/clapi/create_config_initialV2.sh
 9a8a8bb4e92915f59ac67f0d4025ebb4  usr/share/centreon/examples/clapi/create_template_snmp.sh
+66809dcfd522b557d29a5ff72ba099a9  usr/share/centreon/examples/clapi/add_root_mariadb.sh

@@ -4,6 +4,6 @@ Section: net
 Priority: extra
 Architecture: all
 Depends: centreon-ui ( >=18.10.2)
-Installed-Size: 212
+Installed-Size: 216
 Maintainer: Eric Coquard <eric.coquard@sugarbug.fr>
 Description: Scripts for Centreon Clapi
