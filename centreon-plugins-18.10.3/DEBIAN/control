@@ -1,0 +1,10 @@
+Package: centreon-plugins
+Version: 18.10.3-1
+Section: net
+Priority: extra
+Architecture: all
+Depends: centreon-common ( >=18.10.3), net-tools (>=1.60), snmp ( >=5.7.3 ), libxml-simple-perl ( >=2.22), liburi-encode-perl ( >=1.1.1 ), snmpd ( >= 5.7.3 ), snmptrapd ( >= 5.7.3 ), libnet-snmp-perl ( >= 6.0.1), libdate-manip-perl ( >= 6.57 ), libsnmp-perl ( >= 5.7.3), libdatetime-perl ( >= 1.42 ), libxml-libxml-perl (>=2.0128), libjson-perl (>=2.90), libwww-perl (>=6.15), libxml-xpath-perl (>=1.40), libnet-telnet-perl (>=3.04), libnet-ntp-perl (>=1.5), libnet-dns-perl (>=1.07), libdbi-perl (>=1.636), libdbd-mysql-perl (>=4.041), libdbd-pg-perl (>=3.5.3)
+Installed-Size: 24656
+Maintainer: Eric Coquard <eric.coquard@sugarbug.fr>
+Description: Centreon plugins
+   This package contains centreon plugins (Global Version: 20190318) and historical Centreon plugins. Configure snmpd daemon for this
