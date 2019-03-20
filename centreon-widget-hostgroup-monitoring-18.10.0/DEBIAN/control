@@ -1,5 +1,5 @@
 Package: centreon-widget-hostgroup-monitoring
-Version: 18.10.0-1
+Version: 18.10.0-2
 Section: net
 Priority: extra
 Architecture: all
