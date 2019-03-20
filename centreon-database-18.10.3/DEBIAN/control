@@ -1,5 +1,5 @@
 Package: centreon-database
-Version: 18.10.2-1
+Version: 18.10.3-1
 Section: net
 Priority: extra
 Architecture: all
