@@ -1,5 +1,5 @@
 Package: centreon-widget-live-top10-cpu-usage
-Version: 1.1.1-1
+Version: 1.1.1-2
 Section: net
 Priority: extra
 Architecture: all
