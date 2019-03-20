@@ -153,6 +153,7 @@ $query .= ' WHERE s.host_id = h.host_id ';
 $query .= ' AND h.name NOT LIKE \'_Module_%\' ';
 $query .= ' AND s.enabled = 1 ';
 $query .= ' AND h.enabled = 1 ';
+
 if (isset($preferences['host_name_search']) && $preferences['host_name_search'] != '') {
     $tab = explode(' ', $preferences['host_name_search']);
     $op = $tab[0];
@@ -262,16 +263,24 @@ if (isset($preferences['poller']) && $preferences['poller']) {
 }
 
 if (isset($preferences['hostgroup']) && $preferences['hostgroup']) {
-    $mainQueryParameters[] = [
-        'parameter' => ':hostgroup_hg_id',
-        'value' => $preferences['hostgroup'],
-        'type' => PDO::PARAM_INT
-    ];
+    $results = explode(',', $preferences['hostgroup']);
+    $queryHG ='';
+    foreach ($results as $result) {
+        if ($queryHG != '') {
+            $queryHG .= ', ';
+        }
+        $queryHG .= ":id_" . $result;
+        $mainQueryParameters[] = [
+            'parameter' => ':id_' . $result,
+            'value' => (int)$result,
+            'type' => PDO::PARAM_INT
+        ];
+    }
     $hostgroupHgIdCondition = <<<SQL
  s.host_id IN (
       SELECT host_host_id
       FROM {$conf_centreon['db']}.hostgroup_relation
-      WHERE hostgroup_hg_id = :hostgroup_hg_id)
+      WHERE hostgroup_hg_id IN ({$queryHG}))
 SQL;
     $query = CentreonUtils::conditionBuilder($query, $hostgroupHgIdCondition);
 }
@@ -394,7 +403,6 @@ foreach ($mainQueryParameters as $parameter) {
 }
 
 unset($parameter, $mainQueryParameters);
-
 $res->execute();
 
 $nbRows = $dbb->numberRows();
@@ -418,24 +426,30 @@ while ($row = $res->fetch()) {
     // last_check
     $valueLastCheck = (int)$row['last_check'];
     $valueLastCheckTimestamp = time() - $valueLastCheck;
-    if ($valueLastCheckTimestamp < 3600) {
+    if ($valueLastCheckTimestamp > 0
+        && $valueLastCheckTimestamp < 3600
+    ) {
         $valueLastCheck = CentreonDuration::toString($valueLastCheckTimestamp) . ' ago';
     }
     $data[$row['host_id'] . '_' . $row['service_id']]['last_check'] = $valueLastCheck;
 
     // last_state_change
     $valueLastState = (int)$row['last_state_change'];
-    $valueLastStateTimestamp = time() - $valueLastState;
-    if ($valueLastStateTimestamp < 3600) {
+    if ($valueLastState > 0) {
+        $valueLastStateTimestamp = time() - $valueLastState;
         $valueLastState = CentreonDuration::toString($valueLastStateTimestamp) . ' ago';
+    } else {
+        $valueLastState = 'N/A';
     }
     $data[$row['host_id'] . '_' . $row['service_id']]['last_state_change'] = $valueLastState;
 
     // last_hard_state_change
     $valueLastHardState = (int)$row['last_hard_state_change'];
-    $valueLastHardStateTimestamp = time() - $valueLastHardState;
-    if ($valueLastHardStateTimestamp < 3600) {
+    if ($valueLastHardState > 0) {
+        $valueLastHardStateTimestamp = time() - $valueLastHardState;
         $valueLastHardState = CentreonDuration::toString($valueLastHardStateTimestamp) . ' ago';
+    } else {
+        $valueLastHardState = 'N/A';
     }
     $data[$row['host_id'] . '_' . $row['service_id']]['last_hard_state_change'] = $valueLastHardState;
 

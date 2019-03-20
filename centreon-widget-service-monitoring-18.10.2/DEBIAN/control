@@ -1,9 +1,9 @@
 Package: centreon-widget-service-monitoring
-Version: 18.10.0-1
+Version: 18.10.2-1
 Section: net
 Priority: extra
 Architecture: all
-Depends: centreon-web ( >=18.10.0)
+Depends: centreon-web ( >=18.10.3)
 Installed-Size: 172
 Maintainer: Eric Coquard <eric.coquard@sugarbug.fr>
 Description: Centreon Widgets
