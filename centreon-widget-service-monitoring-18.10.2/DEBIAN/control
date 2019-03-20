@@ -4,7 +4,7 @@ Section: net
 Priority: extra
 Architecture: all
 Depends: centreon-web ( >=18.10.3)
-Installed-Size: 172
+Installed-Size: 176
 Maintainer: Eric Coquard <eric.coquard@sugarbug.fr>
 Description: Centreon Widgets
    Service Monitoring Display
