@@ -1,9 +1,9 @@
 Package: centreon-ui
-Version: 18.10.2-1
+Version: 18.10.3-1
 Section: net
 Priority: extra
 Architecture: all
-Depends: centreon-centcore ( >=18.10.2), sudo ( >=1.8.19 )
+Depends: centreon-centcore ( >=18.10.3), sudo ( >=1.8.19 )
 Installed-Size: 0
 Maintainer: Eric Coquard <eric.coquard@sugarbug.fr>
 Description: Centreon UI
