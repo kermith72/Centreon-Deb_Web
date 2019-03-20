@@ -32,43 +32,46 @@
  *
  */
 
-/**
- * Load Page
- */
-function loadPage()
-{
-    jQuery.ajax("./src/index.php?widgetId=" + widgetId + "&page=" + pageNumber, {
-        success: function (htmlData) {
-            jQuery("#hostMonitoringTable").empty().append(htmlData).append(function() {
-                var h = jQuery("#hostMonitoringTable").prop("scrollHeight");
-                parent.iResize(window.name, h);
-            });
-            jQuery('.checkall').on('change', function() {
-                var chck = this.checked;
-                $(this).parents().find(':checkbox').each(function () {
-                    $(this).prop('checked', chck);
-                    clickedCb[$(this).attr('id')] = chck;
-                });
-            });
+jQuery(function () {
+    if (nbRows > itemsPerPage) {
+        $("#pagination").pagination(nbRows, {
+            items_per_page: itemsPerPage,
+            current_page: pageNumber,
+            num_edge_entries : _num_edge_entries,
+            num_display_entries : _num_display_entries,
+            callback	: paginationCallback
+        }).append("<br/>");
+    }
+    
+    $(".selection").each(function() {
+        var curId = $(this).attr('id');
+        if (localStorage.getItem('w_hm_' + curId)) {
+            jQuery(this).prop('checked', true);
         }
     });
-    if (autoRefresh) {
-        if (timeout) {
-            clearTimeout(timeout);
+
+    jQuery(".selection").on('click', function() {
+        var curId = jQuery(this).attr('id');
+        var state = jQuery(this).prop('checked');
+        /**
+         key = w_hm_[ID]
+         w = widget
+         hm = host monitoring
+         */
+        if (state == true) {
+            localStorage.setItem('w_hm_' + curId, '1');
+        } else {
+            localStorage.removeItem('w_hm_' + curId);
         }
-        timeout = setTimeout(loadPage, (autoRefresh * 1000));
+    });
+
+    function paginationCallback(page_index, jq)
+    {
+        if (page_index != pageNumber) {
+            pageNumber = page_index;
+            clickedCb = new Array();
+            loadPage();
+        }
     }
-}
-
-/*
- * Load toolbar
- */
-function loadToolBar()
-{
-    jQuery("#toolBar").load("./src/toolbar.php",{widgetId: widgetId});
-}
-
-jQuery(function () {
-    loadToolBar();
-    loadPage();
 });
+

@@ -1,0 +1,17 @@
+860fa4552dddaaa977184483298a7854  usr/share/centreon/www/widgets/host-monitoring/src/export.php
+3e3f8b1efb4991a3aaaf740bfcf737d1  usr/share/centreon/www/widgets/host-monitoring/src/toolbar.php
+89362e9104423d9f8fc2f22961d2f830  usr/share/centreon/www/widgets/host-monitoring/src/toolbar.ihtml
+3ef0c27544a6f4d38b0df999f7c7396e  usr/share/centreon/www/widgets/host-monitoring/src/DB-Func.php
+dcb60662ad174e381bc842db89e5f3f5  usr/share/centreon/www/widgets/host-monitoring/src/export.ihtml
+238fb786cb652b8163a3342ac0ecf06a  usr/share/centreon/www/widgets/host-monitoring/src/sendCmd.php
+66c94d04e939fe694157f54f1da6f317  usr/share/centreon/www/widgets/host-monitoring/src/downtime.ihtml
+ac37af76246cf23488ff8d18c4698d8f  usr/share/centreon/www/widgets/host-monitoring/src/acknowledge.ihtml
+6e2f63126eb460db6bd82e43338a5886  usr/share/centreon/www/widgets/host-monitoring/src/index.php
+33919b00bfce0eff14dc0096609cd194  usr/share/centreon/www/widgets/host-monitoring/src/index.ihtml
+3119d10b150e98d8340e37eef7ce52ce  usr/share/centreon/www/widgets/host-monitoring/src/table.ihtml
+d2c52acc11bac631bdbe2705334f87b9  usr/share/centreon/www/widgets/host-monitoring/src/data_js.js
+8f5f9c78b1c90c28cd137e004e9d7f09  usr/share/centreon/www/widgets/host-monitoring/src/action.php
+d1251666436e2433244bbda6a8db58f8  usr/share/centreon/www/widgets/host-monitoring/configs.xml
+7ac5bb476cfba2fbf410be6700de7f87  usr/share/centreon/www/widgets/host-monitoring/data.js
+b19b3acdfe933e1afa74e2a4a8ffff12  usr/share/centreon/www/widgets/host-monitoring/resources/centreon-logo.png
+db62f9440a1a61746923f9f30cdf65b6  usr/share/centreon/www/widgets/host-monitoring/index.php

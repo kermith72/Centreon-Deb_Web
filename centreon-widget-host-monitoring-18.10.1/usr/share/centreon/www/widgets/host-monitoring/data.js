@@ -1,6 +1,6 @@
 /**
- * Copyright 2005-2011 MERETHIS
- * Centreon is developped by : Julien Mathis and Romain Le Merlus under
+ * Copyright 2005-2019 Centreon
+ * Centreon is developed by : Julien Mathis and Romain Le Merlus under
  * GPL Licence 2.0.
  *
  * This program is free software; you can redistribute it and/or modify it under
@@ -32,30 +32,43 @@
  *
  */
 
-jQuery(function () {
-    if (nbRows > itemsPerPage) {
-        $("#pagination").pagination(nbRows, {
-            items_per_page: itemsPerPage,
-            current_page: pageNumber,
-            num_edge_entries : _num_edge_entries,
-            num_display_entries : _num_display_entries,
-            callback	: paginationCallback
-        }).append("<br/>");
-    }
-    $(".selection").each(function() {
-        var curId = $(this).attr('id');
-        if (typeof(clickedCb[curId]) != 'undefined') {
-            this.checked = clickedCb[curId];
+/**
+ * Load Page
+ */
+function loadPage()
+{
+    jQuery.ajax("./src/index.php?widgetId=" + widgetId + "&page=" + pageNumber, {
+        success: function (htmlData) {
+            jQuery("#hostMonitoringTable").empty().append(htmlData).append(function() {
+                var h = jQuery("#hostMonitoringTable").prop("scrollHeight");
+                parent.iResize(window.name, h);
+            });
+            jQuery('.checkall').on('change', function() {
+                var chck = this.checked;
+                $(this).parents().find(':checkbox').each(function () {
+                    $(this).prop('checked', chck);
+                    clickedCb[$(this).attr('id')] = chck;
+                });
+            });
         }
     });
-
-    function paginationCallback(page_index, jq)
-    {
-        if (page_index != pageNumber) {
-            pageNumber = page_index;
-            clickedCb = new Array();
-            loadPage();
+    if (autoRefresh) {
+        if (timeout) {
+            clearTimeout(timeout);
         }
+        timeout = setTimeout(loadPage, (autoRefresh * 1000));
     }
-});
+}
 
+/*
+ * Load toolbar
+ */
+function loadToolBar()
+{
+    jQuery("#toolBar").load("./src/toolbar.php",{widgetId: widgetId});
+}
+
+jQuery(function () {
+    loadToolBar();
+    loadPage();
+});
