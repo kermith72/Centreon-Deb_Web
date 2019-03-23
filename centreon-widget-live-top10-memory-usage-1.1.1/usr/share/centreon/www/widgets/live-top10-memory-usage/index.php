@@ -36,17 +36,14 @@
 require_once "../require.php";
 require_once $centreon_path . 'www/class/centreon.class.php';
 require_once $centreon_path . 'www/class/centreonSession.class.php';
-require_once $centreon_path . 'www/class/centreonDB.class.php';
 require_once $centreon_path . 'www/class/centreonWidget.class.php';
 require_once $centreon_path . 'www/class/centreonDuration.class.php';
 require_once $centreon_path . 'www/class/centreonUtils.class.php';
 require_once $centreon_path . 'www/class/centreonACL.class.php';
 require_once $centreon_path . 'www/class/centreonHost.class.php';
+require_once $centreon_path . 'bootstrap.php';
 
 session_start();
-
-//load smarty
-require_once $centreon_path . 'GPL_LIB/Smarty/libs/Smarty.class.php';
 
 if (!isset($_SESSION['centreon']) || !isset($_REQUEST['widgetId'])) {
     exit;
@@ -54,13 +51,11 @@ if (!isset($_SESSION['centreon']) || !isset($_REQUEST['widgetId'])) {
 
 $centreon = $_SESSION['centreon'];
 $widgetId = $_REQUEST['widgetId'];
+$grouplistStr = '';
 
 try {
-    global $pearDB;
-
-    $db_centreon = new CentreonDB();
-    $db = new CentreonDB("centstorage");
-    $pearDB = $db_centreon;
+    $db_centreon = $dependencyInjector['configuration_db'];
+    $db = $dependencyInjector['realtime_db'];
 
     $widgetObj = new CentreonWidget($centreon, $db_centreon);
     $preferences = $widgetObj->getWidgetPreferences($widgetId);
@@ -68,13 +63,13 @@ try {
     if (isset($preferences['refresh_interval'])) {
         $autoRefresh = $preferences['refresh_interval'];
     }
-    
+
 } catch (Exception $e) {
     echo $e->getMessage() . "<br/>";
     exit;
 }
 
- if ($centreon->user->admin == 0) {
+if ($centreon->user->admin == 0) {
     $access = new CentreonACL($centreon->user->get_id());
     $grouplist = $access->getAccessGroups();
     $grouplistStr = $access->getAccessGroupsString();
@@ -113,6 +108,8 @@ $in = 0;
 
 function getUnit($in)
 {
+    $return = null;
+
     if ($in == 0) {
         $return = "B";
     } else if ($in == 1) {
@@ -124,11 +121,12 @@ function getUnit($in)
     } else if ($in == 4) {
         $return = "TB";
     }
+
     return $return;
 }
 
-
 $res = $db->query($query);
+
 while ($row = $res->fetchRow()) {
     $row['numLin'] = $numLine;
     while ($row['remaining_space'] >= 1024) {
@@ -144,10 +142,8 @@ while ($row = $res->fetchRow()) {
 }
 
 $template->assign('preferences', $preferences);
-$template->assign('widgetID', $widgetId);
+$template->assign('widgetId', $widgetId);
 $template->assign('preferences', $preferences);
 $template->assign('autoRefresh', $autoRefresh);
 $template->assign('data', $data);
 $template->display('table_top10memory.ihtml');
-?>
-
