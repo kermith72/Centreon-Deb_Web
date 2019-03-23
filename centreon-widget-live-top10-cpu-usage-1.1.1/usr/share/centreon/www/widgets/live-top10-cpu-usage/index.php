@@ -36,17 +36,14 @@
 require_once "../require.php";
 require_once $centreon_path . 'www/class/centreon.class.php';
 require_once $centreon_path . 'www/class/centreonSession.class.php';
-require_once $centreon_path . 'www/class/centreonDB.class.php';
 require_once $centreon_path . 'www/class/centreonWidget.class.php';
 require_once $centreon_path . 'www/class/centreonDuration.class.php';
 require_once $centreon_path . 'www/class/centreonUtils.class.php';
 require_once $centreon_path . 'www/class/centreonACL.class.php';
 require_once $centreon_path . 'www/class/centreonHost.class.php';
+require_once $centreon_path . 'bootstrap.php';
 
 CentreonSession::start(1);
-
-//load smarty
-require_once $centreon_path . 'GPL_LIB/Smarty/libs/Smarty.class.php';
 
 if (!isset($_SESSION['centreon']) || !isset($_REQUEST['widgetId'])) {
     exit;
@@ -54,13 +51,11 @@ if (!isset($_SESSION['centreon']) || !isset($_REQUEST['widgetId'])) {
 
 $centreon = $_SESSION['centreon'];
 $widgetId = $_REQUEST['widgetId'];
+$grouplistStr = '';
 
 try {
-    global $pearDB;
-
-    $db_centreon = new CentreonDB("centreon");
-    $db = new CentreonDB("centstorage");
-    $pearDB = $db_centreon;
+    $db_centreon = $dependencyInjector['configuration_db'];
+    $db = $dependencyInjector['realtime_db'];
 
     $widgetObj = new CentreonWidget($centreon, $db_centreon);
     $preferences = $widgetObj->getWidgetPreferences($widgetId);
@@ -121,7 +116,7 @@ while ($row = $res->fetchRow()) {
 }
 
 $template->assign('preferences', $preferences);
-$template->assign('widgetID', $widgetId);
+$template->assign('widgetId', $widgetId);
 $template->assign('autoRefresh', $autoRefresh);
 $template->assign('data', $data);
 $template->display('table_top10cpu.ihtml');
