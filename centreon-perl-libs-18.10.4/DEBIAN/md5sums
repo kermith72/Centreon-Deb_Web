@@ -24,5 +24,5 @@ a7c64181cb8cd160d7027412fc2d195b  usr/share/perl5/centreon/script/centreontrapd.
 56c01686d1bf227599f7608ba3f77707  usr/share/perl5/centreon/script/centreonSyncPlugins.pm
 0b1aed8ebb48517bd28cc36d75980200  usr/share/perl5/centreon/script/centreon_trap_send.pm
 6b70b0ce6e444b76dea20c14158a49e6  usr/share/perl5/centreon/script/eventReportBuilder.pm
-042c492458c1a4ade9505f87010612d8  usr/share/perl5/centreon/script/centcore.pm
+8a108790134e8cb0819afc21e0c752ba  usr/share/perl5/centreon/script/centcore.pm
 48e63395a3068fdf5ffe003ea5568aac  usr/share/perl5/centreon/script/centFillTrapDB.pm
