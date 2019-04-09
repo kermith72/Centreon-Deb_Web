@@ -261,8 +261,8 @@ then
    echo create poller host
    $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a add -v "$NAME_POLLER;poller $NAME_POLLER;$IP_POLLER;generic-host;$NAME_POLLER;Linux-Servers"
    [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a add -v "$NAME_POLLER;poller $NAME_POLLER;$IP_POLLER;generic-host;$NAME_POLLER;Linux-Servers"
-   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a addtemplate -v "$NAME_POLLER;OS-Linux-SNMPV2"
-   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a addtemplate -v "$NAME_POLLER;OS-Linux-SNMPV2"
+   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a addtemplate -v "$NAME_POLLER;htpl_OS-Linux-SNMP"
+   [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a addtemplate -v "$NAME_POLLER;htpl_OS-Linux-SNMP"
    $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a applytpl -v "$NAME_POLLER"
    [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a applytpl -v "$NAME_POLLER"
 else
