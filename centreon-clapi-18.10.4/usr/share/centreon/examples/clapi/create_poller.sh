@@ -263,6 +263,10 @@ then
    [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a add -v "$NAME_POLLER;poller $NAME_POLLER;$IP_POLLER;generic-host;$NAME_POLLER;Linux-Servers"
    $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a addtemplate -v "$NAME_POLLER;htpl_OS-Linux-SNMP"
    [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a addtemplate -v "$NAME_POLLER;htpl_OS-Linux-SNMP"
+   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a setmacro -v "$NAME_POLLER;SNMPCOMMUNITY;public"
+   [ "$DEBUG" == "yes" ] && $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a setmacro -v "$NAME_POLLER;SNMPCOMMUNITY;public"
+   $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a setmacro -v "$NAME_POLLER;SNMPVERSION;2c"
+   [ "$DEBUG" == "yes" ] && $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a setmacro -v "$NAME_POLLER;SNMPVERSION;2c"
    $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a applytpl -v "$NAME_POLLER"
    [ "$DEBUG" == "yes" ] && echo $CLAPI_DIR/centreon -u $USER_CENTREON -p $PWD_CENTREON -o host -a applytpl -v "$NAME_POLLER"
 else
