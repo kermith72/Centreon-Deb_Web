@@ -1,8 +1,5 @@
-#!/bin/bash
+i#!/bin/bash
 # create_template_local.sh
-# version 1.00
-# 09/04/2019
-
 
 create_cmd_local() {
 	
@@ -60,7 +57,7 @@ create_cmd_local() {
   [ $? -ne 0 ] && $CLAPI -o CMD -a ADD -v 'cmd_os_linux_local_cpu-det-guest;check;$CENTREONPLUGINS$/centreon_plugins.pl --plugin=os::linux::local::plugin --mode=cpu-detailed --warning-guest=$_SERVICEWARNING$ --critical-guest=$_SERVICECRITICAL$ $_SERVICEOPTION$ '
   
   exist_object CMD cmd_os_linux_local_cpu-det-guestnice
-  [ $? -ne 0 ] && $CLAPI -o CMD -a ADD -v 'cmd_os_linux_local_cpu-det-guestnice;check;$CENTREONPLUGINS$/centreon_plugins.pl --plugin=os::local::snmp::plugin --mode=cpu-detailed --warning-guestnice=$_SERVICEWARNING$ --critical-guestnice=$_SERVICECRITICAL$ $_SERVICEOPTION$ '
+  [ $? -ne 0 ] && $CLAPI -o CMD -a ADD -v 'cmd_os_linux_local_cpu-det-guestnice;check;$CENTREONPLUGINS$/centreon_plugins.pl --plugin=os::linux::local::plugin --mode=cpu-detailed --warning-guestnice=$_SERVICEWARNING$ --critical-guestnice=$_SERVICECRITICAL$ $_SERVICEOPTION$ '
 
 
   # cmd_os_linux_local_load
@@ -249,7 +246,7 @@ create_stpl_local () {
   if [ $? -ne 0 ]
   then
     $CLAPI -o STPL -a add -v "stpl_os_linux_local_load;Load-local;service-generique-actif"
-    $CLAPI -o STPL -a setparam -v "stpl_os_linux_local_load;check_command;check_centreon_plugin_load_SNMP"
+    $CLAPI -o STPL -a setparam -v "stpl_os_linux_local_load;check_command;cmd_os_linux_local_load"
     $CLAPI -o STPL -a setmacro -v "stpl_os_linux_local_load;WARNING;4,3,2"
     $CLAPI -o STPL -a setmacro -v "stpl_os_linux_local_load;CRITICAL;6,5,4"
     $CLAPI -o STPL -a setparam -v "stpl_os_linux_local_load;graphtemplate;LOAD_Average"
