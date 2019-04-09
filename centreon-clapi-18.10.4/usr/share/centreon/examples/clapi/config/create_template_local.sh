@@ -1,4 +1,4 @@
-i#!/bin/bash
+#!/bin/bash
 # create_template_local.sh
 
 create_cmd_local() {
