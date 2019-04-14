@@ -1,5 +1,5 @@
 Package: centreon-clapi
-Version: 18.10.4-1
+Version: 18.10.4-2
 Section: net
 Priority: extra
 Architecture: all

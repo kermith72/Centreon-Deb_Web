@@ -1,6 +1,8 @@
 #!/bin/bash
 # create_config_initialV3.sh
-# version 3
+# version 3.01
+# date 14/04/2019
+# bugfix name ip for raspberry
 # date 09/04/2019
 # code improvement
 # date 28/03/2019
@@ -250,7 +252,7 @@ then
   $CLAPI -o host -a applytpl -v "Central"
 
   #retrieve name interface
-  NAMEINTERFACE=`ip link | awk -F: '$0 !~ "lo|vir|^[^0-9]"{print $2a;getline}'`
+  NAMEINTERFACE=`ip link | grep 'state UP' | awk -F: '$0 !~ "lo|vir|^[^0-9]"{print $2a;getline}'`
 
   $CLAPI -o service -a add -v "Central;Interface-$NAMEINTERFACE;stpl_os_linux_local_network_name"
   $CLAPI -o service -a setmacro -v "Central;Interface-$NAMEINTERFACE;INTERFACE;$NAMEINTERFACE"
