@@ -1,0 +1,10 @@
+Package: centreon-web
+Version: 19.04.0-1
+Section: net
+Priority: extra
+Architecture: all
+Depends: centreon-broker-cbd ( >=19.04.0 ), centreon-widget-engine-status ( >=19.04.0), centreon-widget-graph-monitoring ( >=19.04.0), centreon-widget-grid-map ( >=19.04.0), centreon-widget-host-monitoring ( >=19.04.0), centreon-widget-hostgroup-monitoring ( >=19.04.0), centreon-widget-httploader ( >=19.04.0), centreon-widget-live-top10-cpu-usage ( >=19.04.0), centreon-widget-live-top10-memory-usage ( >=19.04.0), centreon-widget-service-monitoring ( >=19.04.0), centreon-widget-servicegroup-monitoring ( >=19.04.0), centreon-widget-tactical-overview ( >=19.04.0), centreon-perl-libs ( >=19.04.0), centreon-common (>=19.04.0), php7.1 (>=7.1.20), sudo ( >=1.8.19 ), tofrodos (>=1.7.13), bsd-mailx (>=8.1.2),  lsb-release (>=9.20161125), libapache2-mod-php7.1 (>=7.1.20), php7.1-intl (>=7.1.20), php7.1-mysql (>=7.1.20), php7.1-ldap (>=7.1.20),  php7.1-snmp (>=7.1.20),  php7.1-gd (>=7.1.20), php-pear (>=1.10.6), libdigest-sha-perl (>=5.96), libgd-perl (>= 2.53), php7.1-sqlite3 (>=7.1.20), php7.1-readline (>=7.1.20), php7.1-fpm (>=7.1.20), php7.1-zip (>=7.1.20), php7.1-xml (>=7.1.20), php7.1-mbstring (>=7.1.20), php7.1-mcrypt (>=7.1.20), php7.1-json (>=7.1.20), php7.1-curl (>=7.1.20), php7.1-opcache (>=7.1.20), libconfig-inifiles-perl (>=2.94), libcrypt-des-perl (>=2.07), libdigest-hmac-perl (>=1.0.3), php-db (>=1.9.2), php-date (>=1.4.7) 
+Installed-Size: 563684
+Maintainer: Eric Coquard <eric.coquard@sugarbug.fr>
+Description: Centreon WebUI
+   This package contains WebUI files.
