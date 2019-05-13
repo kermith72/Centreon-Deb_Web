@@ -1,9 +1,9 @@
 Package: centreon-widget-live-top10-memory-usage
-Version: 18.10.0-1
+Version: 19.04.0-1
 Section: net
 Priority: extra
 Architecture: all
-Depends: centreon-web ( >=18.10.4)
+Depends: centreon-web ( >=19.04.0)
 Installed-Size: 88
 Maintainer: Eric Coquard <eric.coquard@sugarbug.fr>
 Description: Centreon Widgets
