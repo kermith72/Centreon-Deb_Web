@@ -7,10 +7,10 @@ b7c32f3635a1ba916e8c552b20b2a274  usr/share/centreon/www/widgets/service-monitor
 9c9f423f46b7a479e712fc25f7f6072d  usr/share/centreon/www/widgets/service-monitoring/src/acknowledge.ihtml
 cea61735240a1fcae73a587a34997e50  usr/share/centreon/www/widgets/service-monitoring/src/index.php
 7d9083abd6bd7904e3349bda147dc44c  usr/share/centreon/www/widgets/service-monitoring/src/index.ihtml
-7bca11ca0ddd2787cffdef5730d6c071  usr/share/centreon/www/widgets/service-monitoring/src/table.ihtml
+bb427beaeb6595fb3c8a4664d5aedb4a  usr/share/centreon/www/widgets/service-monitoring/src/table.ihtml
 92f8fef9a5cd52b8f6d881ddcf1c9e97  usr/share/centreon/www/widgets/service-monitoring/src/data_js.js
 5c6a9b018d5836eedecb9ad31a776f2d  usr/share/centreon/www/widgets/service-monitoring/src/action.php
-e763c257d069d4aea57fdabe724ff111  usr/share/centreon/www/widgets/service-monitoring/configs.xml
+95b45c49a12d376ed47efe7cb777b98f  usr/share/centreon/www/widgets/service-monitoring/configs.xml
 b701e7ecf929bb494aa4a67de659f304  usr/share/centreon/www/widgets/service-monitoring/data.js
 b19b3acdfe933e1afa74e2a4a8ffff12  usr/share/centreon/www/widgets/service-monitoring/resources/centreon-logo.png
 8803a8b60c0e5d2bd9843d6d125a6c0d  usr/share/centreon/www/widgets/service-monitoring/index.php
