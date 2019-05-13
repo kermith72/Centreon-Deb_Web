@@ -1,16 +1,17 @@
 [Unit]
 Description=Enable service provided CentreonTrapd : Manage SNMP Traps
-After=syslog.target network.target
-ConditionPathExists=/usr/share/centreon/bin/centreontrapd
+PartOf=centreon.service
+After=centreon.service
+ReloadPropagatedFrom=centreon.service
 
 [Service]
 Type=simple
 PIDFile=/var/run/centreon/centreontrapd.pid
 EnvironmentFile=/etc/default/centreontrapd
 User=centreon
+ExecReload=/bin/kill -HUP $MAINPID
 ExecStart=/usr/share/centreon/bin/centreontrapd $OPTIONS
 TimeoutSec=0
 
 [Install]
-WantedBy=multi-user.target
-
+WantedBy=centreon.service
