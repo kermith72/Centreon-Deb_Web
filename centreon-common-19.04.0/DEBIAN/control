@@ -1,9 +1,9 @@
 Package: centreon-common
-Version: 18.10.4-1
+Version: 19.04.0-1
 Section: net
 Priority: extra
 Architecture: all
-Depends: centreon-engine ( >=18.10.0)
+Depends: centreon-engine ( >=19.04.0)
 Installed-Size: 40
 Maintainer: Eric Coquard <eric.coquard@sugarbug.fr>
 Description: Centreon common package
