@@ -1,7 +1,8 @@
 [Unit]
 Description=Enable service provided CentCore : Manage pollers
-After=syslog.target network.target
-ConditionPathExists=/usr/share/centreon/bin/centcore
+PartOf=centreon.service
+After=centreon.service
+ReloadPropagatedFrom=centreon.service
 
 [Service]
 Type=simple
@@ -9,8 +10,8 @@ PIDFile=/var/run/centreon/centcore.pid
 EnvironmentFile=/etc/default/centcore
 User=centreon
 ExecStart=/usr/share/centreon/bin/centcore $OPTIONS
+ExecReload=/bin/kill -HUP $MAINPID
 TimeoutSec=0
 
 [Install]
-WantedBy=multi-user.target
-
+WantedBy=centreon.service
