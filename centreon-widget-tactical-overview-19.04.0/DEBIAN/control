@@ -1,10 +1,10 @@
 Package: centreon-widget-tactical-overview
-Version: 18.10.0-2
+Version: 19.04.0-1
 Section: net
 Priority: extra
 Architecture: all
-Depends: centreon-web ( >=18.10.0)
-Installed-Size: 96
+Depends: centreon-web ( >=19.04.0)
+Installed-Size: 100
 Maintainer: Eric Coquard <eric.coquard@sugarbug.fr>
 Description: Centreon Widgets
 	Tactical Overview
