@@ -1,10 +1,10 @@
 Package: centreon-widget-httploader
-Version: 18.10.0-2
+Version: 19.04.0-1
 Section: net
 Priority: extra
 Architecture: all
-Depends: centreon-web ( >=18.10.0)
-Installed-Size: 64
+Depends: centreon-web ( >=19.04.0)
+Installed-Size: 68
 Maintainer: Eric Coquard <eric.coquard@gmail.com>
 Description: Centreon Widgets
    httploader
