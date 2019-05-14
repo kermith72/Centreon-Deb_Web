@@ -1,8 +1,12 @@
 #!/bin/bash
 # create_config_initialV3.sh
+# version 3.02
+# Enhancements : fix notification for admin
 # version 3.01
 # date 14/04/2019
 # bugfix name ip for raspberry
+# date 09/04/2019
+# version 3
 # date 09/04/2019
 # code improvement
 # date 28/03/2019
@@ -258,6 +262,11 @@ then
   $CLAPI -o service -a setmacro -v "Central;Interface-$NAMEINTERFACE;INTERFACE;$NAMEINTERFACE"
 fi
 
+### application des commandes de notification pour l'admin
+
+$CLAPI -o contact -a setparam -v "admin;hostnotifcmd;host-notify-by-email"
+$CLAPI -o contact -a setparam -v "admin;svcnotifcmd;service-notify-by-email"
+
 ### application de la configation poller "central"
 
 #*****************
@@ -283,4 +292,3 @@ if [ $? = 0 ];then
 else
   echo "Error generate configuration !!!"
 fi
-

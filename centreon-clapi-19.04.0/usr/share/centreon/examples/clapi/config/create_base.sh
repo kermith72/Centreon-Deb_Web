@@ -3,7 +3,6 @@
 # version 1.00
 # 09/04/2019
 
-
 create_cmd_base () {
 
   # check_HOST_ALIVE
@@ -80,5 +79,4 @@ create_htpl_base () {
     $CLAPI -o STPL -a addhost -v "Ping-Lan-service;generic-host"
   fi	
 }
-
 

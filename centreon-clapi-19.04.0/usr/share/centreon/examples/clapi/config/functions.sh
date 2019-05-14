@@ -3,7 +3,6 @@
 # version 1.00
 # 09/04/2019
 
-
 exist_object () {
   $CLAPI -o ${1} -a SHOW -v "${2}" | grep "${2};" > /dev/null
 }

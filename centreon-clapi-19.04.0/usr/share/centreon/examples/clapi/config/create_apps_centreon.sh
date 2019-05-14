@@ -114,4 +114,3 @@ create_centreon_central() {
     $CLAPI -o STPL -a addhost -v "stpl_app_centreon_process-broker-rrd;htpl_App-centreon-central"
   fi
 }
-

@@ -3,8 +3,6 @@
 # version 1.00
 # 09/04/2019
 
-
-
 create_cmd_snmp() {
   #-----------------------------------------------------------------------------------------------------------------------------------
   # Modes Available:
@@ -130,4 +128,3 @@ create_linux_snmp () {
     $CLAPI -o HTPL -a addtemplate -v "htpl_OS-Linux-SNMP;generic-host"
   fi
 }
-

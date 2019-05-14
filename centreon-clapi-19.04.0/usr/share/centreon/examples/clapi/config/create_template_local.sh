@@ -1,5 +1,7 @@
 #!/bin/bash
 # create_template_local.sh
+# version 1.00
+# 09/04/2019
 
 create_cmd_local() {
 	
@@ -322,4 +324,3 @@ create_linux_local () {
   fi
 
 }
-

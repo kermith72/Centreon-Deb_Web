@@ -3,8 +3,6 @@
 # version 1.00
 # 09/04/2019
 
-
-
 create_cmd_mysql() {
   
   #cmd_app_db_mysl
@@ -173,4 +171,3 @@ create_apps_mysql () {
     $CLAPI -o HTPL -a setmacro -v "htpl_App-MySQL;MYSQLPORT;3306"
   fi
 }
-

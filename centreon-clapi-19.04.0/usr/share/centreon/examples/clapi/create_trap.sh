@@ -1,10 +1,12 @@
 #!/bin/bash
 # create_trap.sh
-# version 1.03
-# date 31/08/2018
+# version 1.04
+# date 14/05/2019
 # use Centreon_Clapi
 # USER_CENTREON name of admin
 # PWD_CENTREON password admin
+# version 1.04
+# modify template htpl_OS-Linux-SNMP
 # version 1.03
 # add new template
 #
@@ -101,7 +103,7 @@ then
    echo create template trap SNMP
    $CLAPI -o STPL -a add -v "Model_Trap_Linux;TRAP_LINUX;generic-service-passif"
    $CLAPI -o STPL -a addhost -v "Model_Trap_Linux;htpl_OS-Linux-local"
-   $CLAPI -o STPL -a addhost -v "Model_Trap_Linux;OS-Linux-SNMPV2"
+   $CLAPI -o STPL -a addhost -v "Model_Trap_Linux;htpl_OS-Linux-SNMP"
    $CLAPI -o STPL -a addtrap -v "Model_Trap_Linux;linkDown"
    $CLAPI -o STPL -a addtrap -v "Model_Trap_Linux;linkUp"
    $CLAPI -o STPL -a addtrap -v "Model_Trap_Linux;warmStart"
