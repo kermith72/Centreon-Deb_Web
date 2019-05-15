@@ -4,11 +4,11 @@
         <email>contact@centreon.com</email>
         <website>http://www.centreon.com</website>
         <description>Widget for top 10 hosts depending on a specific metric</description>
-        <version>18.10.24</version>
+        <version>19.04.00</version>
         <keywords>centreon, widget, cpu</keywords>
         <screenshot></screenshot>
-        <thumbnail>./widgets/centreon-live-top10-metric-usage/resources/logo1.png</thumbnail>
-        <url>./widgets/centreon-live-top10-metric-usage/index.php</url>
+        <thumbnail>./widgets/live-top10-metric-usage/resources/logo1.png</thumbnail>
+        <url>./widgets/live-top10-metric-usage/index.php</url>
         <autoRefresh>10</autoRefresh>
 	<preferences>
         <preference label="Host Group Name" name="host_group" defaultValue="" type="hostGroupMulti" header="Filters"/>

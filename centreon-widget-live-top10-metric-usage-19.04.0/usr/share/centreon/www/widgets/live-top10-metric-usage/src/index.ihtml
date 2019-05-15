@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>centreon-live-top10-metric-usage</title>
+	<title>live-top10-metric-usage</title>
 	<link href="resources/css/line-awesome-font-awesome.min.css" type="text/css" rel="stylesheet"/>
 	<link href="src/chart.css" type="text/css" rel="stylesheet"/>
 </head>

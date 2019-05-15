@@ -1,8 +1,8 @@
 bb8329313757ce3af7bd981d5238d7d1  usr/share/centreon/www/widgets/live-top10-metric-usage/src/chart.js
 5d1644f243a36c1081291ddb45d9a52d  usr/share/centreon/www/widgets/live-top10-metric-usage/src/chart.css
-6d8c7640579c893244431ec51d75be07  usr/share/centreon/www/widgets/live-top10-metric-usage/src/index.ihtml
+c6a5109871b86dbcfad0c1fe6bcad68a  usr/share/centreon/www/widgets/live-top10-metric-usage/src/index.ihtml
 92c6fdb3f6708c7be416e1d7a7ddd9b3  usr/share/centreon/www/widgets/live-top10-metric-usage/src/data_js.js
-47a646bda6c64044585b743c6819ea03  usr/share/centreon/www/widgets/live-top10-metric-usage/configs.xml
+f649f6e7786c3a26bbbca21f6c59ee90  usr/share/centreon/www/widgets/live-top10-metric-usage/configs.xml
 77a13dc83d8c7db6cefbebed0a603096  usr/share/centreon/www/widgets/live-top10-metric-usage/README.md
 90202d7fe9edb865732e459eb6e661b3  usr/share/centreon/www/widgets/live-top10-metric-usage/resources/logo1.png
 97d524a1d711eee887028a2e4a6282ab  usr/share/centreon/www/widgets/live-top10-metric-usage/resources/logo.png
@@ -19,7 +19,7 @@ f0a3eba4191c1f8e6d0aef2f6d1c40c9  usr/share/centreon/www/widgets/live-top10-metr
 764724132e5c881ab719e3ca6ec4ec59  usr/share/centreon/www/widgets/live-top10-metric-usage/resources/images/Centreon_Logo_V_RVB.svg
 a2d9319e7acb17b4f45bdc56a57fe977  usr/share/centreon/www/widgets/live-top10-metric-usage/resources/images/avatar.svg
 c5ce9714656cccef61370cc1167f541c  usr/share/centreon/www/widgets/live-top10-metric-usage/resources/css/line-awesome-font-awesome.min.css
-ee38b8221ac378101a9bbf020137c8e0  usr/share/centreon/www/widgets/live-top10-metric-usage/index.php
+c0fe7469d456a644ec5a05971e4a91ee  usr/share/centreon/www/widgets/live-top10-metric-usage/index.php
 7d28f1e67c872a893e4bb8218330f1f9  usr/share/centreon/www/widgets/live-top10-metric-usage/doc/images/toolbar2.jpg
 1270a7cdd387fe5cb7e7c934baac4492  usr/share/centreon/www/widgets/live-top10-metric-usage/doc/images/annotations2.jpg
 d2947ae169566a1f7b58c56a7e20c831  usr/share/centreon/www/widgets/live-top10-metric-usage/doc/images/title.jpg

@@ -84,7 +84,7 @@ if ($centreon->user->admin == 0) {
 }
 
 //configure smarty
-$path = $centreon_path . "www/widgets/centreon-live-top10-metric-usage/src/";
+$path = $centreon_path . "www/widgets/live-top10-metric-usage/src/";
 $template = new Smarty();
 $template = initSmartyTplForPopup($path, $template, "./", $centreon_path);
 
