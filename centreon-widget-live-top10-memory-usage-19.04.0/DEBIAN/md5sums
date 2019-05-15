@@ -1,7 +1,7 @@
 881e0ca9f56b5af2926ca6fa3ac9c6fb  usr/share/centreon/www/widgets/live-top10-memory-usage/src/top10_memory.css
 02f06a5b0ab0ceaff0c30803936dc809  usr/share/centreon/www/widgets/live-top10-memory-usage/src/table_top10memory.ihtml
 60278d0456e8f595dc0b1094f92f04f1  usr/share/centreon/www/widgets/live-top10-memory-usage/src/data_js.js
-6b7c466c49997533c8bfc59f0b8305a5  usr/share/centreon/www/widgets/live-top10-memory-usage/configs.xml
+45fa8e3c82acd5f05f4ec2ab782fba46  usr/share/centreon/www/widgets/live-top10-memory-usage/configs.xml
 90202d7fe9edb865732e459eb6e661b3  usr/share/centreon/www/widgets/live-top10-memory-usage/resources/logo1.png
 4e45023c9253827be22b9757db1d97ff  usr/share/centreon/www/widgets/live-top10-memory-usage/resources/merethis-logo.png
 f0a3eba4191c1f8e6d0aef2f6d1c40c9  usr/share/centreon/www/widgets/live-top10-memory-usage/resources/centreon-logo.png

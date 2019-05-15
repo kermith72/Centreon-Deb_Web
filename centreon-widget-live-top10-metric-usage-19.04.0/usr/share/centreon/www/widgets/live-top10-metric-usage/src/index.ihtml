@@ -1,0 +1,56 @@
+<html>
+<head>
+	<title>centreon-live-top10-metric-usage</title>
+	<link href="resources/css/line-awesome-font-awesome.min.css" type="text/css" rel="stylesheet"/>
+	<link href="src/chart.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+    <script type="text/javascript" src="../../include/common/javascript/jquery/jquery.js"></script>
+    <script type="text/javascript" src="../../include/common/javascript/jquery/jquery-ui.js"></script>
+    <script type="text/javascript" src="../../include/common/javascript/widgetUtils.js"></script>
+
+	<!-- handle various errors -->
+    {if $warning != ""}
+		<div class="errorWrapper">
+			<img src="./resources/images/Centreon_Logo_V_RVB.svg" alt="centreon logo" class="centreonLogo">
+			<span class="fontWarningIcon motionSpan"><i class="fa fa-warning"></i></span>
+			<span class="warningMessage">{$error}</span>
+		</div>
+	{elseif $error != ""}
+		<div class="errorWrapper">
+			<img src="./resources/images/Centreon_Logo_V_RVB.svg" alt="centreon logo" class="centreonLogo">
+			<span class="fontErrorIcon motionSpan"><i class="fa fa-warning"></i></span>
+			<span class="errorMessage">{$error}</span>
+		</div>
+
+	<!-- handle data if no errors were found	 -->
+    {else}
+        {assign var='adata' value=$data|@json_encode}
+        {assign var='apreferences' value=$preferences|@json_encode}
+        {if $data != "" && $data != NULL}
+			<div id="chart">
+		        <script type="text/javascript" src="resources/js/apexcharts.min.js" ></script>
+		        <script type="text/javascript" src="src/chart.js"></script>
+		        <script>
+		            loadGraph({$adata}, {$apreferences}, window.innerWidth);
+		        </script>
+			</div>
+
+		<!-- print error if no data has been found	 -->
+		{else}
+			<div class="errorWrapper">
+				<img src="./resources/images/Centreon_Logo_V_RVB.svg" alt="centreon logo" class="centreonLogo">
+				<span class="fontErrorIcon motionSpan"><i class="fa fa-warning"></i></span>
+				<span class="errorMessage">No data found, please check your widget's parameters</span>
+			</div>
+	    {/if}
+    {/if}
+
+	<!-- refresh iframe -->
+	<script>
+        parent.iResize(window.name, "{$preferences.height}");
+        var refresh_interval = "{$preferences.refresh_interval}";
+    </script>
+    <script type="text/javascript" src="src/data_js.js"></script>
+</body>
+</html>

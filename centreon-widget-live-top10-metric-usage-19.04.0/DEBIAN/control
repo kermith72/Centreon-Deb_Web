@@ -1,0 +1,10 @@
+Package: centreon-widget-live-top10-metric-usage
+Version: 19.04.0-1
+Section: net
+Priority: extra
+Architecture: all
+Depends: centreon-web ( >=19.04.0)
+Installed-Size: 1824
+Maintainer: Eric Coquard <eric.coquard@sugarbug.fr>
+Description: Centreon Widgets
+   Metrics top 10 usage

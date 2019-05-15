@@ -1,0 +1,83 @@
+body {
+    margin: 0;
+}
+
+@font-face {
+  font-family: LeagueMono;
+  src: url(../resources/fonts/LeagueMono-BoldNormal.otf);
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: jost;
+  src: url(../resources/fonts/Jost-100-Hairline.otf);
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: jost;
+  src: url(../resources/fonts/Jost-400-Book.otf);
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: jost;
+  src: url(../resources/fonts/Jost-200-Thin.otf);
+  font-weight: lighter;
+}
+
+
+#chart {
+    /* background: rgba(11,11,11,11); */
+}
+
+.apexcharts-datalabel {
+    font-weight: normal;
+    color: #fff;
+    font-size: 14px;
+    text-rendering: geometricPrecision;
+    letter-spacing: 2px;
+}
+.xAxisCSS {
+    font-weight: bold;
+}
+
+.yAxisCSS {
+    font-weight: normal;
+}
+
+.errorWrapper {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.centreonLogo {
+    display: inline-block;
+    margin: 2% auto;
+}
+
+.warningMessage {
+    display: block;
+    font-family: jost;
+}
+
+.errorMessage {
+    display: block;
+    font-family: jost;
+}
+
+.fontWarningIcon {
+    display: block;
+    color: #FEB019;
+}
+
+.fontErrorIcon {
+    display: block;
+    color: #FF4560;
+}
+
+.fa {
+    margin-top:5%;
+    font-size: 5em;
+}

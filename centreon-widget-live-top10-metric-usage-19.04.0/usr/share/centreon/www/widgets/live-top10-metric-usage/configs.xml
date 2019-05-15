@@ -1,0 +1,63 @@
+<configs>
+        <title>Live Top 10 Metric Usage</title>
+        <author>Centreon</author>
+        <email>contact@centreon.com</email>
+        <website>http://www.centreon.com</website>
+        <description>Widget for top 10 hosts depending on a specific metric</description>
+        <version>18.10.24</version>
+        <keywords>centreon, widget, cpu</keywords>
+        <screenshot></screenshot>
+        <thumbnail>./widgets/centreon-live-top10-metric-usage/resources/logo1.png</thumbnail>
+        <url>./widgets/centreon-live-top10-metric-usage/index.php</url>
+        <autoRefresh>10</autoRefresh>
+	<preferences>
+        <preference label="Host Group Name" name="host_group" defaultValue="" type="hostGroupMulti" header="Filters"/>
+    	<preference label="Service Description" name="service_description" defaultValue="" type="text"/>
+    	<preference label="Metric Name" name="metric_name" defaultValue="" type="text"/>
+    	<preference label="Results (max 50)" name="nb_lin" defaultValue="10" type="text"/>
+    	<preference label="Order" name="order" defaultValue="DESC" type="list">
+    		<option value="ASC" label="ASC"/>
+    		<option value="DESC" label="DESC"/>
+    	</preference>
+    	<preference label="Chart title (leave empty if not required)" name="chart_title" defaultValue="" type="text" header="Chart options"/>
+    	<preference label="Change bar color depending on the service status" name="enable_status_color" defaultValue="0" type="boolean"/>
+    	<preference label="Title alignement" name="title_pos" defaultValue="center" type="list">
+    		<option value="center" label="center"/>
+    		<option value="left" label="left"/>
+    		<option value="right" label="right"/>
+    	</preference>
+    	<preference label="Chart subtitle (leave empty if not required)" name="chart_subtitle" defaultValue="" type="text"/>
+    	<preference label="Subtitle alignement" name="subtitle_pos" defaultValue="center" type="list">
+    		<option value="center" label="center"/>
+    		<option value="left" label="left"/>
+    		<option value="right" label="right"/>
+    	</preference>
+    	<preference label="Enable animations" name="enable_animations" defaultValue="1" type="boolean"/>
+    	<preference label="Animation type" name="animation_type" defaultValue="easeinout" type="list">
+    		<option value="easein" label="easein"/>
+    		<option value="easeinout" label="easeinout"/>
+    		<option value="easeout" label="easeout"/>
+    		<option value="linear" label="linear"/>
+    	</preference>
+    	<preference label="Enable toolbar" name="enable_toolbar" defaultValue="1" type="boolean"/>
+    	<preference label="Data labels position" name="datalabels_pos" defaultValue="" type="list">
+    		<option value="bottom" label="start"/>
+    		<option value="center" label="middle"/>
+    		<option value="top" label="end"/>
+    	</preference>
+    	<preference label="Display host name" name="display_host_name" defaultValue="1" type="boolean"/>
+    	<preference label="Enable tooltip" name="enable_tooltip" defaultValue="1" type="boolean"/>
+    	<preference label="Display annotations" name="enable_annotations" defaultValue="1" type="boolean" header="annotations"/>
+    	<preference label="Display annotations label" name="enable_annotations_label" defaultValue="0" type="boolean"/>
+    	<preference label="Annotations style" name="annotations_style" defaultValue="full" type="list">
+    		<option value="full" label="full"/>
+    		<option value="dashed" label="dashed"/>
+    	</preference>
+    	<preference label="Annotations position" name="annotations_pos" defaultValue="top" type="list">
+    		<option value="top" label="top"/>
+    		<option value="bottom" label="bottom"/>
+    	</preference>
+        <preference label="Height (pixels)" name="height" defaultValue="550" type="text" header="Widget options"/>
+        <preference label="Refresh Interval (seconds)" name="refresh_interval" defaultValue="150" type="text"/>
+	</preferences>
+</configs>

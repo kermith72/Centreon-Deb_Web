@@ -1,7 +1,7 @@
 53ae2233e0281719cf82546171e6e6cb  usr/share/centreon/www/widgets/live-top10-cpu-usage/src/table_top10cpu.ihtml
 055bf87f6f37214d8eff43241f37255f  usr/share/centreon/www/widgets/live-top10-cpu-usage/src/top10_cpu.css
 63b4ab5a13db835f8922ffc3aa471100  usr/share/centreon/www/widgets/live-top10-cpu-usage/src/data_js.js
-f369f90c15571e988831cd149aff2cc1  usr/share/centreon/www/widgets/live-top10-cpu-usage/configs.xml
+079ce8dd2893a0f7f7761ca7efa0b172  usr/share/centreon/www/widgets/live-top10-cpu-usage/configs.xml
 90202d7fe9edb865732e459eb6e661b3  usr/share/centreon/www/widgets/live-top10-cpu-usage/resources/logo1.png
 97d524a1d711eee887028a2e4a6282ab  usr/share/centreon/www/widgets/live-top10-cpu-usage/resources/logo.png
 f0a3eba4191c1f8e6d0aef2f6d1c40c9  usr/share/centreon/www/widgets/live-top10-cpu-usage/resources/centreon-logo.png
