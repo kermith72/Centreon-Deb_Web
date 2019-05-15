@@ -57,7 +57,7 @@ sub set_counters {
                 closure_custom_threshold_check => \&catalog_status_threshold,
             }
         },
-        { label => 'swap-in', nlabel => 'vm.swap.in.usage.bytespersecond', set => {
+        { label => 'swap-in', set => {
                 key_values => [ { name => 'swap_in' }, { name => 'display' } ],
                 output_template => 'Swap In: %s %s/s',
                 output_change_bytes => 1,
@@ -67,7 +67,7 @@ sub set_counters {
                 ],
             }
         },
-        { label => 'swap-out', nlabel => 'vm.swap.out.usage.bytespersecond', set => {
+        { label => 'swap-out', set => {
                 key_values => [ { name => 'swap_out' }, { name => 'display' } ],
                 output_template => 'Swap Out: %s %s/s',
                 output_change_bytes => 1,
@@ -106,7 +106,6 @@ sub new {
         "scope-host:s"          => { name => 'scope_host' },
         "filter-description:s"  => { name => 'filter_description' },
         "filter-os:s"           => { name => 'filter_os' },
-        "filter-uuid:s"         => { name => 'filter_uuid' },
         "display-description"   => { name => 'display_description' },
         "unknown-status:s"      => { name => 'unknown_status', default => '%{connection_state} !~ /^connected$/i or %{power_state}  !~ /^poweredOn$/i' },
         "warning-status:s"      => { name => 'warning_status', default => '' },

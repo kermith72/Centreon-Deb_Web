@@ -32,7 +32,7 @@ sub set_counters {
         { name => 'global', type => 0 },
     ];
     $self->{maps_counters}->{global} = [
-        { label => 'blocked-transactions', nlabel => 'transactions.blocked.count', set => {
+        { label => 'blocked-transactions', set => {
                 key_values => [ { name => 'total' } ],
                 output_template => 'Current Total Blocked Transactions : %s',
                 perfdatas => [

@@ -55,12 +55,9 @@ sub windows_execute {
         $options{output}->option_exit();
     };
     my $job = Win32::Job->new;
-    my $stderr = 'NUL';
-    $stderr = \*TO_PARENT if ($options{output}->is_debug());
     if (!($pid = $job->spawn(undef, $cmd,
-                       { stdin => 'NUL',
-                         stdout => \*TO_PARENT,
-                         stderr => $stderr }))) {
+                       { stdout => \*TO_PARENT,
+                         stderr => \*TO_PARENT }))) {
         $options{output}->add_option_msg(short_msg => "Internal error: execution issue: $^E");
         $options{output}->option_exit();
     }
@@ -119,11 +116,6 @@ sub unix_execute {
     my $cmd = '';
     my $args = [];
     my ($lerror, $stdout, $exit_code);
-
-    my $redirect_stderr = 1;
-    $redirect_stderr = $options{redirect_stderr} if (defined($options{redirect_stderr}));
-    my $wait_exit = 1;
-    $wait_exit = $options{wait_exit} if (defined($options{wait_exit}));
     
     # Build command line
     # Can choose which command is done remotely (can filter and use local file)
@@ -154,19 +146,19 @@ sub unix_execute {
         if (defined($options{ssh_pipe}) && $options{ssh_pipe} == 1) {
             $cmd = "echo '" . $sub_cmd . "' | " . $cmd . ' ' . join(" ", @$args);
             ($lerror, $stdout, $exit_code) = backtick(
-                command => $cmd,
-                timeout => $options{options}->{timeout},
-                wait_exit => $wait_exit,
-                redirect_stderr => $redirect_stderr
-            );
+                                                 command => $cmd,
+                                                 timeout => $options{options}->{timeout},
+                                                 wait_exit => 1,
+                                                 redirect_stderr => 1
+                                                 );
         } else {
             ($lerror, $stdout, $exit_code) = backtick(
-                command => $cmd,
-                arguments => [@$args, $sub_cmd],
-                timeout => $options{options}->{timeout},
-                wait_exit => $wait_exit,
-                redirect_stderr => $redirect_stderr
-            );
+                                                 command => $cmd,
+                                                 arguments => [@$args, $sub_cmd],
+                                                 timeout => $options{options}->{timeout},
+                                                 wait_exit => 1,
+                                                 redirect_stderr => 1
+                                                 );
         }
     } else {
         $cmd = 'sudo ' if (defined($options{sudo}));
@@ -175,11 +167,11 @@ sub unix_execute {
         $cmd .= $options{command_options} if (defined($options{command_options}));
         
         ($lerror, $stdout, $exit_code) = backtick(
-            command => $cmd,
-            timeout => $options{options}->{timeout},
-            wait_exit => $wait_exit,
-            redirect_stderr => $redirect_stderr
-        );
+                                                 command => $cmd,
+                                                 timeout => $options{options}->{timeout},
+                                                 wait_exit => 1,
+                                                 redirect_stderr => 1
+                                                 );
     }
 
     if (defined($options{options}->{show_output}) && 
@@ -335,18 +327,6 @@ sub powershell_escape {
     return $value;
 }
 
-sub powershell_json_sanitizer {
-    my (%options) = @_;
-
-    centreon::plugins::misc::mymodule_load(output => $options{output}, module => 'JSON::XS',
-                                           error_msg => "Cannot load module 'JSON::XS'.");
-    foreach my $line (split /\n/, $options{string}) {
-        eval { JSON::XS->new->utf8->decode($line) };
-        return $line if (!$@);
-    }
-    return -1;
-}
-
 sub minimal_version {
     my ($version_src, $version_dst) = @_;
         
@@ -459,7 +439,7 @@ sub parse_threshold {
     my (%options) = @_;
 
     my $perf = trim($options{threshold});
-    my $perf_result = { arobase => 0, infinite_neg => 0, infinite_pos => 0, start => '', end => '' };
+    my $perf_result = { arobase => 0, infinite_neg => 0, infinite_pos => 0, start => "", end => "" };
 
     my $global_status = 1;    
     if ($perf =~ /^(\@?)((?:~|(?:\+|-)?\d+(?:[\.,]\d+)?|):)?((?:\+|-)?\d+(?:[\.,]\d+)?)?$/) {

@@ -30,13 +30,12 @@ sub new {
 
     $self->{version} = '0.1';
     %{$self->{modes}} = (
-        'broker-stats'      => 'apps::centreon::map::jmx::mode::brokerstats',
-        'events'            => 'apps::centreon::map::jmx::mode::events',
-        'engine-stats'      => 'apps::centreon::map::jmx::mode::enginestats',
-        'open-views'        => 'apps::centreon::map::jmx::mode::openviews',
-        'sessions'          => 'apps::centreon::map::jmx::mode::sessions',
-        'sync-stats'        => 'apps::centreon::map::jmx::mode::syncstats',
-    );
+                            'broker-stats'      => 'apps::centreon::map::jmx::mode::brokerstats',
+                            'events'            => 'apps::centreon::map::jmx::mode::events',
+                            'engine-stats'      => 'apps::centreon::map::jmx::mode::enginestats',
+                            'open-views'        => 'apps::centreon::map::jmx::mode::openviews',
+                            'sessions'          => 'apps::centreon::map::jmx::mode::sessions',
+                         );
 
     $self->{custom_modes}{jolokia} = 'centreon::common::protocols::jmx::custom::jolokia';
     return $self;

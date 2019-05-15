@@ -28,7 +28,13 @@ my $mapping = {
     mtxrHlProcessorTemperature => { oid => '.1.3.6.1.4.1.14988.1.1.3.11' },
 };
 
-sub load {}
+my $oid_mtxrHealth = '.1.3.6.1.4.1.14988.1.1.3';
+
+sub load {
+    my ($self) = @_;
+    
+    push @{$self->{request}}, { oid => $oid_mtxrHealth };
+}
 
 sub check {
     my ($self) = @_;
@@ -39,7 +45,7 @@ sub check {
     
     my $instance = 0;
     my ($exit, $warn, $crit, $checked);
-    my $result = $self->{snmp}->map_instance(mapping => $mapping, results => $self->{results}, instance => $instance);
+    my $result = $self->{snmp}->map_instance(mapping => $mapping, results => $self->{results}->{$oid_mtxrHealth}, instance => $instance);
     
     if (defined($result->{mtxrHlTemperature}) && $result->{mtxrHlTemperature} =~ /[0-9]+/) {
         
@@ -50,14 +56,10 @@ sub check {
             $self->{output}->output_add(severity => $exit,
                                         short_msg => sprintf("Temperature is '%s' C", $result->{mtxrHlTemperature} / 10));
         }
-        $self->{output}->perfdata_add(
-            label => 'temperature', unit => 'C',
-            nlabel => 'hardware.temperature.celsius',
-            instances => 'system',
-            value => $result->{mtxrHlTemperature} / 10,
-            warning => $warn,
-            critical => $crit
-        );
+        $self->{output}->perfdata_add(label => 'temperature', unit => 'C', 
+                                      value => $result->{mtxrHlTemperature} / 10,
+                                      warning => $warn,
+                                      critical => $crit);
         $self->{components}->{temperature}->{total}++;
     }
     if (defined($result->{mtxrHlProcessorTemperature}) && $result->{mtxrHlProcessorTemperature} =~ /[0-9]+/) {
@@ -69,14 +71,10 @@ sub check {
             $self->{output}->output_add(severity => $exit,
                                         short_msg => sprintf("Processor temperature is '%s' C", $result->{mtxrHlProcessorTemperature} / 10));
         }
-        $self->{output}->perfdata_add(
-            label => 'temperature', unit => 'C',
-            nlabel => 'hardware.temperature.celsius',
-            instances => 'processor',
-            value => $result->{mtxrHlProcessorTemperature} / 10,
-            warning => $warn,
-            critical => $crit
-        );
+        $self->{output}->perfdata_add(label => 'temperature_processor', unit => 'C', 
+                                      value => $result->{mtxrHlProcessorTemperature} / 10,
+                                      warning => $warn,
+                                      critical => $crit);
         $self->{components}->{temperature}->{total}++;
     }
 }

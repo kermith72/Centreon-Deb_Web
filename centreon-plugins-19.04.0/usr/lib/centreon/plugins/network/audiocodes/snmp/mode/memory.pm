@@ -32,7 +32,7 @@ sub set_counters {
         { name => 'global', type => 0, message_separator => ' - ' },
     ];
     $self->{maps_counters}->{global} = [
-        { label => 'voip', nlabel => 'memory.voip.utilization.percentage', set => {
+        { label => 'voip', set => {
                 key_values => [ { name => 'voip' } ],
                 output_template => 'Memory VoIp Usage : %.2f %%',
                 perfdatas => [
@@ -40,7 +40,7 @@ sub set_counters {
                 ],
             }
         },
-        { label => 'data', nlabel => 'memory.data.utilization.percentage', set => {
+        { label => 'data', set => {
                 key_values => [ { name => 'data' } ],
                 output_template => 'Memory Data Usage : %.2f %%',
                 perfdatas => [

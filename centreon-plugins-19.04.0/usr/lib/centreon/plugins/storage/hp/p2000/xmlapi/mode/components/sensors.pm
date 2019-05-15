@@ -82,13 +82,9 @@ sub check {
                 last;
             }
         }
-
-        if (defined($value)) {
-            $self->{output}->perfdata_add(
-                label => $sensor_id, unit => $unit,
-                value => $value
-            );
-        }
+        
+        $self->{output}->perfdata_add(label => $sensor_id, unit => $unit,
+                                      value => $value) if (defined($value));
     }
 }
 

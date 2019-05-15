@@ -31,10 +31,9 @@ sub new {
 
     $self->{version} = '0.1';
     %{ $self->{modes} } = (
-        'discovery'     => 'cloud::aws::cloudwatch::mode::discovery',
-        'get-alarms'    => 'cloud::aws::cloudwatch::mode::getalarms',
-        'get-metrics'   => 'cloud::aws::cloudwatch::mode::getmetrics',
-        'list-metrics'  => 'cloud::aws::cloudwatch::mode::listmetrics',
+        'get-alarms'            => 'cloud::aws::cloudwatch::mode::getalarms',
+        'get-metrics'           => 'cloud::aws::cloudwatch::mode::getmetrics',
+        'list-metrics'          => 'cloud::aws::cloudwatch::mode::listmetrics',
     );
 
     $self->{custom_modes}{paws} = 'cloud::aws::custom::paws';

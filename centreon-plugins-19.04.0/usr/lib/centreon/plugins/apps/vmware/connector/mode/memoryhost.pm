@@ -43,28 +43,25 @@ sub custom_status_calc {
 sub custom_usage_perfdata {
     my ($self, %options) = @_;
 
-    my ($label, $nlabel) = ('used', $self->{nlabel});
+    my $label = 'used';
     my $value_perf = $self->{result_values}->{used};
     if (defined($self->{instance_mode}->{option_results}->{free})) {
-        ($label, $nlabel) = ('free', 'host.memory.free.bytes');
+        $label = 'free';
         $value_perf = $self->{result_values}->{free};
     }
-
+    my $extra_label = '';
+    $extra_label = '_' . $self->{result_values}->{display} if (!defined($options{extra_instance}) || $options{extra_instance} != 0);
     my %total_options = ();
     if ($self->{instance_mode}->{option_results}->{units} eq '%') {
         $total_options{total} = $self->{result_values}->{total};
         $total_options{cast_int} = 1;
     }
 
-    $self->{output}->perfdata_add(
-        label => $label, unit => 'B',
-        instances => $self->use_instances(extra_instance => $options{extra_instance}) ? $self->{result_values}->{display} : undef,
-        nlabel => $nlabel,
-        value => $value_perf,
-        warning => $self->{perfdata}->get_perfdata_for_output(label => 'warning-' . $self->{thlabel}, %total_options),
-        critical => $self->{perfdata}->get_perfdata_for_output(label => 'critical-' . $self->{thlabel}, %total_options),
-        min => 0, max => $self->{result_values}->{total}
-    );
+    $self->{output}->perfdata_add(label => $label . $extra_label, unit => 'B',
+                                  value => $value_perf,
+                                  warning => $self->{perfdata}->get_perfdata_for_output(label => 'warning-' . $self->{label}, %total_options),
+                                  critical => $self->{perfdata}->get_perfdata_for_output(label => 'critical-' . $self->{label}, %total_options),
+                                  min => 0, max => $self->{result_values}->{total});
 }
 
 sub custom_usage_threshold {
@@ -77,7 +74,7 @@ sub custom_usage_threshold {
         $threshold_value = $self->{result_values}->{prct_used};
         $threshold_value = $self->{result_values}->{prct_free} if (defined($self->{instance_mode}->{option_results}->{free}));
     }
-    $exit = $self->{perfdata}->threshold_check(value => $threshold_value, threshold => [ { label => 'critical-' . $self->{thlabel}, exit_litteral => 'critical' }, { label => 'warning-'. $self->{thlabel}, exit_litteral => 'warning' } ]);
+    $exit = $self->{perfdata}->threshold_check(value => $threshold_value, threshold => [ { label => 'critical-' . $self->{label}, exit_litteral => 'critical' }, { label => 'warning-'. $self->{label}, exit_litteral => 'warning' } ]);
     return $exit;
 }
 
@@ -145,7 +142,7 @@ sub set_counters {
                 closure_custom_threshold_check => \&catalog_status_threshold,
             }
         },
-        { label => 'consumed-memory', nlabel => 'host.memory.usage.bytes', set => {
+        { label => 'consumed-memory', set => {
                 key_values => [ { name => 'display' }, { name => 'consumed' }, { name => 'total' } ],
                 closure_custom_calc => $self->can('custom_usage_calc'),
                 closure_custom_output => $self->can('custom_usage_output'),
@@ -153,7 +150,7 @@ sub set_counters {
                 closure_custom_threshold_check => $self->can('custom_usage_threshold'),
             }
         },
-        { label => 'overhead-memory', nlabel => 'host.memory.overhead.bytes', set => {
+        { label => 'overhead-memory', set => {
                 key_values => [ { name => 'overhead' }, { name => 'display' } ],
                 closure_custom_output => $self->can('custom_overhead_output'),
                 perfdatas => [
@@ -162,7 +159,7 @@ sub set_counters {
                 ],
             }
         },
-        { label => 'state-memory', nlabel => 'host.memory.state.count', set => {
+        { label => 'state-memory', set => {
                 key_values => [ { name => 'mem_state' }, { name => 'mem_state_str' }, { name => 'display' } ],
                 closure_custom_output => $self->can('custom_memstate_output'),
                 perfdatas => [

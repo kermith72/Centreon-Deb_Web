@@ -60,15 +60,14 @@ sub check {
             $self->{output}->output_add(severity => $exit,
                                         short_msg => sprintf("Temperature '%s' is '%s' celsius degrees", $result->{hwSensorName}, $result->{hwSensorValue} / 1000));
         }
-
-        $self->{output}->perfdata_add(
-            label => 'temperature', unit => 'C',
-            nlabel => 'hardware.temperature.celsius',
-            instances => $result->{hwSensorName},
-            value => $result->{hwSensorValue} / 1000,
-            warning => $warn,
-            critical => $crit
-        );
+        
+        my $perf_label = $result->{hwSensorName};
+        $perf_label =~ s/ /_/g;
+        $self->{output}->perfdata_add(label => 'temperature_' . $perf_label, unit => 'C', 
+                                        value => $result->{hwSensorValue} / 1000,
+                                        warning => $warn,
+                                        critical => $crit
+                                        );
     }
 }
 

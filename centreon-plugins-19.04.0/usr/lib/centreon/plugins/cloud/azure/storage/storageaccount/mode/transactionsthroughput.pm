@@ -25,6 +25,8 @@ use base qw(centreon::plugins::templates::counter);
 use strict;
 use warnings;
 
+my $instance_mode;
+
 sub prefix_metric_output {
     my ($self, %options) = @_;
 
@@ -53,7 +55,7 @@ sub custom_metric_calc {
 sub custom_metric_threshold {
     my ($self, %options) = @_;
 
-    my $exit = $self->{perfdata}->threshold_check(value => defined($self->{instance_mode}->{option_results}->{per_sec}) ?  $self->{result_values}->{value_per_sec} : $self->{result_values}->{value},
+    my $exit = $self->{perfdata}->threshold_check(value => defined($instance_mode->{option_results}->{per_sec}) ?  $self->{result_values}->{value_per_sec} : $self->{result_values}->{value},
                                                   threshold => [ { label => 'critical-' . $self->{result_values}->{metric_label} . "-" . $self->{result_values}->{stat}, exit_litteral => 'critical' },
                                                                  { label => 'warning-' . $self->{result_values}->{metric_label} . "-" . $self->{result_values}->{stat}, exit_litteral => 'warning' } ]);
     return $exit;
@@ -66,8 +68,8 @@ sub custom_usage_perfdata {
     $extra_label = '_' . lc($self->{result_values}->{display}) if (!defined($options{extra_instance}) || $options{extra_instance} != 0);
 
     $self->{output}->perfdata_add(label => $self->{result_values}->{metric_perf} . "_" . $self->{result_values}->{stat} . $extra_label,
-				                  unit => defined($self->{instance_mode}->{option_results}->{per_sec}) ? 'B/s' : 'B',
-                                  value => sprintf("%.2f", defined($self->{instance_mode}->{option_results}->{per_sec}) ? $self->{result_values}->{value_per_sec} : $self->{result_values}->{value}),
+				                  unit => defined($instance_mode->{option_results}->{per_sec}) ? 'B/s' : 'B',
+                                  value => sprintf("%.2f", defined($instance_mode->{option_results}->{per_sec}) ? $self->{result_values}->{value_per_sec} : $self->{result_values}->{value}),
                                   warning => $self->{perfdata}->get_perfdata_for_output(label => 'warning-' . $self->{result_values}->{metric_label} . "-" . $self->{result_values}->{stat}),
                                   critical => $self->{perfdata}->get_perfdata_for_output(label => 'critical-' . $self->{result_values}->{metric_label} . "-" . $self->{result_values}->{stat}),
                                   min => 0
@@ -78,7 +80,7 @@ sub custom_usage_output {
     my ($self, %options) = @_;
     my $msg = "";
 
-    if (defined($self->{instance_mode}->{option_results}->{per_sec})) {
+    if (defined($instance_mode->{option_results}->{per_sec})) {
         my ($value, $unit) = $self->{perfdata}->change_bytes(value => $self->{result_values}->{value_per_sec});
         $msg = $self->{result_values}->{metric_name}  . ": " . $value . ' ' . $unit . "/s"; 
     } else {
@@ -120,14 +122,15 @@ sub new {
     bless $self, $class;
     
     $self->{version} = '1.0';
-    $options{options}->add_options(arguments => {
-        "resource:s@"           => { name => 'resource' },
-        "resource-group:s"      => { name => 'resource_group' },
-        "resource-namespace:s"  => { name => 'resource_namespace' },
-        "filter-metric:s"       => { name => 'filter_metric' },
-        "per-sec"               => { name => 'per_sec' },
-    });
-
+    $options{options}->add_options(arguments =>
+                                {
+                                    "resource:s@"           => { name => 'resource' },
+                                    "resource-group:s"      => { name => 'resource_group' },
+                                    "resource-namespace:s"  => { name => 'resource_namespace' },
+                                    "filter-metric:s"       => { name => 'filter_metric' },
+                                    "per-sec"               => { name => 'per_sec' },
+                                });
+    
     return $self;
 }
 
@@ -163,6 +166,8 @@ sub check_options {
 
         push @{$self->{az_metrics}}, $metric;
     }
+
+    $instance_mode = $self;
 }
 
 sub manage_selection {

@@ -34,7 +34,7 @@ sub set_counters {
     ];
     
     $self->{maps_counters}->{global} = [
-        { label => 'total', nlabel => 'queries.total.persecond', set => {
+        { label => 'total', set => {
                 key_values => [ { name => 'total', diff => 1 } ],
                 per_second => 1,
                 output_template => 'Total : %d',
@@ -44,7 +44,7 @@ sub set_counters {
                 ],
             }
         },
-        { label => 'seq-reads', nlabel => 'queries.sequentialreads.persecond', set => {
+        { label => 'seq-reads', set => {
                 key_values => [ { name => 'seq_reads', diff => 1 } ],
                 per_second => 1,
                 output_template => 'Seq Reads : %d',
@@ -54,7 +54,7 @@ sub set_counters {
                 ],
             }
         },
-        { label => 'inserts', nlabel => 'queries.insert.persecond', set => {
+        { label => 'inserts', set => {
                 key_values => [ { name => 'inserts', diff => 1 } ],
                 per_second => 1,
                 output_template => 'Inserts : %d',
@@ -64,7 +64,7 @@ sub set_counters {
                 ],
             }
         },
-        { label => 'updates', nlabel => 'queries.updates.persecond', set => {
+        { label => 'updates', set => {
                 key_values => [ { name => 'updates', diff => 1 } ],
                 per_second => 1,
                 output_template => 'Updates : %d',
@@ -74,7 +74,7 @@ sub set_counters {
                 ],
             }
         },
-        { label => 'deletes', nlabel => 'queries.deletes.persecond', set => {
+        { label => 'deletes', set => {
                key_values => [ { name => 'deletes', diff => 1 } ],
                 per_second => 1,
                 output_template => 'Deletes : %d',
@@ -84,7 +84,7 @@ sub set_counters {
                 ],
             }
         },
-        { label => 'backouts', nlabel => 'queries.backout.persecond', set => {
+        { label => 'backouts', set => {
                 key_values => [ { name => 'backouts', diff => 1 } ],
                 per_second => 1,
                 output_template => 'Backouts : %d',
@@ -94,7 +94,7 @@ sub set_counters {
                 ],
             }
         },
-        { label => 'purges', nlabel => 'queries.purges.persecond', set => {
+        { label => 'purges', set => {
                 key_values => [ { name => 'purges', diff => 1 } ],
                 per_second => 1,
                 output_template => 'Purges : %d',
@@ -104,7 +104,7 @@ sub set_counters {
                 ],
             }
         },
-        { label => 'expunges', nlabel => 'queries.expunges.persecond', set => {
+        { label => 'expunges', set => {
                 key_values => [ { name => 'expunges', diff => 1 } ],
                 per_second => 1,
                 output_template => 'Expunges : %d',
@@ -129,7 +129,9 @@ sub new {
     bless $self, $class;
     
     $self->{version} = '1.0';
-    $options{options}->add_options(arguments => {});
+    $options{options}->add_options(arguments =>
+                                {
+                                });
 
     return $self;
 }

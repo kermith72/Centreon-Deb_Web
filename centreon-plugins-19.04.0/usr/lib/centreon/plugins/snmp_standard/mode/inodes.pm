@@ -57,15 +57,16 @@ sub new {
     bless $self, $class;
     
     $self->{version} = '1.0';
-    $options{options}->add_options(arguments => {
-        "name"                    => { name => 'use_name' },
-        "diskpath:s"              => { name => 'diskpath' },
-        "regexp"                  => { name => 'use_regexp' },
-        "regexp-isensitive"       => { name => 'use_regexpi' },
-        "filter-device:s"         => { name => 'filter_device' },
-        "display-transform-src:s" => { name => 'display_transform_src' },
-        "display-transform-dst:s" => { name => 'display_transform_dst' },
-    });
+    $options{options}->add_options(arguments =>
+                                {
+                                  "name"                    => { name => 'use_name' },
+                                  "diskpath:s"              => { name => 'diskpath' },
+                                  "regexp"                  => { name => 'use_regexp' },
+                                  "regexp-isensitive"       => { name => 'use_regexpi' },
+                                  "filter-device:s"         => { name => 'filter_device' },
+                                  "display-transform-src:s" => { name => 'display_transform_src' },
+                                  "display-transform-dst:s" => { name => 'display_transform_dst' },
+                                });
 
     return $self;
 }

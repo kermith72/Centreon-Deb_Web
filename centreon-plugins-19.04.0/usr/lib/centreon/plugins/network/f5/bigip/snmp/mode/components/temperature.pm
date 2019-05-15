@@ -58,14 +58,10 @@ sub check {
                 $self->{output}->output_add(severity => $exit,
                                             short_msg => sprintf("Temperature '%s' is %.2f C", $instance, $result->{sysChassisTempTemperature}));
             }
-            $self->{output}->perfdata_add(
-                label => "temp", unit => 'C',
-                nlabel => 'hardware.temperature.celsius',
-                instances => $instance,
-                value => sprintf("%.2f", $result->{sysChassisTempTemperature}),
-                warning => $warn,
-                critical => $crit
-            );
+            $self->{output}->perfdata_add(label => "temp_" . $instance, unit => 'C',
+                                          value => sprintf("%.2f", $result->{sysChassisTempTemperature}),
+                                          warning => $warn,
+                                          critical => $crit);
         }
     }
 }

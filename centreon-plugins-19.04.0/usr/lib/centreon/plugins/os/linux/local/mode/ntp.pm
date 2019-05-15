@@ -84,39 +84,28 @@ sub custom_status_calc {
 
     $self->{result_values}->{rawtype} = $options{new_datas}->{$self->{instance} . '_type'};
     $self->{result_values}->{rawstate} = $options{new_datas}->{$self->{instance} . '_state'};
-    if ($self->{instance_mode}->{option_results}->{command} eq 'ntpq') {
-        $self->{result_values}->{type} = $type_map_ntpq{$options{new_datas}->{$self->{instance} . '_type'}};
-    } else {
-        $self->{result_values}->{type} = $type_map_chronyc{$options{new_datas}->{$self->{instance} . '_type'}};
-    }
+    $self->{result_values}->{type} = $type_map_chronyc{$options{new_datas}->{$self->{instance} . '_type'}};
     $self->{result_values}->{reach} = $options{new_datas}->{$self->{instance} . '_reach'};
-    if ($self->{instance_mode}->{option_results}->{command} eq 'ntpq') {
-        $self->{result_values}->{state} = $state_map_ntpq{$options{new_datas}->{$self->{instance} . '_state'}};
-    } else {
-        $self->{result_values}->{state} = $state_map_chronyc{$options{new_datas}->{$self->{instance} . '_state'}};
-    }
+    $self->{result_values}->{state} = $state_map_chronyc{$options{new_datas}->{$self->{instance} . '_state'}};
     return 0;
 }
 
 sub custom_offset_perfdata {
     my ($self, %options) = @_;
 
+    my $extra_label = '';
+    $extra_label = '_' . $self->{result_values}->{display_absolute} if (!defined($options{extra_instance}) || $options{extra_instance} != 0);
+
     if ($self->{result_values}->{state_absolute} ne '*') {
-        $self->{output}->perfdata_add(
-            label => 'offset', unit => 'ms',
-            instances => $self->use_instances(extra_instance => $options{extra_instance}) ? $self->{result_values}->{display_absolute} : undef,
-            value => $self->{result_values}->{offset_absolute},
-            min => 0
-        );
+        $self->{output}->perfdata_add(label => 'offset' . $extra_label, unit => 'ms',
+                                      value => $self->{result_values}->{offset_absolute},
+                                      min => 0);
     } else {
-        $self->{output}->perfdata_add(
-            label => 'offset', unit => 'ms',
-            instances => $self->use_instances(extra_instance => $options{extra_instance}) ? $self->{result_values}->{display_absolute} : undef,
-            value => $self->{result_values}->{offset_absolute},
-            warning => $self->{perfdata}->get_perfdata_for_output(label => 'warning-' . $self->{thlabel}),
-            critical => $self->{perfdata}->get_perfdata_for_output(label => 'critical-' . $self->{thlabel}),
-            min => 0
-        );
+        $self->{output}->perfdata_add(label => 'offset' . $extra_label, unit => 'ms',
+                                      value => $self->{result_values}->{offset_absolute},
+                                      warning => $self->{perfdata}->get_perfdata_for_output(label => 'warning-' . $self->{label}),
+                                      critical => $self->{perfdata}->get_perfdata_for_output(label => 'critical-' . $self->{label}),
+                                      min => 0);
     }
 }
 
@@ -126,7 +115,7 @@ sub custom_offset_threshold {
     if ($self->{result_values}->{state_absolute} ne '*') {
         return 'ok';
     }
-    return $self->{perfdata}->threshold_check(value => $self->{result_values}->{offset_absolute}, threshold => [ { label => 'critical-' . $self->{thlabel}, exit_litteral => 'critical' }, { label => 'warning-'. $self->{thlabel}, exit_litteral => 'warning' } ]);
+    return $self->{perfdata}->threshold_check(value => $self->{result_values}->{offset_absolute}, threshold => [ { label => 'critical-' . $self->{label}, exit_litteral => 'critical' }, { label => 'warning-'. $self->{label}, exit_litteral => 'warning' } ]);
 }
 
 sub set_counters {

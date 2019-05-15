@@ -41,13 +41,10 @@ sub check {
         $self->{output}->output_add(severity => $exit,
                                     short_msg => sprintf("Temperature is %s C", $temperature));
     }
-    $self->{output}->perfdata_add(
-        label => "temp", unit => 'C',
-        nlabel => 'hardware.temperature.celsius',
-        value => $temperature,
-        warning => $warn,
-        critical => $crit
-    );
+    $self->{output}->perfdata_add(label => "temp", unit => 'C',
+                                  value => $temperature,
+                                  warning => $warn,
+                                  critical => $crit);
 }
 
 1;

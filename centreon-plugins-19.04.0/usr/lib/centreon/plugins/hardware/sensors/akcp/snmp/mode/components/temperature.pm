@@ -103,16 +103,13 @@ sub check_temperature {
         
         if (!$self->{output}->is_status(value => $exit2, compare => 'ok', litteral => 1)) {
             $self->{output}->output_add(severity => $exit2,
-                                        short_msg => sprintf("Temperature '%s' is %s %s", $result->{TempDescription}, $result->{TempDegree}, $result->{TempDegreeType}->{unit}));
+                                        short_msg => sprintf("Temperature '%s' is %s %s", $result->{TempDescription}, $result->{TempDegree}, $result->{TempDegreeType}));
         }
-        $self->{output}->perfdata_add(
-            label => 'temperature', unit => $result->{TempDegreeType}->{unit},
-            nlabel => 'hardware.sensor.temperature.' . $result->{TempDegreeType}->{unit_long},
-            instances => $result->{TempDescription},
-            value => $result->{TempDegree},
-            warning => $warn,
-            critical => $crit,
-        );
+        $self->{output}->perfdata_add(label => 'temperature_' . $result->{TempDescription}, unit => $result->{TempDegreeType}, 
+                                      value => $result->{TempDegree},
+                                      warning => $warn,
+                                      critical => $crit,
+                                      );
     }
 }
 

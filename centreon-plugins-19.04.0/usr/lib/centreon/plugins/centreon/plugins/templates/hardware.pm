@@ -291,13 +291,10 @@ sub display {
                                                             $self->{components}->{$comp}->{total},
                                                             $comp));
             }
-            $self->{output}->perfdata_add(
-                label => 'count_' . $comp,
-                nlabel => 'hardware.' . $comp . '.count',
-                value => $self->{components}->{$comp}->{total},
-                warning => $warn,
-                critical => $crit
-            );
+            $self->{output}->perfdata_add(label => 'count_' . $comp,
+                                          value => $self->{components}->{$comp}->{total},
+                                          warning => $warn,
+                                          critical => $crit);
             push @{$exits}, $exit;
         }
 

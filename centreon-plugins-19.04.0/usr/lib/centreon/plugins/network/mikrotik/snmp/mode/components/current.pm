@@ -27,7 +27,13 @@ my $mapping = {
     mtxrHlCurrent => { oid => '.1.3.6.1.4.1.14988.1.1.3.13' },
 };
 
-sub load {}
+my $oid_mtxrHealth = '.1.3.6.1.4.1.14988.1.1.3';
+
+sub load {
+    my ($self) = @_;
+    
+    push @{$self->{request}}, { oid => $oid_mtxrHealth };
+}
 
 sub check {
     my ($self) = @_;
@@ -38,7 +44,7 @@ sub check {
     
     my $instance = 0;
     my ($exit, $warn, $crit, $checked);
-    my $result = $self->{snmp}->map_instance(mapping => $mapping, results => $self->{results}, instance => $instance);
+    my $result = $self->{snmp}->map_instance(mapping => $mapping, results => $self->{results}->{$oid_mtxrHealth}, instance => $instance);
     
     if (defined($result->{mtxrHlCurrent}) && $result->{mtxrHlCurrent} =~ /[0-9]+/) {
         
@@ -49,13 +55,10 @@ sub check {
             $self->{output}->output_add(severity => $exit,
                                         short_msg => sprintf("Current is '%s' A", $result->{mtxrHlCurrent} / 100));
         }
-        $self->{output}->perfdata_add(
-            label => 'current', unit => 'A',
-            nlabel => 'hardware.current.ampere',
-            value => $result->{mtxrHlCurrent} / 100,
-            warning => $warn,
-            critical => $crit
-        );
+        $self->{output}->perfdata_add(label => 'current', unit => 'A', 
+                                      value => $result->{mtxrHlCurrent} / 100,
+                                      warning => $warn,
+                                      critical => $crit);
         $self->{components}->{current}->{total}++;
     }
 }

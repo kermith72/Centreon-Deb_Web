@@ -65,7 +65,7 @@ sub set_counters {
                 closure_custom_threshold_check => \&catalog_status_threshold,
             }
         },
-        { label => 'time', nlabel => 'host.uptime.offset.seconds', set => {
+        { label => 'time', set => {
                 key_values => [ { name => 'offset' }, { name => 'date' }, { name => 'display' } ],
                 closure_custom_output => $self->can('custom_time_output'),
                 perfdatas => [

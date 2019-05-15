@@ -33,7 +33,7 @@ sub set_counters {
     ];
     
     $self->{maps_counters}->{global} = [
-        { label => 'backlog', nlabel => 'backlog.file.count', set => {
+        { label => 'backlog', set => {
                 key_values => [ { name => 'backlog' } ],
                 output_template => 'Backlog File Count : %s',
                 perfdatas => [

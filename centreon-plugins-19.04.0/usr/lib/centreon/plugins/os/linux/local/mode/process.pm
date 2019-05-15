@@ -33,8 +33,7 @@ my %state_map = (
     T => 'stopped',
     S => 'InterruptibleSleep',
     R => 'running',
-    D => 'UninterrupibleSleep',
-    I => 'IdleKernelThread',
+    D => 'UninterrupibleSleep'
 );
 
 sub new {
@@ -43,27 +42,27 @@ sub new {
     bless $self, $class;
     
     $self->{version} = '1.0';
-    $options{options}->add_options(arguments => {
-        "hostname:s"        => { name => 'hostname' },
-        "remote"            => { name => 'remote' },
-        "ssh-option:s@"     => { name => 'ssh_option' },
-        "ssh-path:s"        => { name => 'ssh_path' },
-        "ssh-command:s"     => { name => 'ssh_command', default => 'ssh' },
-        "timeout:s"         => { name => 'timeout', default => 30 },
-        "sudo"              => { name => 'sudo' },
-        "command:s"         => { name => 'command', default => 'ps' },
-        "command-path:s"    => { name => 'command_path' },
-        "command-options:s" => { name => 'command_options', default => '-e -o state -o ===%t===%p===%P=== -o comm:50 -o ===%a  -w 2>&1' },
-        "warning:s"         => { name => 'warning' },
-        "critical:s"        => { name => 'critical' },
-        "warning-time:s"    => { name => 'warning_time' },
-        "critical-time:s"   => { name => 'critical_time' },
-        "filter-command:s"  => { name => 'filter_command' },
-        "filter-arg:s"      => { name => 'filter_arg' },
-        "filter-state:s"    => { name => 'filter_state' },
-        "filter-ppid:s"	    => { name => 'filter_ppid' },
-    });
-
+    $options{options}->add_options(arguments =>
+                                {
+                                  "hostname:s"        => { name => 'hostname' },
+                                  "remote"            => { name => 'remote' },
+                                  "ssh-option:s@"     => { name => 'ssh_option' },
+                                  "ssh-path:s"        => { name => 'ssh_path' },
+                                  "ssh-command:s"     => { name => 'ssh_command', default => 'ssh' },
+                                  "timeout:s"         => { name => 'timeout', default => 30 },
+                                  "sudo"              => { name => 'sudo' },
+                                  "command:s"         => { name => 'command', default => 'ps' },
+                                  "command-path:s"    => { name => 'command_path' },
+                                  "command-options:s" => { name => 'command_options', default => '-e -o etime,pid,ppid,state,comm,args -w 2>&1' },
+                                  "warning:s"           => { name => 'warning' },
+                                  "critical:s"          => { name => 'critical' },
+                                  "warning-time:s"      => { name => 'warning_time' },
+                                  "critical-time:s"     => { name => 'critical_time' },
+                                  "filter-command:s"    => { name => 'filter_command' },
+                                  "filter-arg:s"        => { name => 'filter_arg' },
+                                  "filter-state:s"      => { name => 'filter_state' },
+				  "filter-ppid:s"	=> { name => 'filter_ppid' },
+                                });
     $self->{result} = {};
     return $self;
 }
@@ -71,7 +70,6 @@ sub new {
 sub check_options {
     my ($self, %options) = @_;
     $self->SUPER::init(%options);
-
     if (($self->{perfdata}->threshold_validate(label => 'warning', value => $self->{option_results}->{warning})) == 0) {
        $self->{output}->add_option_msg(short_msg => "Wrong warning threshold '" . $self->{option_results}->{warning} . "'.");
        $self->{output}->option_exit();
@@ -100,18 +98,22 @@ sub parse_output {
                                                   command_path => $self->{option_results}->{command_path},
                                                   command_options => $self->{option_results}->{command_options});
     my @lines = split /\n/, $stdout;
+    # Header to manage output
+    #    ELAPSED   PID  PPID S COMMAND         COMMAND
     my $line = shift @lines;
+    $line =~ /^(\s*?\S+\s*?\S+\s*?\S+\s*?\S+\s*?)(\S+\s*?)\S+/;
+    my ($pos1, $pos2) = (length($1), length($1) + length($2));
     foreach my $line (@lines) {
-        next if ($line !~ /^(.*?)===(.*?)===(.*?)===(.*?)===(.*?)===(.*)$/);
-        my ($state, $elapsed, $pid, $ppid, $cmd, $args) = ($1, $2, $3, $4, $5, $6);
+        $line =~ /^(\s*?\S+\s*?)(\S+\s*?)(\S+\s*?)(\S+\s*?)/;
+        my ($elapsed, $pid, $ppid, $state) = ($1, $2, $3, $4);
+        my $cmd = substr($line, $pos1, $pos2 - $pos1);
+        my $args = substr($line, $pos2);
         
-        $self->{result}->{centreon::plugins::misc::trim($pid)} = {
-            ppid => centreon::plugins::misc::trim($ppid), 
-            state => centreon::plugins::misc::trim($state),
-            elapsed => centreon::plugins::misc::trim($elapsed), 
-            cmd => centreon::plugins::misc::trim($cmd), 
-            args => centreon::plugins::misc::trim($args)
-        };
+        $self->{result}->{centreon::plugins::misc::trim($pid)} = {ppid => centreon::plugins::misc::trim($ppid), 
+                                                                  state => centreon::plugins::misc::trim($state),
+                                                                  elapsed => centreon::plugins::misc::trim($elapsed), 
+                                                                  cmd => centreon::plugins::misc::trim($cmd), 
+                                                                  args => centreon::plugins::misc::trim($args)};
     }
 }
 
@@ -153,7 +155,7 @@ sub run {
                  $self->{result}->{$pid}->{args} !~ /$self->{option_results}->{filter_arg}/);
         next if (defined($self->{option_results}->{filter_state}) && $self->{option_results}->{filter_state} ne '' &&
                  $state_map{$self->{result}->{$pid}->{state}} !~ /$self->{option_results}->{filter_state}/i);
-        next if (defined($self->{option_results}->{filter_ppid}) && $self->{option_results}->{filter_ppid} ne '' &&
+	next if (defined($self->{option_results}->{filter_ppid}) && $self->{option_results}->{filter_ppid} ne '' &&
                  $self->{result}->{$pid}->{ppid} !~ /$self->{option_results}->{filter_ppid}/);
 		 
         $self->{output}->output_add(long_msg => 'Process: [command => ' . $self->{result}->{$pid}->{cmd} . 
@@ -226,7 +228,7 @@ Command path (Default: none).
 
 =item B<--command-options>
 
-Command options (Default: '-e -o state -o ===%t===%p===%P=== -o comm:50 -o ===%a  -w 2>&1').
+Command options (Default: '-e -o etime,pid,ppid,state,comm,args -w 2>&1').
 
 =item B<--warning>
 

@@ -61,14 +61,13 @@ sub check {
                                         short_msg => sprintf("Voltage '%s' is '%s' mV", $result->{hwSensorName}, $result->{hwSensorValue}));
         }
         
-        $self->{output}->perfdata_add(
-            label => 'voltage', unit => 'mV',
-            nlabel => 'hardware.voltage.millivolt',
-            instances => $result->{hwSensorName},
-            value => $result->{hwSensorValue},
-            warning => $warn,
-            critical => $crit
-        );
+        my $perf_label = $result->{hwSensorName};
+        $perf_label =~ s/ /_/g;
+        $self->{output}->perfdata_add(label => 'voltage_' . $perf_label, unit => 'mV', 
+                                        value => $result->{hwSensorValue},
+                                        warning => $warn,
+                                        critical => $crit
+                                        );
     }
 }
 

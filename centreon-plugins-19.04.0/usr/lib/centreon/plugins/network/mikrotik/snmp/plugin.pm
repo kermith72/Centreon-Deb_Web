@@ -39,7 +39,6 @@ sub new {
                          'list-ssids'        => 'network::mikrotik::snmp::mode::listssids',
                          'memory'            => 'network::mikrotik::snmp::mode::memory',
                          'signal'            => 'network::mikrotik::snmp::mode::signal',
-                         'uptime'            => 'snmp_standard::mode::uptime',
                          );
 
     return $self;

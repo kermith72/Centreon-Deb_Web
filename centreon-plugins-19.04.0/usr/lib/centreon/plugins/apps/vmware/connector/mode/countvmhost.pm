@@ -49,7 +49,7 @@ sub set_counters {
     ];
     
     $self->{maps_counters}->{global} = [
-        { label => 'total-on', nlabel => 'host.vm.poweredon.current.count', set => {
+        { label => 'total-on', set => {
                 key_values => [ { name => 'poweredon' }, { name => 'total' } ],
                 output_template => '%s VM(s) poweredon',
                 perfdatas => [
@@ -58,7 +58,7 @@ sub set_counters {
                 ],
             }
         },
-        { label => 'total-off', nlabel => 'host.vm.poweredoff.current.count', set => {
+        { label => 'total-off', set => {
                 key_values => [ { name => 'poweredoff' }, { name => 'total' } ],
                 output_template => '%s VM(s) poweredoff',
                 perfdatas => [
@@ -67,7 +67,7 @@ sub set_counters {
                 ],
             }
         },
-         { label => 'total-suspended', nlabel => 'host.vm.suspended.current.count', set => {
+         { label => 'total-suspended', set => {
                 key_values => [ { name => 'suspended' }, { name => 'total' } ],
                 output_template => '%s VM(s) suspended',
                 perfdatas => [
@@ -87,7 +87,7 @@ sub set_counters {
                 closure_custom_threshold_check => \&catalog_status_threshold,
             }
         },
-        { label => 'on', nlabel => 'host.vm.poweredon.current.count', set => {
+        { label => 'on', set => {
                 key_values => [ { name => 'poweredon' }, { name => 'total' } ],
                 output_template => '%s VM(s) poweredon',
                 perfdatas => [
@@ -96,7 +96,7 @@ sub set_counters {
                 ],
             }
         },
-        { label => 'off', nlabel => 'host.vm.poweredoff.current.count', set => {
+        { label => 'off', set => {
                 key_values => [ { name => 'poweredoff' }, { name => 'total' } ],
                 output_template => '%s VM(s) poweredoff',
                 perfdatas => [
@@ -105,7 +105,7 @@ sub set_counters {
                 ],
             }
         },
-        { label => 'suspended', nlabel => 'host.vm.suspended.current.count', set => {
+        { label => 'suspended', set => {
                 key_values => [ { name => 'suspended' }, { name => 'total' } ],
                 output_template => '%s VM(s) suspended',
                 perfdatas => [

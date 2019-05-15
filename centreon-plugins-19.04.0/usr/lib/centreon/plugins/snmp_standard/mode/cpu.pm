@@ -34,7 +34,7 @@ sub set_counters {
     ];
 
     $self->{maps_counters}->{cpu_avg} = [
-        { label => 'average', nlabel => 'cpu.utilization.percentage', set => {
+        { label => 'average', set => {
                 key_values => [ { name => 'average' }, { name => 'count' } ],
                 output_template => '%.2f %%',
                 perfdatas => [
@@ -46,7 +46,7 @@ sub set_counters {
     ];
 
     $self->{maps_counters}->{cpu_core} = [
-        { label => 'core', nlabel => 'core.cpu.utilization.percentage', set => {
+        { label => 'core', set => {
                 key_values => [ { name => 'cpu' }, { name => 'display' } ],
                 output_template => 'usage : %.2f %%',
                 perfdatas => [
@@ -77,8 +77,9 @@ sub new {
     bless $self, $class;
 
     $self->{version} = '1.0';
-    $options{options}->add_options(arguments => {
-    });
+    $options{options}->add_options(arguments =>
+                                {
+                                });
 
     return $self;
 }

@@ -27,6 +27,8 @@ use warnings;
 use Digest::MD5 qw(md5_hex);
 use Socket;
 
+my $instance_mode;
+
 sub set_counters {
     my ($self, %options) = @_;
     
@@ -97,24 +99,26 @@ sub set_counters {
 
 sub custom_traffic_perfdata {
     my ($self, %options) = @_;
-
-    my $warning = $self->{perfdata}->get_perfdata_for_output(label => 'warning-' . $self->{thlabel});
-    my $critical = $self->{perfdata}->get_perfdata_for_output(label => 'critical-' . $self->{thlabel});
     
-    $self->{output}->perfdata_add(
-        label => 'traffic_' . lc($self->{result_values}->{label}), unit => 'b/s',
-        instances => $self->use_instances(extra_instance => $options{extra_instance}) ? $self->{result_values}->{display} : undef,
-        value => sprintf("%.2f", $self->{result_values}->{traffic_per_seconds}),
-        warning => $warning,
-        critical => $critical,
-        min => 0
-    );
+    my $extra_label = '';
+    if (!defined($options{extra_instance}) || $options{extra_instance} != 0) {
+        $extra_label .= '_' . $self->{result_values}->{display};
+    }
+    
+    my $warning = $self->{perfdata}->get_perfdata_for_output(label => 'warning-' . $self->{label});
+    my $critical = $self->{perfdata}->get_perfdata_for_output(label => 'critical-' . $self->{label});
+    
+    $self->{output}->perfdata_add(label => 'traffic_' . lc($self->{result_values}->{label}) . $extra_label, unit => 'b/s',
+                                  value => sprintf("%.2f", $self->{result_values}->{traffic_per_seconds}),
+                                  warning => $warning,
+                                  critical => $critical,
+                                  min => 0);
 }
 
 sub custom_traffic_threshold {
     my ($self, %options) = @_;
     
-    my $exit = $self->{perfdata}->threshold_check(value => $self->{result_values}->{traffic_per_seconds}, threshold => [ { label => 'critical-' . $self->{thlabel}, exit_litteral => 'critical' }, { label => 'warning-' . $self->{thlabel}, exit_litteral => 'warning' } ]);
+    my $exit = $self->{perfdata}->threshold_check(value => $self->{result_values}->{traffic_per_seconds}, threshold => [ { label => 'critical-' . $self->{label}, exit_litteral => 'critical' }, { label => 'warning-' . $self->{label}, exit_litteral => 'warning' } ]);
     return $exit;
 }
 
@@ -161,23 +165,25 @@ sub custom_traffic_calc {
 sub custom_drop_perfdata {
     my ($self, %options) = @_;
     
-    my $warning = $self->{perfdata}->get_perfdata_for_output(label => 'warning-' . $self->{thlabel});
-    my $critical = $self->{perfdata}->get_perfdata_for_output(label => 'critical-' . $self->{thlabel});
+    my $extra_label = '';
+    if (!defined($options{extra_instance}) || $options{extra_instance} != 0) {
+        $extra_label .= '_' . $self->{result_values}->{display};
+    }
     
-    $self->{output}->perfdata_add(
-        label => 'drop_' . lc($self->{result_values}->{label}), unit => 'pkts/s',
-        instances => $self->use_instances(extra_instance => $options{extra_instance}) ? $self->{result_values}->{display} : undef,
-        value => sprintf("%.2f", $self->{result_values}->{pkts_per_seconds}),
-        warning => $warning,
-        critical => $critical,
-        min => 0
-    );
+    my $warning = $self->{perfdata}->get_perfdata_for_output(label => 'warning-' . $self->{label});
+    my $critical = $self->{perfdata}->get_perfdata_for_output(label => 'critical-' . $self->{label});
+    
+    $self->{output}->perfdata_add(label => 'drop_' . lc($self->{result_values}->{label}) . $extra_label, unit => 'pkts/s',
+                                  value => sprintf("%.2f", $self->{result_values}->{pkts_per_seconds}),
+                                  warning => $warning,
+                                  critical => $critical,
+                                  min => 0);
 }
 
 sub custom_drop_threshold {
     my ($self, %options) = @_;
     
-    my $exit = $self->{perfdata}->threshold_check(value => $self->{result_values}->{pkts_per_seconds}, threshold => [ { label => 'critical-' . $self->{thlabel}, exit_litteral => 'critical' }, { label => 'warning-' . $self->{thlabel}, exit_litteral => 'warning' } ]);
+    my $exit = $self->{perfdata}->threshold_check(value => $self->{result_values}->{pkts_per_seconds}, threshold => [ { label => 'critical-' . $self->{label}, exit_litteral => 'critical' }, { label => 'warning-' . $self->{label}, exit_litteral => 'warning' } ]);
     return $exit;
 }
 
@@ -223,11 +229,12 @@ sub new {
     bless $self, $class;
     
     $self->{version} = '1.0';
-    $options{options}->add_options(arguments => {
-        "filter-name:s" => { name => 'filter_name' },
-        "filter-sa:s"   => { name => 'filter_sa' },
-    });
-
+    $options{options}->add_options(arguments =>
+                                {
+                                "filter-name:s" => { name => 'filter_name' },
+                                "filter-sa:s"   => { name => 'filter_sa' },
+                                });
+    
     return $self;
 }
 

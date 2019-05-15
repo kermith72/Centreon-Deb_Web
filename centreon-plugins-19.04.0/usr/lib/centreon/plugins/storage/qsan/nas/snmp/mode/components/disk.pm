@@ -69,14 +69,11 @@ sub check {
             $self->{output}->output_add(severity => $exit,
                                         short_msg => sprintf("Disk '%s' is '%s' C", $result->{pd_location}, $result->{hdd_temperature}));
         }
-        $self->{output}->perfdata_add(
-            label => 'disk_temperature', unit => 'C',
-            nlabel => 'hardware.disk.temperature.celsius',
-            instances => $result->{pd_location}, 
-            value => $result->{hdd_temperature},
-            warning => $warn,
-            critical => $crit
-        );
+        $self->{output}->perfdata_add(label => 'disk_temperature_' . $result->{pd_location}, unit => 'C', 
+                                      value => $result->{hdd_temperature},
+                                      warning => $warn,
+                                      critical => $crit
+                                      );
     }
 }
 

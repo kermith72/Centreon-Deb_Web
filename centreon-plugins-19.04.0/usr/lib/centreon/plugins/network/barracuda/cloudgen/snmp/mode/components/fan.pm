@@ -60,15 +60,14 @@ sub check {
             $self->{output}->output_add(severity => $exit,
                                         short_msg => sprintf("Fan '%s' speed is '%s' RPM", $result->{hwSensorName}, $result->{hwSensorValue}));
         }
-
-        $self->{output}->perfdata_add(
-            label => 'speed', unit => 'rpm',
-            nlabel => 'hardware.fan.speed.rpm',
-            instances => $result->{hwSensorName},
-            value => $result->{hwSensorValue},
-            warning => $warn,
-            critical => $crit
-        );
+        
+        my $perf_label = $result->{hwSensorName};
+        $perf_label =~ s/ /_/g;
+        $self->{output}->perfdata_add(label => 'speed_' . $perf_label, unit => 'rpm', 
+                                        value => $result->{hwSensorValue},
+                                        warning => $warn,
+                                        critical => $crit
+                                        );
     }
 }
 

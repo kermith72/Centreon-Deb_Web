@@ -104,6 +104,7 @@ sub check_options {
         $self->{output}->option_exit();
     }
 
+    $options{request}->{port} = $self->get_port_request();
     $options{request}->{port_force} = $self->get_port();
 
     $options{request}->{headers} = {};
@@ -177,12 +178,6 @@ sub request {
     return $self->{'backend_' . $self->{http_backend}}->request(request => $request_options);
 }
 
-sub get_first_header {
-    my ($self, %options) = @_;
-
-    return $self->{'backend_' . $self->{http_backend}}->get_first_header(%options);
-}
-
 sub get_header {
     my ($self, %options) = @_;
 
@@ -193,12 +188,6 @@ sub get_code {
     my ($self, %options) = @_;
 
     return $self->{'backend_' . $self->{http_backend}}->get_code();
-}
-
-sub get_message {
-    my ($self, %options) = @_;
-
-    return $self->{'backend_' . $self->{http_backend}}->get_message();
 }
 
 1;

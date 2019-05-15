@@ -25,6 +25,8 @@ use base qw(centreon::plugins::templates::counter);
 use strict;
 use warnings;
 
+my $instance_mode;
+
 sub prefix_metric_output {
     my ($self, %options) = @_;
 
@@ -66,13 +68,14 @@ sub new {
     bless $self, $class;
     
     $self->{version} = '1.0';
-    $options{options}->add_options(arguments => {
-        "resource:s@"           => { name => 'resource' },
-        "resource-group:s"      => { name => 'resource_group' },
-        "resource-namespace:s"  => { name => 'resource_namespace' },
-        "filter-metric:s"       => { name => 'filter_metric' },
-    });
-
+    $options{options}->add_options(arguments =>
+                                {
+                                    "resource:s@"           => { name => 'resource' },
+                                    "resource-group:s"      => { name => 'resource_group' },
+                                    "resource-namespace:s"  => { name => 'resource_namespace' },
+                                    "filter-metric:s"       => { name => 'filter_metric' },
+                                });
+    
     return $self;
 }
 
@@ -108,6 +111,8 @@ sub check_options {
 
         push @{$self->{az_metrics}}, $metric;
     }
+
+    $instance_mode = $self;
 }
 
 sub manage_selection {

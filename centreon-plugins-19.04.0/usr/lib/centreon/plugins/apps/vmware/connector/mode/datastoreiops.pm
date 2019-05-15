@@ -66,7 +66,7 @@ sub set_counters {
     ];
     
     $self->{maps_counters}->{global_iops} = [
-        { label => 'read', nlabel => 'datastore.read.usage.iops', set => {
+        { label => 'read', set => {
                 key_values => [ { name => 'read' } ],
                 output_template => '%s read iops',
                 perfdatas => [
@@ -75,7 +75,7 @@ sub set_counters {
                 ],
             }
         },
-        { label => 'write', nlabel => 'datastore.write.usage.iops', set => {
+        { label => 'write', set => {
                 key_values => [ { name => 'write' } ],
                 output_template => '%s write iops',
                 perfdatas => [
@@ -87,7 +87,7 @@ sub set_counters {
     ];
     
     $self->{maps_counters}->{vm} = [
-        { label => 'read-vm', nlabel => 'datastore.vm.read.usage.iops', set => {
+        { label => 'read-vm', set => {
                 key_values => [ { name => 'read' } ],
                 output_template => '%s read iops',
                 perfdatas => [
@@ -96,7 +96,7 @@ sub set_counters {
                 ],
             }
         },
-        { label => 'write-vm', nlabel => 'datastore.vm.write.usage.iops', set => {
+        { label => 'write-vm', set => {
                 key_values => [ { name => 'write' } ],
                 output_template => '%s write iops',
                 perfdatas => [

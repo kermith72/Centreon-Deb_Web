@@ -26,6 +26,8 @@ use strict;
 use warnings;
 use Digest::MD5 qw(md5_hex);
 
+my $instance_mode;
+
 sub set_counters {
     my ($self, %options) = @_;
     
@@ -156,12 +158,13 @@ sub new {
     bless $self, $class;
     
     $self->{version} = '1.0';
-    $options{options}->add_options(arguments => {
-        "filter-name:s"           => { name => 'filter_name' },
-        "filter-type:s"           => { name => 'filter_type' },
-        "threshold-overload:s@"   => { name => 'threshold_overload' },
-    });
-
+    $options{options}->add_options(arguments =>
+                                {
+                                  "filter-name:s"           => { name => 'filter_name' },
+                                  "filter-type:s"           => { name => 'filter_type' },
+                                  "threshold-overload:s@"   => { name => 'threshold_overload' },
+                                });
+    
     return $self;
 }
 

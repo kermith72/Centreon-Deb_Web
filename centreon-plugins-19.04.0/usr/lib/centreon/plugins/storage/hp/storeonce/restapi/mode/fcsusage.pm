@@ -95,11 +95,12 @@ sub new {
     bless $self, $class;
     
     $self->{version} = '1.0';
-    $options{options}->add_options(arguments => { 
-        "filter-name:s"       => { name => 'filter_name' },
-        "warning-status:s"    => { name => 'warning_status', default => '%{is_online} == 1 and %{health} =~ /warning/i' },
-        "critical-status:s"   => { name => 'critical_status', default => '%{is_online} == 1 and %{health} =~ /critical/i' },
-    });
+    $options{options}->add_options(arguments =>
+                                { 
+                                  "filter-name:s"       => { name => 'filter_name' },
+                                  "warning-status:s"    => { name => 'warning_status', default => '%{is_online} == 1 and %{health} =~ /warning/i' },
+                                  "critical-status:s"   => { name => 'critical_status', default => '%{is_online} == 1 and %{health} =~ /critical/i' },
+                                });
     
     return $self;
 }
@@ -154,8 +155,7 @@ sub manage_selection {
                 is_online => $entry->{properties}->{isOnline} eq 'true' ? 1 : 0,
                 used => $entry->{properties}->{diskBytes},
                 dedup => $entry->{properties}->{dedupeRatio},
-                num_items => $entry->{properties}->{numItems}
-            };
+                num_items => $entry->{properties}->{numItems} };
         }
     }
     

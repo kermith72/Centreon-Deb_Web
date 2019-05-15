@@ -34,7 +34,7 @@ sub set_counters {
     ];
 
     $self->{maps_counters}->{cr} = [
-        { label => 'total-latency', nlabel => 'client.request.latency.microsecond', set => {
+        { label => 'total-latency', set => {
                 key_values => [ { name => 'TotalLatency_Count', diff => 1 }, { name => 'display' } ],
                 output_template => 'Total Latency : %s us',
                 perfdatas => [
@@ -43,7 +43,7 @@ sub set_counters {
                 ],
             }
         },
-        { label => 'timeouts', nlabel => 'client.request.timeout.count', set => {
+        { label => 'timeouts', set => {
                 key_values => [ { name => 'Timeouts_Count', diff => 1 }, { name => 'display' } ],
                 output_template => 'Timeouts : %s',
                 perfdatas => [
@@ -52,7 +52,7 @@ sub set_counters {
                 ],
             }
         },
-        { label => 'unavailables', nlabel => 'client.request.unavailable.count', set => {
+        { label => 'unavailables', set => {
                 key_values => [ { name => 'Unavailables_Count', diff => 1 }, { name => 'display' } ],
                 output_template => 'Unavailables : %s',
                 perfdatas => [
@@ -61,7 +61,7 @@ sub set_counters {
                 ],
             }
         },
-         label => 'failures', nlabel => 'client.request.failure.count', set => {
+        { label => 'failures', set => {
                 key_values => [ { name => 'Failures_Count', diff => 1 }, { name => 'display' } ],
                 output_template => 'Failures : %s',
                 perfdatas => [
@@ -121,6 +121,9 @@ sub manage_selection {
             $self->{cr}->{$scope}->{$name . '_' . $_} = $result->{$mbean}->{$_};
         }
     }
+    
+    use Data::Dumper;
+    print Data::Dumper::Dumper($self->{cr});
     
     if (scalar(keys %{$self->{cr}}) <= 0) {
         $self->{output}->add_option_msg(short_msg => "No client request found.");

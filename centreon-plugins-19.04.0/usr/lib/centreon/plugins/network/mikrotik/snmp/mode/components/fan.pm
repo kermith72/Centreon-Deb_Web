@@ -28,7 +28,13 @@ my $mapping = {
     mtxrHlFanSpeed2 => { oid => '.1.3.6.1.4.1.14988.1.1.3.18' },
 };
 
-sub load {}
+my $oid_mtxrHealth = '.1.3.6.1.4.1.14988.1.1.3';
+
+sub load {
+    my ($self) = @_;
+    
+    push @{$self->{request}}, { oid => $oid_mtxrHealth };
+}
 
 sub check {
     my ($self) = @_;
@@ -39,7 +45,7 @@ sub check {
     
     my $instance = 0;
     my ($exit, $warn, $crit, $checked);
-    my $result = $self->{snmp}->map_instance(mapping => $mapping, results => $self->{results}, instance => $instance);
+    my $result = $self->{snmp}->map_instance(mapping => $mapping, results => $self->{results}->{$oid_mtxrHealth}, instance => $instance);
     
     if (defined($result->{mtxrHlFanSpeed1}) && $result->{mtxrHlFanSpeed1} =~ /[0-9]+/) {
         
@@ -50,14 +56,10 @@ sub check {
             $self->{output}->output_add(severity => $exit,
                                         short_msg => sprintf("Fan '1' speed is '%s' RPM", $result->{mtxrHlFanSpeed1}));
         }
-        $self->{output}->perfdata_add(
-            label => 'fan_speed', unit => 'rpm',
-            nlabel => 'hardware.fan.speed.rpm',
-            instances => '1',
-            value => $result->{mtxrHlFanSpeed1},
-            warning => $warn,
-            critical => $crit
-        );
+        $self->{output}->perfdata_add(label => 'fan_speed_1', unit => 'RPM', 
+                                      value => $result->{mtxrHlFanSpeed1},
+                                      warning => $warn,
+                                      critical => $crit);
         $self->{components}->{fan}->{total}++;
     }
     if (defined($result->{mtxrHlFanSpeed2}) && $result->{mtxrHlFanSpeed2} =~ /[0-9]+/) {
@@ -69,14 +71,10 @@ sub check {
             $self->{output}->output_add(severity => $exit,
                                         short_msg => sprintf("Fan '2' speed is '%s' RPM", $result->{mtxrHlFanSpeed2}));
         }
-        $self->{output}->perfdata_add(
-            label => 'fan_speed', unit => 'rpm',
-            nlabel => 'hardware.fan.speed.rpm',
-            instances => '2',
-            value => $result->{mtxrHlFanSpeed2},
-            warning => $warn,
-            critical => $crit
-        );
+        $self->{output}->perfdata_add(label => 'fan_speed_2', unit => 'RPM', 
+                                      value => $result->{mtxrHlFanSpeed2},
+                                      warning => $warn,
+                                      critical => $crit);
         $self->{components}->{fan}->{total}++;
     }
 }

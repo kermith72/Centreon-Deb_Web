@@ -41,14 +41,11 @@ sub new {
         "force-oid:s"       => { name => 'force_oid' },
         "check-overload"    => { name => 'check_overload' },
         "reboot-window:s"   => { name => 'reboot_window', default => 5000 },
-        "unit:s"            => { name => 'unit', default => 's' },
     });
     
     $self->{statefile_cache} = centreon::plugins::statefile->new(%options);
     return $self;
 }
-
-my $unitdiv = { s => 1, w => 604800, d => 86400, h => 3600, m => 60 };
 
 sub check_options {
     my ($self, %options) = @_;
@@ -61,9 +58,6 @@ sub check_options {
     if (($self->{perfdata}->threshold_validate(label => 'critical', value => $self->{option_results}->{critical})) == 0) {
        $self->{output}->add_option_msg(short_msg => "Wrong critical threshold '" . $self->{option_results}->{critical} . "'.");
        $self->{output}->option_exit();
-    }
-    if ($self->{option_results}->{unit} eq '' || !defined($unitdiv->{$self->{option_results}->{unit}})) {
-        $self->{option_results}->{unit} = 's';
     }
     
     $self->{statefile_cache}->check_options(%options);
@@ -86,8 +80,8 @@ sub check_overload {
         my $overflow = ($old_uptime + $diff_time) % 4294967296;
         my $division = ($old_uptime + $diff_time) / 4294967296;
         if ($division >= 1 && 
-            $overflow >= ($options{timeticks} - ($self->{option_results}->{reboot_window} / 2)) &&
-            $overflow <= ($options{timeticks} + ($self->{option_results}->{reboot_window} / 2))) {
+            $overflow >= ($options{timeticks} - $self->{option_results}->{reboot_window}) &&
+            $overflow <= ($options{timeticks} + $self->{option_results}->{reboot_window})) {
             $self->{new_datas}->{overload}++;
         } else {
             $self->{new_datas}->{overload} = 0;
@@ -124,10 +118,10 @@ sub run {
     $value = $self->check_overload(timeticks => $value);
     $value = floor($value / 100);
     
-    my $exit_code = $self->{perfdata}->threshold_check(value => floor($value / $unitdiv->{$self->{option_results}->{unit}}), 
+    my $exit_code = $self->{perfdata}->threshold_check(value => $value, 
                               threshold => [ { label => 'critical', exit_litteral => 'critical' }, { label => 'warning', exit_litteral => 'warning' } ]);    
-    $self->{output}->perfdata_add(label => 'uptime', unit => $self->{option_results}->{unit},
-                                  value => floor($value / $unitdiv->{$self->{option_results}->{unit}}),
+    $self->{output}->perfdata_add(label => 'uptime', unit => 's',
+                                  value => $value,
                                   warning => $self->{perfdata}->get_perfdata_for_output(label => 'warning'),
                                   critical => $self->{perfdata}->get_perfdata_for_output(label => 'critical'),
                                   min => 0);
@@ -171,11 +165,6 @@ With that option, we manage the counter going back. But there is a few chance we
 
 To be used with check-overload option. Time in milliseconds (Default: 5000)
 You increase the chance of not missing a reboot if you decrease that value.
-
-=item B<--unit>
-
-Select the unit for performance data and thresholds. May be 's' for seconds, 'm' for minutes,
-'h' for hours, 'd' for days, 'w' for weeks.  Default is seconds
 
 =back
 

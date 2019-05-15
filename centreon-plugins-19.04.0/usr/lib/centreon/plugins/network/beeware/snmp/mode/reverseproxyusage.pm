@@ -57,7 +57,7 @@ sub set_counters {
                 closure_custom_threshold_check => \&catalog_status_threshold,
             }
         },
-        { label => 'cpu', nlabel => 'reverseproxy.cpu.utilization.percentage', set => {
+        { label => 'cpu', set => {
                 key_values => [ { name => 'cpu' }, { name => 'display' } ],
                 output_template => 'CPU Usage : %.2f %%',
                 perfdatas => [
@@ -66,7 +66,7 @@ sub set_counters {
                 ],
             }
         },
-        { label => 'memory', nlabel => 'reverseproxy.memory.usage.bytes', set => {
+        { label => 'memory', set => {
                 key_values => [ { name => 'memory' }, { name => 'display' } ],
                 output_template => 'Memory Usage : %s %s',
                 output_change_bytes => 1,
@@ -76,7 +76,7 @@ sub set_counters {
                 ],
             }
         },
-        { label => 'nbchilds', nlabel => 'reverseproxy.child.count', set => {
+        { label => 'nbchilds', set => {
                 key_values => [ { name => 'nbchilds' }, { name => 'display' } ],
                 output_template => 'Num childs : %s',
                 perfdatas => [

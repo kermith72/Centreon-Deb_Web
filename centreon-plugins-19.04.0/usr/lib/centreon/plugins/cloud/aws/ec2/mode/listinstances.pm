@@ -31,8 +31,9 @@ sub new {
     bless $self, $class;
     
     $self->{version} = '1.0';
-    $options{options}->add_options(arguments => {
-    });
+    $options{options}->add_options(arguments =>
+                                {
+                                });
 
     return $self;
 }
@@ -54,7 +55,7 @@ sub run {
     $self->manage_selection(%options);
     foreach (@{$self->{instances}}) {
         next if ($_->{Type} !~ m/instance/);
-        $self->{output}->output_add(long_msg => sprintf("[Id = %s][AvailabilityZone = %s][InstanceType = %s][State = %s][Tags = %s]",
+        $self->{output}->output_add(long_msg => sprintf("[Name = %s][AvailabilityZone = %s][InstanceType = %s][State = %s][Tags = %s]",
             $_->{Name}, $_->{AvailabilityZone}, $_->{InstanceType}, $_->{State}, $_->{Tags}));
     }
     
@@ -67,7 +68,7 @@ sub run {
 sub disco_format {
     my ($self, %options) = @_;
     
-    $self->{output}->add_disco_format(elements => ['id', 'availabilityzone', 'instancetype', 'state', 'tags']);
+    $self->{output}->add_disco_format(elements => ['name', 'availabilityzone', 'instancetype', 'state', 'tags']);
 }
 
 sub disco_show {
@@ -77,7 +78,7 @@ sub disco_show {
     foreach (@{$self->{instances}}) {
         next if ($_->{Type} !~ m/instance/);
         $self->{output}->add_disco_entry(
-            id => $_->{Name},
+            name => $_->{Name},
             availabilityzone => $_->{AvailabilityZone},
             instancetype => $_->{InstanceType},
             state => $_->{State},
