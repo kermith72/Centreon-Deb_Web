@@ -1,5 +1,8 @@
 #!/bin/bash
 # create_apps_mysql.sh
+# version 1.01
+# 16/05/2019
+# fix parameter in cmd_app_db_mysl_queries
 # version 1.00
 # 09/04/2019
 
@@ -10,7 +13,7 @@ create_cmd_mysql() {
   [ $? -ne 0 ] &&   $CLAPI -o CMD -a ADD -v 'cmd_app_db_mysl;check;$CENTREONPLUGINS$/centreon_plugins.pl --plugin=database::mysql::plugin --host=$HOSTADDRESS$ --mode=$_SERVICEMODE$ --username=$_HOSTMYSQLUSERNAME$ --password=$_HOSTMYSQLPASSWORD$  --port=$_HOSTMYSQLPORT$  --warning=$_SERVICEWARNING$ --critical=$_SERVICECRITICAL$ $_SERVICEOPTION$ '
   
   exist_object CMD cmd_app_db_mysl_queries
-  [ $? -ne 0 ] &&   $CLAPI -o CMD -a ADD -v 'cmd_app_db_mysl_queries;check;$CENTREONPLUGINS$/centreon_plugins.pl --plugin=database::mysql::plugin --host=$HOSTADDRESS$ --mode=queries --username=$_HOSTMYSQLUSERNAME$ --password=$_HOSTMYSQLPASSWORD$  --port=$_HOSTMYSQLPORT$  --warning-total=$_SERVICEWARNING-TOTAL$ --critical-total=$_SERVICECRITICAL-TOTAL$ $_SERVICEOPTION$ '
+  [ $? -ne 0 ] &&   $CLAPI -o CMD -a ADD -v 'cmd_app_db_mysl_queries;check;$CENTREONPLUGINS$/centreon_plugins.pl --plugin=database::mysql::plugin --host=$HOSTADDRESS$ --mode=queries --username=$_HOSTMYSQLUSERNAME$ --password=$_HOSTMYSQLPASSWORD$  --port=$_HOSTMYSQLPORT$  --warning=$_SERVICEWARNING-TOTAL$ --critical=$_SERVICECRITICAL-TOTAL$ $_SERVICEOPTION$ '
 	
 }
 
