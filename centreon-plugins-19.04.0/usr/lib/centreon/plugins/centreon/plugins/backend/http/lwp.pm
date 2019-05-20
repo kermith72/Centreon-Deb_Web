@@ -124,6 +124,24 @@ sub request {
                                                        autosave => 1));
         }
     }
+    
+    if ($self->{output}->is_debug()) {
+        $self->{ua}->add_handler("request_send", sub {
+            my ($response, $ua, $handler) = @_;
+
+            $self->{output}->output_add(long_msg => "======> request send", debug => 1);
+            $self->{output}->output_add(long_msg => $response->as_string, debug => 1);
+            return ; 
+        });
+        $self->{ua}->add_handler("response_done", sub { 
+            my ($response, $ua, $handler) = @_;
+            
+            $self->{output}->output_add(long_msg => "======> response done", debug => 1);
+            $self->{output}->output_add(long_msg => $response->as_string, debug => 1);
+            return ;
+        });
+    }
+    
     if (defined($request_options->{no_follow})) {
         $self->{ua}->requests_redirectable(undef);
     } else {
@@ -208,10 +226,10 @@ sub request {
             eval "$request_options->{critical_status}") {
             $status = 'critical';
         } elsif (defined($request_options->{warning_status}) && $request_options->{warning_status} ne '' &&
-                 eval "$request_options->{warning_status}") {
+            eval "$request_options->{warning_status}") {
             $status = 'warning';
         } elsif (defined($request_options->{unknown_status}) && $request_options->{unknown_status} ne '' &&
-                 eval "$request_options->{unknown_status}") {
+            eval "$request_options->{unknown_status}") {
             $status = 'unknown';
         }
     };
@@ -238,9 +256,38 @@ sub request {
     return $self->{response}->content;
 }
 
+sub get_headers {
+    my ($self, %options) = @_;
+    
+    my $headers = '';
+    foreach ($options{response}->header_field_names()) {
+        $headers .= "$_: " . $options{response}->header($_) . "\n";
+    }
+    
+    return $headers;
+}
+
+sub get_first_header {
+    my ($self, %options) = @_;
+
+    my @redirects = $self->{response}->redirects();
+    if (!defined($options{name})) {
+        return $self->get_headers(response => defined($redirects[0]) ? $redirects[0] : $self->{response});
+    }
+
+    return
+        defined($redirects[0]) ? 
+        $redirects[0]->headers()->header($options{name}) :
+        $self->{headers}->header($options{name})
+    ;
+}
+
 sub get_header {
     my ($self, %options) = @_;
 
+    if (!defined($options{name})) {
+        return $self->get_headers(response => $self->{response});
+    }
     return $self->{headers}->header($options{name});
 }
 
@@ -248,6 +295,12 @@ sub get_code {
     my ($self, %options) = @_;
 
     return $self->{response}->code();
+}
+
+sub get_message {
+    my ($self, %options) = @_;
+
+    return $self->{response}->message();
 }
 
 1;

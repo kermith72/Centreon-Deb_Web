@@ -43,28 +43,30 @@ sub new {
         $options{output}->option_exit();
     }
 
-    $options{options}->add_options(arguments => {
-        "hostname|host:s"           => { name => 'host' },
-        "snmp-community:s"          => { name => 'snmp_community', default => 'public' },
-        "snmp-version:s"            => { name => 'snmp_version', default => 1 },
-        "snmp-port:s"               => { name => 'snmp_port', default => 161 },
-        "snmp-timeout:s"            => { name => 'snmp_timeout', default => 1 },
-        "snmp-retries:s"            => { name => 'snmp_retries', default => 5 },
-        "maxrepetitions:s"          => { name => 'maxrepetitions', default => 50 },
-        "subsetleef:s"              => { name => 'subsetleef', default => 50 },
-        "subsettable:s"             => { name => 'subsettable', default => 100 },
-        "snmp-autoreduce:s"         => { name => 'snmp_autoreduce' },
-        "snmp-force-getnext"        => { name => 'snmp_force_getnext' },
-        "snmp-username:s"           => { name => 'snmp_security_name' },
-        "authpassphrase:s"          => { name => 'snmp_auth_passphrase' },
-        "authprotocol:s"            => { name => 'snmp_auth_protocol' },
-        "privpassphrase:s"          => { name => 'snmp_priv_passphrase' },
-        "privprotocol:s"            => { name => 'snmp_priv_protocol' },
-        "contextname:s"             => { name => 'snmp_context_name' },
-        "contextengineid:s"         => { name => 'snmp_context_engine_id' },
-        "securityengineid:s"        => { name => 'snmp_security_engine_id' },
-        "snmp-errors-exit:s"        => { name => 'snmp_errors_exit', default => 'unknown' },
-    });
+    if (!defined($options{noptions})) {
+        $options{options}->add_options(arguments => {
+            "hostname|host:s"           => { name => 'host' },
+            "snmp-community:s"          => { name => 'snmp_community', default => 'public' },
+            "snmp-version:s"            => { name => 'snmp_version', default => 1 },
+            "snmp-port:s"               => { name => 'snmp_port', default => 161 },
+            "snmp-timeout:s"            => { name => 'snmp_timeout', default => 1 },
+            "snmp-retries:s"            => { name => 'snmp_retries', default => 5 },
+            "maxrepetitions:s"          => { name => 'maxrepetitions', default => 50 },
+            "subsetleef:s"              => { name => 'subsetleef', default => 50 },
+            "subsettable:s"             => { name => 'subsettable', default => 100 },
+            "snmp-autoreduce:s"         => { name => 'snmp_autoreduce' },
+            "snmp-force-getnext"        => { name => 'snmp_force_getnext' },
+            "snmp-username:s"           => { name => 'snmp_security_name' },
+            "authpassphrase:s"          => { name => 'snmp_auth_passphrase' },
+            "authprotocol:s"            => { name => 'snmp_auth_protocol' },
+            "privpassphrase:s"          => { name => 'snmp_priv_passphrase' },
+            "privprotocol:s"            => { name => 'snmp_priv_protocol' },
+            "contextname:s"             => { name => 'snmp_context_name' },
+            "contextengineid:s"         => { name => 'snmp_context_engine_id' },
+            "securityengineid:s"        => { name => 'snmp_security_engine_id' },
+            "snmp-errors-exit:s"        => { name => 'snmp_errors_exit', default => 'unknown' },
+        });
+    }
     $options{options}->add_help(package => __PACKAGE__, sections => 'SNMP OPTIONS');
 
     #####
@@ -326,7 +328,8 @@ sub get_leef {
         
         # Some equipments gives a partial response and no error.
         # We look the last value if it's empty or not
-        if ((scalar(@$vb) != scalar(@{$entry})) || (scalar(@{@$vb[-1]}) < 3)) {
+        # In snmpv1 we have the retryNoSuch
+        if (((scalar(@$vb) != scalar(@{$entry})) || (scalar(@{@$vb[-1]}) < 3)) && !$self->is_snmpv1()) {
             next if ($self->{snmp_autoreduce} == 1 && $self->autoreduce_leef(current => $entry) == 0);
             if ($dont_quit == 0) {
                 $self->{output}->add_option_msg(short_msg => "SNMP partial response. Please try --snmp-autoreduce option");

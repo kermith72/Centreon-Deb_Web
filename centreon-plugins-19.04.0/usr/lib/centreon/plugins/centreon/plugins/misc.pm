@@ -55,9 +55,12 @@ sub windows_execute {
         $options{output}->option_exit();
     };
     my $job = Win32::Job->new;
+    my $stderr = 'NUL';
+    $stderr = \*TO_PARENT if ($options{output}->is_debug());
     if (!($pid = $job->spawn(undef, $cmd,
-                       { stdout => \*TO_PARENT,
-                         stderr => \*TO_PARENT }))) {
+                       { stdin => 'NUL',
+                         stdout => \*TO_PARENT,
+                         stderr => $stderr }))) {
         $options{output}->add_option_msg(short_msg => "Internal error: execution issue: $^E");
         $options{output}->option_exit();
     }
@@ -327,6 +330,18 @@ sub powershell_escape {
     return $value;
 }
 
+sub powershell_json_sanitizer {
+    my (%options) = @_;
+
+    centreon::plugins::misc::mymodule_load(output => $options{output}, module => 'JSON::XS',
+                                           error_msg => "Cannot load module 'JSON::XS'.");
+    foreach my $line (split /\n/, $options{string}) {
+        eval { JSON::XS->new->utf8->decode($line) };
+        return $line if (!$@);
+    }
+    return -1;
+}
+
 sub minimal_version {
     my ($version_src, $version_dst) = @_;
         
@@ -439,7 +454,7 @@ sub parse_threshold {
     my (%options) = @_;
 
     my $perf = trim($options{threshold});
-    my $perf_result = { arobase => 0, infinite_neg => 0, infinite_pos => 0, start => "", end => "" };
+    my $perf_result = { arobase => 0, infinite_neg => 0, infinite_pos => 0, start => '', end => '' };
 
     my $global_status = 1;    
     if ($perf =~ /^(\@?)((?:~|(?:\+|-)?\d+(?:[\.,]\d+)?|):)?((?:\+|-)?\d+(?:[\.,]\d+)?)?$/) {
