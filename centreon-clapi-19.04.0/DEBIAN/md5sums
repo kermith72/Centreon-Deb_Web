@@ -8,7 +8,7 @@ cf5c0a91ceb8b824a01abd158b3f8e78  usr/share/centreon/examples/clapi/create_trap.
 76b9818b3115e100ea311faff1607687  usr/share/centreon/examples/clapi/config/create_base.sh
 40c85d4584d6a79ce5702aeadefefe3a  usr/share/centreon/examples/clapi/config/create_template_local.sh
 60cd70dbf186a06f9c2de03a875e606d  usr/share/centreon/examples/clapi/config/functions.sh
-c74188b86e8ab37df939d6136fe3db18  usr/share/centreon/examples/clapi/config/create_apps_mysql.sh
+b960445dd328826b9bb3a8d921289623  usr/share/centreon/examples/clapi/config/create_apps_mysql.sh
 f42716e8d3d730dd398f96ecf29bae55  usr/share/centreon/examples/clapi/config/create_template_snmp.sh
 5ec311c88ea95d7bbf9ca1a144e57b2d  usr/share/centreon/examples/clapi/config/create_apps_centreon.sh
 b8df4cc8376fe7c31dbb41717c50104d  usr/share/centreon/examples/clapi/create_config_initial.sh
