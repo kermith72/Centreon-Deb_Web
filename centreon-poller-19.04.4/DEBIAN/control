@@ -3,7 +3,7 @@ Version: 19.04.4-1
 Section: net
 Priority: extra
 Architecture: all
-Depends: centreon-broker-cbmod ( >=19.04.0), centreon-common ( >=19.04.4), centreon-connector-ssh ( >=19.04.4), centreon-connector-perl ( >=19.04.4), centreon-trap ( >=19.04.4), sudo ( >=1.8.19 )
+Depends: centreon-broker-cbmod ( >=19.04.0), centreon-common ( >=19.04.4), centreon-connector-ssh ( >=19.04.0), centreon-connector-perl ( >=19.04.0), centreon-trap ( >=19.04.4), sudo ( >=1.8.19 )
 Installed-Size: 68
 Maintainer: Eric Coquard <eric.coquard@sugarbug.fr>
 Description: Rights and file for pollers Centreon
