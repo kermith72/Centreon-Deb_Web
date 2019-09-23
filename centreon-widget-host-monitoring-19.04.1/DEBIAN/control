@@ -1,9 +1,9 @@
 Package: centreon-widget-host-monitoring
-Version: 19.04.0-1
+Version: 19.04.1-1
 Section: net
 Priority: extra
 Architecture: all
-Depends: centreon-web ( >=19.04.0)
+Depends: centreon-web ( >=19.04.4)
 Installed-Size: 160
 Maintainer: Eric Coquard <eric.coquard@sugarbug.fr>
 Description: Centreon Widgets
