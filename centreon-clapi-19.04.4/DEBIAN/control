@@ -1,9 +1,9 @@
 Package: centreon-clapi
-Version: 19.04.0-1
+Version: 19.04.4-1
 Section: net
 Priority: extra
 Architecture: all
-Depends: centreon-ui ( >=19.04.0)
-Installed-Size: 284
+Depends: centreon-ui ( >=19.04.4)
+Installed-Size: 352
 Maintainer: Eric Coquard <eric.coquard@sugarbug.fr>
 Description: Scripts for Centreon Clapi

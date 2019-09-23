@@ -1,6 +1,13 @@
 246cc2e93f3eba9c54123c923d8f25cf  usr/share/centreon/examples/clapi/delete_config.sh
 d7f4bf2365d96f2294d0b9db33bdc34e  usr/share/centreon/examples/clapi/verify_cmd.sh
 cf5c0a91ceb8b824a01abd158b3f8e78  usr/share/centreon/examples/clapi/create_trap.sh
+002349b2f1ff8ae2950592e53768805e  usr/share/centreon/examples/clapi/create_config_initialV4.sh
+76b9818b3115e100ea311faff1607687  usr/share/centreon/examples/clapi/config4/create_base.sh
+e076412ffca3efd839b9f0201d0ab37b  usr/share/centreon/examples/clapi/config4/create_template_local.sh
+60cd70dbf186a06f9c2de03a875e606d  usr/share/centreon/examples/clapi/config4/functions.sh
+65aec29a2ba82e7deed947cc51acde1f  usr/share/centreon/examples/clapi/config4/create_apps_mysql.sh
+d0f7c9effe3778373d302debb5d6f29c  usr/share/centreon/examples/clapi/config4/create_template_snmp.sh
+5ec311c88ea95d7bbf9ca1a144e57b2d  usr/share/centreon/examples/clapi/config4/create_apps_centreon.sh
 518448cd559c989eeb5cfe888168a373  usr/share/centreon/examples/clapi/add_macro_plugin.sh
 8e904c9578ee41beed1326d61acfd993  usr/share/centreon/examples/clapi/create_poller_display.sh
 4d8c534f8bd826a6d127749fb3f5fdf5  usr/share/centreon/examples/clapi/create_config_initialV3.sh
