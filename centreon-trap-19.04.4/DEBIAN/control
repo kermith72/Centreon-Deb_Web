@@ -1,9 +1,9 @@
 Package: centreon-trap
-Version: 19.04.0-1
+Version: 19.04.4-1
 Section: net
 Priority: extra
 Architecture: all
-Depends: centreon-plugins ( >=19.04.0), centreon-perl-libs (>=19.04.0 )
+Depends: centreon-plugins ( >=19.04.4), centreon-perl-libs (>=19.04.4 )
 Installed-Size: 120
 Maintainer: Eric Coquard <eric.coquard@sugarbug.fr>
 Description: Centreon Traps
