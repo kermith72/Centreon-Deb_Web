@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2005-2014 MERETHIS
+ * Copyright 2005-2019 CENTREON
  * Centreon is developed by : Julien Mathis and Romain Le Merlus under
  * GPL Licence 2.0.
  *
@@ -19,11 +19,11 @@
  * combined work based on this program. Thus, the terms and conditions of the GNU
  * General Public License cover the whole combination.
  *
- * As a special exception, the copyright holders of this program give MERETHIS
+ * As a special exception, the copyright holders of this program give CENTREON
  * permission to link this program with independent modules to produce an executable,
  * regardless of the license terms of these independent modules, and to copy and
- * distribute the resulting executable under terms of MERETHIS choice, provided that
- * MERETHIS also meet, for each linked independent module, the terms  and conditions
+ * distribute the resulting executable under terms of CENTREON choice, provided that
+ * CENTREON also meet, for each linked independent module, the terms  and conditions
  * of the license of that module. An independent module is a module which is not
  * derived from this program. If you modify this program, you may extend this
  * exception to your version of the program, but you are not obliged to do so. If you
@@ -32,6 +32,7 @@
  * For more information : contact@centreon.com
  *
  */
+
 header('Content-type: application/csv');
 header('Content-Disposition: attachment; filename="services-monitoring.csv"');
 
@@ -61,7 +62,12 @@ if (CentreonSession::checkSession(session_id(), $db) == 0) {
 
 // Init Smarty
 $template = new Smarty();
-$template = initSmartyTplForPopup($centreon_path . "www/widgets/service-monitoring/src/", $template, "./", $centreon_path);
+$template = initSmartyTplForPopup(
+    $centreon_path . "www/widgets/service-monitoring/src/",
+    $template,
+    "./",
+    $centreon_path
+);
 
 /* Init Objects */
 $criticality = new CentreonCriticality($db);
@@ -75,11 +81,13 @@ $widgetObj = new CentreonWidget($centreon, $db);
 $preferences = $widgetObj->getWidgetPreferences($widgetId);
 
 $aStateType = array("1" => "H", "0" => "S");
-$stateLabels = array(0 => "Ok",
+$stateLabels = array(
+    0 => "Ok",
     1 => "Warning",
     2 => "Critical",
     3 => "Unknown",
-    4 => "Pending");
+    4 => "Pending"
+);
 
 $mainQueryParameters = [];
 
@@ -114,20 +122,23 @@ $query = "SELECT SQL_CALC_FOUND_ROWS h.host_id,
 		h.action_url as h_action_url,
 		h.notes_url as h_notes_url,
 		s.action_url as s_action_url,
-		s.notes_url as s_notes_url, 
+		s.notes_url as s_notes_url,
 		cv2.value AS criticality_id,
 		cv.value AS criticality_level
-";
-$query .= " FROM hosts h, services s ";
-$query .= " LEFT JOIN customvariables cv ON (s.service_id = cv.service_id AND s.host_id = cv.host_id AND cv.name = 'CRITICALITY_LEVEL') ";
-$query .= " LEFT JOIN customvariables cv2 ON (s.service_id = cv2.service_id AND s.host_id = cv2.host_id AND cv2.name = 'CRITICALITY_ID') ";
+    FROM hosts h, services s
+    LEFT JOIN customvariables cv ON (
+        s.service_id = cv.service_id AND s.host_id = cv.host_id AND cv.name = 'CRITICALITY_LEVEL'
+    )
+    LEFT JOIN customvariables cv2 ON (
+        s.service_id = cv2.service_id AND s.host_id = cv2.host_id AND cv2.name = 'CRITICALITY_ID'
+    ) ";
 if (!$centreon->user->admin) {
     $query .= " , centreon_acl acl ";
 }
-$query .= " WHERE s.host_id = h.host_id ";
-$query .= " AND h.name NOT LIKE '_Module_%' ";
-$query .= " AND s.enabled = 1 ";
-$query .= " AND h.enabled = 1 ";
+$query .= " WHERE s.host_id = h.host_id
+    AND h.name NOT LIKE '_Module_%'
+    AND s.enabled = 1
+    AND h.enabled = 1 ";
 if (isset($preferences['host_name_search']) && $preferences['host_name_search'] != "") {
     $tab = explode(" ", $preferences['host_name_search']);
     $op = $tab[0];
@@ -156,7 +167,8 @@ if (isset($preferences['service_description_search']) && $preferences['service_d
             'value' => $search,
             'type' => PDO::PARAM_STR
         ];
-        $serviceDescriptionCondition = 's.description ' . CentreonUtils::operandToMysqlFormat($op) . ' :service_description ';
+        $serviceDescriptionCondition = 's.description ' .
+            CentreonUtils::operandToMysqlFormat($op) . ' :service_description ';
         $query = CentreonUtils::conditionBuilder($query, $serviceDescriptionCondition);
     }
 }
@@ -189,7 +201,10 @@ if (isset($preferences['acknowledgement_filter']) && $preferences['acknowledgeme
     if ($preferences['acknowledgement_filter'] == "ack") {
         $query = CentreonUtils::conditionBuilder($query, " s.acknowledged = 1");
     } elseif ($preferences['acknowledgement_filter'] == "nack") {
-        $query = CentreonUtils::conditionBuilder($query, " s.acknowledged = 0 AND h.acknowledged = 0 AND h.scheduled_downtime_depth = 0 ");
+        $query = CentreonUtils::conditionBuilder(
+            $query,
+            " s.acknowledged = 0 AND h.acknowledged = 0 AND h.scheduled_downtime_depth = 0 "
+        );
     }
 }
 if (isset($preferences['notification_filter']) && $preferences['notification_filter']) {
@@ -214,18 +229,27 @@ if (isset($preferences['state_type_filter']) && $preferences['state_type_filter'
     }
 }
 if (isset($preferences['hostgroup']) && $preferences['hostgroup']) {
-    $mainQueryParameters[] = [
-        'parameter' => ':hostgroup',
-        'value' => $preferences['hostgroup_id'],
-        'type' => PDO::PARAM_INT
-    ];
-    $hostgroupIdCondition = <<<SQL
- s.host_id IN (
-      SELECT host_host_id
-      FROM {$conf_centreon['db']}.hostgroup_relation
-      WHERE hostgroup_hg_id = :hostgroup_id)
-SQL;
-    $query = CentreonUtils::conditionBuilder($query, $hostgroupIdCondition);
+    $results = explode(',', $preferences['hostgroup']);
+    $queryHG = '';
+    foreach ($results as $result) {
+        if ($queryHG != '') {
+            $queryHG .= ', ';
+        }
+        $queryHG .= ":id_" . $result;
+        $mainQueryParameters[] = [
+            'parameter' => ':id_' . $result,
+            'value' => (int)$result,
+            'type' => PDO::PARAM_INT
+        ];
+    }
+    $query = CentreonUtils::conditionBuilder(
+        $query,
+        " s.host_id IN (
+            SELECT host_host_id
+            FROM " . $conf_centreon['db'] . ".hostgroup_relation
+            WHERE hostgroup_hg_id IN (" . $queryHG . ")
+        )"
+    );
 }
 if (isset($preferences['servicegroup']) && $preferences['servicegroup']) {
     $mainQueryParameters[] = [
@@ -233,19 +257,26 @@ if (isset($preferences['servicegroup']) && $preferences['servicegroup']) {
         'value' => $preferences['servicegroup'],
         'type' => PDO::PARAM_INT
     ];
-    $servicegroupCondition = <<<SQL
- s.service_id IN (SELECT service_service_id
-      FROM {$conf_centreon['db']}.servicegroup_relation
-      WHERE servicegroup_sg_id = :servicegroup_id
-      UNION
-      SELECT sgr.service_service_id
-      FROM {$conf_centreon['db']}.servicegroup_relation sgr, {$conf_centreon['db']}.host_service_relation hsr
-      WHERE hsr.hostgroup_hg_id = sgr.hostgroup_hg_id
-      AND sgr.servicegroup_sg_id = :servicegroup_id) 
-SQL;
-    $query = CentreonUtils::conditionBuilder($query, $servicegroupCondition);
+    $query = CentreonUtils::conditionBuilder(
+        $query,
+        " s.service_id IN (
+            SELECT service_service_id
+            FROM " . $conf_centreon['db'] . ".servicegroup_relation
+            WHERE servicegroup_sg_id = :servicegroup_id
+            UNION
+            SELECT sgr.service_service_id
+            FROM " . $conf_centreon['db'] . ".servicegroup_relation sgr, " .
+                $conf_centreon['db'] . ".host_service_relation hsr
+            WHERE hsr.hostgroup_hg_id = sgr.hostgroup_hg_id
+            AND sgr.servicegroup_sg_id = :servicegroup_id
+        )"
+    );
 }
-if (isset($preferences["display_severities"]) && $preferences["display_severities"] && isset($preferences['criticality_filter']) && $preferences['criticality_filter'] != "") {
+if (isset($preferences["display_severities"])
+    && $preferences["display_severities"]
+    && isset($preferences['criticality_filter'])
+    && $preferences['criticality_filter'] != ""
+) {
     $tab = explode(",", $preferences['criticality_filter']);
     $labels = "";
     foreach ($tab as $p) {
@@ -272,7 +303,7 @@ if (!$centreon->user->admin) {
     $groupList = $aclObj->getAccessGroupsString();
     $query .= " AND h.host_id = acl.host_id
 	AND acl.service_id = s.service_id
-	AND acl.group_id IN ($groupList)";
+	AND acl.group_id IN (" . $groupList . ")";
 }
 if (isset($preferences['output_search']) && $preferences['output_search'] != "") {
     $tab = explode(" ", $preferences['output_search']);
@@ -287,15 +318,15 @@ if (isset($preferences['output_search']) && $preferences['output_search'] != "")
             'type' => PDO::PARAM_STR
         ];
         $serviceOutputCondition = ' s.output ' . CentreonUtils::operandToMysqlFormat($op) . ' :service_output ';
-        $query = CentreonUtils::conditionBuilder($query, $servicegroupCondition);
+        $query = CentreonUtils::conditionBuilder($query, $serviceOutputCondition);
     }
 }
-$orderby = "hostname ASC , description ASC";
+$orderBy = "hostname ASC , description ASC";
 if (isset($preferences['order_by']) && $preferences['order_by'] != "") {
-    $orderby = $preferences['order_by'];
+    $orderBy = $preferences['order_by'];
 }
 
-$query .= "ORDER BY {$orderby}";
+$query .= "ORDER BY " . $orderBy;
 
 $res = $dbb->prepare($query);
 
@@ -339,8 +370,12 @@ while ($row = $res->fetch()) {
         $data[$row['host_id'] . "_" . $row['service_id']][$key] = $value;
     }
     if (isset($preferences['display_last_comment']) && $preferences['display_last_comment']) {
-        $query2 = 'SELECT data FROM comments where host_id = :host_id AND service_id = :service_id ORDER BY entry_time DESC LIMIT 1';
-        $res2 = $dbb->prepare($query2);
+        $res2 = $dbb->prepare(
+            'SELECT data FROM comments
+            WHERE host_id = :host_id
+            AND service_id = :service_id
+            ORDER BY entry_time DESC LIMIT 1'
+        );
         $res2->bindValue(':host_id', $row['host_id'], PDO::PARAM_INT);
         $res2->bindValue(':service_id', $row['service_id'], PDO::PARAM_INT);
         $res2->execute();
