@@ -1,9 +1,9 @@
 Package: centreon-central-without-db
-Version: 19.04.0-1
+Version: 19.04.4-1
 Section: net
 Priority: extra
 Architecture: all
-Depends: centreon-poller ( >=19.04.0), centreon-ui ( >=19.04.0)
+Depends: centreon-poller ( >=19.04.4), centreon-ui ( >=19.04.4)
 Installed-Size: 0
 Maintainer: Eric Coquard <eric.coquard@sugarbug.fr>
 Description: Centreon Central without databases
