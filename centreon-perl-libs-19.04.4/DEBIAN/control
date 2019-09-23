@@ -1,5 +1,5 @@
 Package: centreon-perl-libs
-Version: 19.04.0-1
+Version: 19.04.4-1
 Section: net
 Priority: extra
 Architecture: all
