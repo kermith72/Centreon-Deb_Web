@@ -44,7 +44,7 @@
     "@centreon/react-components": "19.4.0-alpha.147",
     "@emotion/core": "^10.0.14",
     "@emotion/styled": "^10.0.14",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "connected-react-router": "^6.5.2",
     "dom-serializer": "^0.1.1",
